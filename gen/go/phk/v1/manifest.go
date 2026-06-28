@@ -17,6 +17,16 @@ const (
 	BattleModeActionPayloadJSON = "{\"card_id\":\"focus_lens\",\"round_index\":0}"
 	BattleModeActionTick = 121
 	BattleModeActionSeq = 8
+	BattleSnapshotMatchID = "match-001"
+	BattleSnapshotSnapshotTick = 122
+	BattleSnapshotSnapshotKind = "delta"
+	BattleSnapshotStateHash = "sha256:state"
+	BattleSnapshotEventCursor = 4
+	BattleEventMatchID = "match-001"
+	BattleEventCursor = 4
+	BattleEventTick = 122
+	BattleEventType = "bullet_spawn"
+	BattleEventServerAuthoritative = true
 	BattleResultCallbackMatchID = "match-001"
 	BattleResultCallbackModeID = "certification"
 	BattleResultCallbackResultHash = "sha256:0123456789abcdef"

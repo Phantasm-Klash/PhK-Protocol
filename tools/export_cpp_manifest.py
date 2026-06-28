@@ -34,6 +34,8 @@ def render(descriptor: dict[str, object]) -> str:
     fields = message_fields(descriptor)
     fixture = json.loads((ROOT / "fixtures" / "v0_1_minimal_flow.json").read_text(encoding="utf-8"))
     mode_action = fixture.get("battle_mode_action", {})
+    battle_snapshot = fixture.get("battle_snapshot", {})
+    battle_event = fixture.get("battle_event", {})
     callback = fixture.get("signed_battle_result_callback", {})
     callback_result = callback.get("result", {})
     lines: list[str] = [
@@ -62,6 +64,16 @@ def render(descriptor: dict[str, object]) -> str:
         f"inline constexpr std::string_view kBattleModeActionPayloadJson = {cpp_string(mode_action.get('payload_json', ''))};",
         f"inline constexpr std::uint64_t kBattleModeActionTick = {int(mode_action.get('tick', 0))};",
         f"inline constexpr std::uint64_t kBattleModeActionSeq = {int(mode_action.get('seq', 0))};",
+        f"inline constexpr std::string_view kBattleSnapshotMatchId = {cpp_string(battle_snapshot.get('match_id', ''))};",
+        f"inline constexpr std::uint64_t kBattleSnapshotSnapshotTick = {int(battle_snapshot.get('snapshot_tick', 0))};",
+        f"inline constexpr std::string_view kBattleSnapshotSnapshotKind = {cpp_string(battle_snapshot.get('snapshot_kind', ''))};",
+        f"inline constexpr std::string_view kBattleSnapshotStateHash = {cpp_string(battle_snapshot.get('state_hash', ''))};",
+        f"inline constexpr std::uint64_t kBattleSnapshotEventCursor = {int(battle_snapshot.get('event_cursor', 0))};",
+        f"inline constexpr std::string_view kBattleEventMatchId = {cpp_string(battle_event.get('match_id', ''))};",
+        f"inline constexpr std::uint64_t kBattleEventCursor = {int(battle_event.get('cursor', 0))};",
+        f"inline constexpr std::uint64_t kBattleEventTick = {int(battle_event.get('tick', 0))};",
+        f"inline constexpr std::string_view kBattleEventType = {cpp_string(battle_event.get('type', ''))};",
+        f"inline constexpr bool kBattleEventServerAuthoritative = {str(bool(battle_event.get('server_authoritative', False))).lower()};",
         f"inline constexpr std::string_view kBattleResultCallbackMatchId = {cpp_string(callback_result.get('match_id', ''))};",
         f"inline constexpr std::string_view kBattleResultCallbackModeId = {cpp_string(callback_result.get('mode_id', ''))};",
         f"inline constexpr std::string_view kBattleResultCallbackResultHash = {cpp_string(callback_result.get('result_hash', ''))};",

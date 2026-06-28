@@ -101,7 +101,8 @@ REQUIRED_FIELD_NAMES = {
         "payload_json",
         "client_result_authoritative",
     ],
-    "BattleSnapshot": ["match_id", "snapshot_tick", "snapshot_kind", "state_hash", "players", "bullets_delta"],
+    "BattleSnapshot": ["match_id", "snapshot_tick", "snapshot_kind", "state_hash", "players", "bullets_delta", "event_cursor"],
+    "BattleEvent": ["match_id", "cursor", "tick", "type", "server_authoritative"],
     "BattleResult": ["match_id", "mode_id", "result_hash", "replay_id", "player_ids", "settled_at_ms"],
 }
 
@@ -179,6 +180,16 @@ def check_fixture() -> None:
             fail(f"battle_mode_action missing {key}")
     if mode_action.get("client_result_authoritative", True):
         fail("battle_mode_action must not be client result authoritative")
+    battle_snapshot = fixture["battle_snapshot"]
+    for key in ["match_id", "snapshot_tick", "snapshot_kind", "state_hash", "event_cursor"]:
+        if key not in battle_snapshot:
+            fail(f"battle_snapshot missing {key}")
+    battle_event = fixture["battle_event"]
+    for key in ["match_id", "cursor", "tick", "type", "server_authoritative"]:
+        if key not in battle_event:
+            fail(f"battle_event missing {key}")
+    if battle_event.get("server_authoritative") is not True:
+        fail("battle_event must be server authoritative")
     callback = fixture["signed_battle_result_callback"]
     result = callback.get("result", {})
     for key in ["match_id", "mode_id", "result_hash", "replay_id", "player_ids", "settled_at_ms"]:
@@ -205,7 +216,7 @@ def check_descriptor() -> None:
         for proto_file in descriptor.get("files", [])
         for message in proto_file.get("messages", [])
     }
-    for required in ["BusinessSecureEnvelope", "BattleTicket", "BattlePacketHeader", "BattleInput", "BattleModeAction", "BattleResult"]:
+    for required in ["BusinessSecureEnvelope", "BattleTicket", "BattlePacketHeader", "BattleInput", "BattleModeAction", "BattleSnapshot", "BattleEvent", "BattleResult"]:
         if required not in message_names:
             fail(f"descriptor missing message {required}")
 
@@ -224,12 +235,35 @@ def check_go_manifest() -> None:
         "RulesetHash": str(descriptor.get("ruleset_hash", "")),
         "SourceDigestSHA256": str(descriptor.get("source_digest_sha256", "")),
     }
+    fixture = json.loads((ROOT / "fixtures" / "v0_1_minimal_flow.json").read_text(encoding="utf-8"))
+    battle_snapshot = fixture["battle_snapshot"]
+    battle_event = fixture["battle_event"]
+    expected_constants.update(
+        {
+            "BattleSnapshotMatchID": str(battle_snapshot.get("match_id", "")),
+            "BattleSnapshotSnapshotKind": str(battle_snapshot.get("snapshot_kind", "")),
+            "BattleSnapshotStateHash": str(battle_snapshot.get("state_hash", "")),
+            "BattleEventMatchID": str(battle_event.get("match_id", "")),
+            "BattleEventType": str(battle_event.get("type", "")),
+        }
+    )
     for name, value in expected_constants.items():
         if f'{name} = "{value}"' not in manifest:
             fail(f"Go manifest {name} is out of sync")
     if f"ProtocolVersion = {int(descriptor.get('protocol_version', 0))}" not in manifest:
         fail("Go manifest ProtocolVersion is out of sync")
-    for message_name in ["BusinessSecureEnvelope", "BattleTicket", "BattlePacketHeader", "BattleInput", "BattleModeAction", "BattleResult"]:
+    expected_int_constants = {
+        "BattleSnapshotSnapshotTick": int(battle_snapshot.get("snapshot_tick", 0)),
+        "BattleSnapshotEventCursor": int(battle_snapshot.get("event_cursor", 0)),
+        "BattleEventCursor": int(battle_event.get("cursor", 0)),
+        "BattleEventTick": int(battle_event.get("tick", 0)),
+    }
+    for name, value in expected_int_constants.items():
+        if f"{name} = {value}" not in manifest:
+            fail(f"Go manifest {name} is out of sync")
+    if f"BattleEventServerAuthoritative = {str(bool(battle_event.get('server_authoritative', False))).lower()}" not in manifest:
+        fail("Go manifest BattleEventServerAuthoritative is out of sync")
+    for message_name in ["BusinessSecureEnvelope", "BattleTicket", "BattlePacketHeader", "BattleInput", "BattleModeAction", "BattleSnapshot", "BattleEvent", "BattleResult"]:
         if f'"{message_name}":' not in manifest:
             fail(f"Go manifest missing message {message_name}")
         for field in REQUIRED_FIELD_NAMES.get(message_name, []):
@@ -251,12 +285,35 @@ def check_cpp_manifest() -> None:
         "kRulesetHash": str(descriptor.get("ruleset_hash", "")),
         "kSourceDigestSha256": str(descriptor.get("source_digest_sha256", "")),
     }
+    fixture = json.loads((ROOT / "fixtures" / "v0_1_minimal_flow.json").read_text(encoding="utf-8"))
+    battle_snapshot = fixture["battle_snapshot"]
+    battle_event = fixture["battle_event"]
+    expected_constants.update(
+        {
+            "kBattleSnapshotMatchId": str(battle_snapshot.get("match_id", "")),
+            "kBattleSnapshotSnapshotKind": str(battle_snapshot.get("snapshot_kind", "")),
+            "kBattleSnapshotStateHash": str(battle_snapshot.get("state_hash", "")),
+            "kBattleEventMatchId": str(battle_event.get("match_id", "")),
+            "kBattleEventType": str(battle_event.get("type", "")),
+        }
+    )
     for name, value in expected_constants.items():
         if f'{name} = "{value}"' not in manifest:
             fail(f"C++ manifest {name} is out of sync")
     if f"kProtocolVersion = {int(descriptor.get('protocol_version', 0))}" not in manifest:
         fail("C++ manifest kProtocolVersion is out of sync")
-    for message_name in ["BusinessSecureEnvelope", "BattleTicket", "BattlePacketHeader", "BattleInput", "BattleModeAction", "BattleResult"]:
+    expected_int_constants = {
+        "kBattleSnapshotSnapshotTick": int(battle_snapshot.get("snapshot_tick", 0)),
+        "kBattleSnapshotEventCursor": int(battle_snapshot.get("event_cursor", 0)),
+        "kBattleEventCursor": int(battle_event.get("cursor", 0)),
+        "kBattleEventTick": int(battle_event.get("tick", 0)),
+    }
+    for name, value in expected_int_constants.items():
+        if f"{name} = {value}" not in manifest:
+            fail(f"C++ manifest {name} is out of sync")
+    if f"kBattleEventServerAuthoritative = {str(bool(battle_event.get('server_authoritative', False))).lower()}" not in manifest:
+        fail("C++ manifest kBattleEventServerAuthoritative is out of sync")
+    for message_name in ["BusinessSecureEnvelope", "BattleTicket", "BattlePacketHeader", "BattleInput", "BattleModeAction", "BattleSnapshot", "BattleEvent", "BattleResult"]:
         for field in REQUIRED_FIELD_NAMES.get(message_name, []):
             if f'{{"{message_name}", "{field}"}}' not in manifest:
                 fail(f"C++ manifest {message_name} missing field {field}")

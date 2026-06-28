@@ -37,6 +37,8 @@ def render(descriptor: dict[str, object]) -> str:
     fields = message_fields(descriptor)
     fixture = json.loads((ROOT / "fixtures" / "v0_1_minimal_flow.json").read_text(encoding="utf-8"))
     mode_action = fixture.get("battle_mode_action", {})
+    battle_snapshot = fixture.get("battle_snapshot", {})
+    battle_event = fixture.get("battle_event", {})
     callback = fixture.get("signed_battle_result_callback", {})
     callback_result = callback.get("result", {})
     lines: list[str] = [
@@ -59,6 +61,16 @@ def render(descriptor: dict[str, object]) -> str:
         f"\tBattleModeActionPayloadJSON = {go_string(mode_action.get('payload_json', ''))}",
         f"\tBattleModeActionTick = {int(mode_action.get('tick', 0))}",
         f"\tBattleModeActionSeq = {int(mode_action.get('seq', 0))}",
+        f"\tBattleSnapshotMatchID = {go_string(battle_snapshot.get('match_id', ''))}",
+        f"\tBattleSnapshotSnapshotTick = {int(battle_snapshot.get('snapshot_tick', 0))}",
+        f"\tBattleSnapshotSnapshotKind = {go_string(battle_snapshot.get('snapshot_kind', ''))}",
+        f"\tBattleSnapshotStateHash = {go_string(battle_snapshot.get('state_hash', ''))}",
+        f"\tBattleSnapshotEventCursor = {int(battle_snapshot.get('event_cursor', 0))}",
+        f"\tBattleEventMatchID = {go_string(battle_event.get('match_id', ''))}",
+        f"\tBattleEventCursor = {int(battle_event.get('cursor', 0))}",
+        f"\tBattleEventTick = {int(battle_event.get('tick', 0))}",
+        f"\tBattleEventType = {go_string(battle_event.get('type', ''))}",
+        f"\tBattleEventServerAuthoritative = {str(bool(battle_event.get('server_authoritative', False))).lower()}",
         f"\tBattleResultCallbackMatchID = {go_string(callback_result.get('match_id', ''))}",
         f"\tBattleResultCallbackModeID = {go_string(callback_result.get('mode_id', ''))}",
         f"\tBattleResultCallbackResultHash = {go_string(callback_result.get('result_hash', ''))}",
