@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package phk.v1;
+
+option go_package = "github.com/phantasm-klash/phk-protocol/gen/go/phk/v1;phkv1";
+
+message VersionStamp {
+  uint32 protocol_version = 1;
+  string business_api_version = 2;
+  string battle_api_version = 3;
+  string ruleset_version = 4;
+  string ruleset_hash = 5;
+}
+
+message SignedBlob {
+  bytes payload = 1;
+  string signature_alg = 2;
+  string key_id = 3;
+  bytes signature = 4;
+}
+
+message ErrorStatus {
+  string code = 1;
+  string message = 2;
+  bool retryable = 3;
+}
+
+message DeckSnapshotRef {
+  string deck_id = 1;
+  string deck_snapshot_hash = 2;
+  string ruleset_version = 3;
+  repeated string card_ids = 4;
+}
+
+message LoadoutRef {
+  string user_id = 1;
+  string player_id = 2;
+  string character_id = 3;
+  string stage_id = 4;
+  string rating_code = 5;
+  DeckSnapshotRef deck = 6;
+}

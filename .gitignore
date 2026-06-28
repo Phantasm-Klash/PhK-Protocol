@@ -1,0 +1,17 @@
+gen/*
+!gen/go/
+!gen/go/phk/
+!gen/go/phk/v1/
+!gen/go/phk/v1/manifest.go
+!gen/cpp/
+!gen/cpp/phk/
+!gen/cpp/phk/v1/
+!gen/cpp/phk/v1/manifest.hpp
+build/
+dist/
+*.pb.go
+*.pb.cc
+*.pb.h
+*.tmp
+__pycache__/
+.pytest_cache/

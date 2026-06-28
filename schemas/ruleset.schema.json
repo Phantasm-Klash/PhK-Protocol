@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://phantasm-klash.example/schemas/ruleset.schema.json",
+  "title": "Phantasm Klash Ruleset",
+  "type": "object",
+  "required": ["ruleset_version", "ruleset_hash", "modes", "stages", "characters", "cards", "bullet_patterns"],
+  "properties": {
+    "ruleset_version": { "type": "string", "minLength": 1 },
+    "ruleset_hash": { "type": "string", "minLength": 16 },
+    "modes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/mode" }
+    },
+    "stages": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/stage" }
+    },
+    "characters": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/character" }
+    },
+    "cards": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/card" }
+    },
+    "bullet_patterns": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/bullet_pattern" }
+    }
+  },
+  "$defs": {
+    "mode": {
+      "type": "object",
+      "required": ["mode_id", "min_players", "max_players", "ruleset_version"],
+      "properties": {
+        "mode_id": { "type": "string" },
+        "min_players": { "type": "integer", "minimum": 1 },
+        "max_players": { "type": "integer", "minimum": 1 },
+        "ruleset_version": { "type": "string" },
+        "reward_table_id": { "type": "string" }
+      }
+    },
+    "stage": {
+      "type": "object",
+      "required": ["stage_id", "pattern_ids"],
+      "properties": {
+        "stage_id": { "type": "string" },
+        "difficulty": { "type": "integer", "minimum": 1 },
+        "pattern_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "recommended_character_id": { "type": "string" }
+      }
+    },
+    "character": {
+      "type": "object",
+      "required": ["character_id", "move_speed", "focus_speed"],
+      "properties": {
+        "character_id": { "type": "string" },
+        "move_speed": { "type": "number" },
+        "focus_speed": { "type": "number" },
+        "hitbox_radius": { "type": "number" }
+      }
+    },
+    "card": {
+      "type": "object",
+      "required": ["card_id", "cost", "type"],
+      "properties": {
+        "card_id": { "type": "string" },
+        "cost": { "type": "number" },
+        "type": { "type": "string" },
+        "rarity": { "type": "string" }
+      }
+    },
+    "bullet_pattern": {
+      "type": "object",
+      "required": ["pattern_id", "math_basis", "family"],
+      "properties": {
+        "pattern_id": { "type": "string" },
+        "math_basis": { "type": "string" },
+        "family": { "type": "string" },
+        "params": { "type": "object" }
+      }
+    }
+  }
+}

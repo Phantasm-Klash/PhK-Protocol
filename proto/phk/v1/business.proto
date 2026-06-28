@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package phk.v1;
+
+option go_package = "github.com/phantasm-klash/phk-protocol/gen/go/phk/v1;phkv1";
+
+import "phk/v1/common.proto";
+
+enum BusinessOpCode {
+  BUSINESS_OP_CODE_UNSPECIFIED = 0;
+  BUSINESS_OP_CODE_LOGIN = 1;
+  BUSINESS_OP_CODE_BOOTSTRAP = 2;
+  BUSINESS_OP_CODE_INVENTORY_SYNC = 3;
+  BUSINESS_OP_CODE_DECK_SAVE = 4;
+  BUSINESS_OP_CODE_CHEST_OPEN = 5;
+  BUSINESS_OP_CODE_MATCHMAKING_JOIN = 6;
+  BUSINESS_OP_CODE_ROOM_CREATE = 7;
+  BUSINESS_OP_CODE_ROOM_JOIN = 8;
+  BUSINESS_OP_CODE_BATTLE_TICKET_REQUEST = 9;
+  BUSINESS_OP_CODE_ACTIVITY_CLAIM = 10;
+  BUSINESS_OP_CODE_RESULT_NOTICE = 11;
+}
+
+message BusinessSecureEnvelope {
+  VersionStamp version = 1;
+  string session_id = 2;
+  uint64 seq = 3;
+  int64 timestamp_ms = 4;
+  bytes nonce = 5;
+  BusinessOpCode op_code = 6;
+  string key_id = 7;
+  string aead_alg = 8;
+  bytes body_ciphertext = 9;
+  bytes auth_tag = 10;
+  bytes session_mac = 11;
+  bytes request_signature = 12;
+}
+
+message BusinessEnvelopePlaintext {
+  string idempotency_key = 1;
+  string user_id = 2;
+  bytes body = 3;
+}
+
+message BusinessAck {
+  VersionStamp version = 1;
+  string session_id = 2;
+  uint64 ack_seq = 3;
+  ErrorStatus error = 4;
+}

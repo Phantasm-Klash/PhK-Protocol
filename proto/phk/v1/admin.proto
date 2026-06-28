@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package phk.v1;
+
+option go_package = "github.com/phantasm-klash/phk-protocol/gen/go/phk/v1;phkv1";
+
+import "phk/v1/common.proto";
+import "phk/v1/battle.proto";
+import "phk/v1/matchmaking.proto";
+
+message BattleServerHeartbeat {
+  VersionStamp version = 1;
+  string battle_server_id = 2;
+  string endpoint = 3;
+  uint32 active_matches = 4;
+  uint32 max_matches = 5;
+  int64 observed_at_ms = 6;
+  map<string, string> labels = 7;
+}
+
+message BattleResultSubmitRequest {
+  SignedBattleResult signed_result = 1;
+  ReplayInputStreamSummary replay_summary = 2;
+}
+
+message BattleResultSubmitResponse {
+  VersionStamp version = 1;
+  string match_id = 2;
+  string settlement_key = 3;
+  bool accepted = 4;
+  ErrorStatus error = 5;
+}
+
+message BattleAllocationPush {
+  BattleServerAllocation allocation = 1;
+  SignedBlob business_signature = 2;
+}

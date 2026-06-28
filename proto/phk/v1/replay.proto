@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package phk.v1;
+
+option go_package = "github.com/phantasm-klash/phk-protocol/gen/go/phk/v1;phkv1";
+
+import "phk/v1/common.proto";
+import "phk/v1/battle.proto";
+
+message ReplayInputStreamSummary {
+  VersionStamp version = 1;
+  string replay_id = 2;
+  string match_id = 3;
+  string owner_user_id = 4;
+  uint64 input_count = 5;
+  uint64 event_count = 6;
+  string input_stream_hash = 7;
+  string event_stream_hash = 8;
+  string final_state_hash = 9;
+  uint64 final_tick = 10;
+}
+
+message ReplayRecord {
+  VersionStamp version = 1;
+  string replay_id = 2;
+  string match_id = 3;
+  string owner_user_id = 4;
+  string mode_id = 5;
+  string stage_id = 6;
+  LoadoutRef loadout = 7;
+  ReplayInputStreamSummary stream = 8;
+  SignedBattleResult settlement = 9;
+  bool server_authoritative = 10;
+  int64 created_at_ms = 11;
+}

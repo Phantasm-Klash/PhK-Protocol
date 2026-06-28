@@ -1,0 +1,59 @@
+{
+  "protocol_version": 1,
+  "business_api_version": "0.1.0-draft",
+  "battle_api_version": "0.1.0-draft",
+  "ruleset_version": "ruleset-local-s0",
+  "ruleset_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "business_envelope": {
+    "session_id": "session-dev-alice",
+    "seq": 1,
+    "timestamp_ms": 1782489600000,
+    "nonce_hex": "000102030405060708090a0b",
+    "op_code": "BUSINESS_OP_CODE_BATTLE_TICKET_REQUEST",
+    "aead_alg": "CHACHA20_POLY1305"
+  },
+  "battle_ticket": {
+    "ticket_id": "ticket-001",
+    "match_id": "match-001",
+    "user_id": "user-alice",
+    "player_id": "p1",
+    "mode_id": "certification",
+    "battle_server_id": "battle-local-1",
+    "endpoint": "127.0.0.1:7901",
+    "deck_snapshot_hash": "sha256:deck",
+    "expires_at_ms": 1782489660000
+  },
+  "battle_input": {
+    "match_id": "match-001",
+    "player_id": "p1",
+    "tick": 120,
+    "seq": 7,
+    "direction_bits": 3,
+    "slow": true,
+    "shoot": true,
+    "bomb": false,
+    "card_slot": -1
+  },
+  "battle_snapshot": {
+    "match_id": "match-001",
+    "snapshot_tick": 122,
+    "snapshot_kind": "delta",
+    "state_hash": "sha256:state",
+    "event_cursor": 4
+  },
+  "battle_event": {
+    "match_id": "match-001",
+    "cursor": 4,
+    "tick": 122,
+    "type": "bullet_spawn",
+    "server_authoritative": true
+  },
+  "battle_result": {
+    "match_id": "match-001",
+    "mode_id": "certification",
+    "result_hash": "sha256:result",
+    "replay_id": "replay-001",
+    "player_ids": ["p1", "p2"],
+    "settled_at_ms": 1782489720000
+  }
+}

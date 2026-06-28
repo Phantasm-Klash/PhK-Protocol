@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package phk.v1;
+
+option go_package = "github.com/phantasm-klash/phk-protocol/gen/go/phk/v1;phkv1";
+
+import "phk/v1/common.proto";
+
+message MatchAllocationRequest {
+  VersionStamp version = 1;
+  string mode_id = 2;
+  string room_code = 3;
+  LoadoutRef loadout = 4;
+  map<string, string> mode_params = 5;
+}
+
+message BattleTicket {
+  VersionStamp version = 1;
+  string ticket_id = 2;
+  string match_id = 3;
+  string user_id = 4;
+  string player_id = 5;
+  string mode_id = 6;
+  string battle_server_id = 7;
+  string endpoint = 8;
+  string deck_snapshot_hash = 9;
+  string ruleset_version = 10;
+  bytes ticket_nonce = 11;
+  int64 issued_at_ms = 12;
+  int64 expires_at_ms = 13;
+  string business_session_id = 14;
+}
+
+message SignedBattleTicket {
+  BattleTicket ticket = 1;
+  string signature_alg = 2;
+  string key_id = 3;
+  bytes signature = 4;
+}
+
+message BattleServerAllocation {
+  VersionStamp version = 1;
+  string match_id = 2;
+  string mode_id = 3;
+  string battle_server_id = 4;
+  string endpoint = 5;
+  repeated LoadoutRef players = 6;
+  bytes server_seed = 7;
+  string mode_config_hash = 8;
+  int64 allocated_at_ms = 9;
+}

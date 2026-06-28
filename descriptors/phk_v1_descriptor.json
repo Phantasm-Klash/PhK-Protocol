@@ -1,0 +1,1680 @@
+{
+  "battle_api_version": "0.1.0-draft",
+  "business_api_version": "0.1.0-draft",
+  "descriptor_version": "0.1.0-draft",
+  "files": [
+    {
+      "enums": [],
+      "go_package": "github.com/phantasm-klash/phk-protocol/gen/go/phk/v1;phkv1",
+      "imports": [
+        "phk/v1/common.proto",
+        "phk/v1/battle.proto",
+        "phk/v1/matchmaking.proto"
+      ],
+      "messages": [
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "battle_server_id",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "endpoint",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "active_matches",
+              "number": 4,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "max_matches",
+              "number": 5,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "observed_at_ms",
+              "number": 6,
+              "repeated": false,
+              "type": "int64"
+            },
+            {
+              "map": true,
+              "name": "labels",
+              "number": 7,
+              "repeated": false,
+              "type": "map<string,string>"
+            }
+          ],
+          "name": "BattleServerHeartbeat"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "signed_result",
+              "number": 1,
+              "repeated": false,
+              "type": "SignedBattleResult"
+            },
+            {
+              "map": false,
+              "name": "replay_summary",
+              "number": 2,
+              "repeated": false,
+              "type": "ReplayInputStreamSummary"
+            }
+          ],
+          "name": "BattleResultSubmitRequest"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "match_id",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "settlement_key",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "accepted",
+              "number": 4,
+              "repeated": false,
+              "type": "bool"
+            },
+            {
+              "map": false,
+              "name": "error",
+              "number": 5,
+              "repeated": false,
+              "type": "ErrorStatus"
+            }
+          ],
+          "name": "BattleResultSubmitResponse"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "allocation",
+              "number": 1,
+              "repeated": false,
+              "type": "BattleServerAllocation"
+            },
+            {
+              "map": false,
+              "name": "business_signature",
+              "number": 2,
+              "repeated": false,
+              "type": "SignedBlob"
+            }
+          ],
+          "name": "BattleAllocationPush"
+        }
+      ],
+      "package": "phk.v1",
+      "path": "proto/phk/v1/admin.proto",
+      "sha256": "930d9073d8d483f45187c350312ae34d6dfc29343fa3bb24e551c2a45aad8d07"
+    },
+    {
+      "enums": [
+        {
+          "name": "BattlePayloadType",
+          "values": [
+            {
+              "name": "BATTLE_PAYLOAD_TYPE_UNSPECIFIED",
+              "number": 0
+            },
+            {
+              "name": "BATTLE_PAYLOAD_TYPE_HANDSHAKE_HELLO",
+              "number": 1
+            },
+            {
+              "name": "BATTLE_PAYLOAD_TYPE_HANDSHAKE_ACCEPT",
+              "number": 2
+            },
+            {
+              "name": "BATTLE_PAYLOAD_TYPE_INPUT",
+              "number": 3
+            },
+            {
+              "name": "BATTLE_PAYLOAD_TYPE_SNAPSHOT",
+              "number": 4
+            },
+            {
+              "name": "BATTLE_PAYLOAD_TYPE_EVENT",
+              "number": 5
+            },
+            {
+              "name": "BATTLE_PAYLOAD_TYPE_PING",
+              "number": 6
+            },
+            {
+              "name": "BATTLE_PAYLOAD_TYPE_RECONNECT",
+              "number": 7
+            },
+            {
+              "name": "BATTLE_PAYLOAD_TYPE_RESULT",
+              "number": 8
+            }
+          ]
+        }
+      ],
+      "go_package": "github.com/phantasm-klash/phk-protocol/gen/go/phk/v1;phkv1",
+      "imports": [
+        "phk/v1/common.proto",
+        "phk/v1/matchmaking.proto"
+      ],
+      "messages": [
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "match_id",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "player_id",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "tick",
+              "number": 4,
+              "repeated": false,
+              "type": "uint64"
+            },
+            {
+              "map": false,
+              "name": "seq",
+              "number": 5,
+              "repeated": false,
+              "type": "uint64"
+            },
+            {
+              "map": false,
+              "name": "ack",
+              "number": 6,
+              "repeated": false,
+              "type": "uint64"
+            },
+            {
+              "map": false,
+              "name": "payload_type",
+              "number": 7,
+              "repeated": false,
+              "type": "BattlePayloadType"
+            },
+            {
+              "map": false,
+              "name": "key_id",
+              "number": 8,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "nonce",
+              "number": 9,
+              "repeated": false,
+              "type": "bytes"
+            }
+          ],
+          "name": "BattlePacketHeader"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "header",
+              "number": 1,
+              "repeated": false,
+              "type": "BattlePacketHeader"
+            },
+            {
+              "map": false,
+              "name": "ciphertext",
+              "number": 2,
+              "repeated": false,
+              "type": "bytes"
+            },
+            {
+              "map": false,
+              "name": "auth_tag",
+              "number": 3,
+              "repeated": false,
+              "type": "bytes"
+            }
+          ],
+          "name": "BattleEncryptedPacket"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "battle_ticket",
+              "number": 2,
+              "repeated": false,
+              "type": "SignedBattleTicket"
+            },
+            {
+              "map": false,
+              "name": "client_x25519_pub",
+              "number": 3,
+              "repeated": false,
+              "type": "bytes"
+            },
+            {
+              "map": false,
+              "name": "client_random",
+              "number": 4,
+              "repeated": false,
+              "type": "bytes"
+            },
+            {
+              "map": false,
+              "name": "supported_aead",
+              "number": 5,
+              "repeated": true,
+              "type": "string"
+            }
+          ],
+          "name": "BattleHandshakeHello"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "match_id",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "player_id",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "server_x25519_pub",
+              "number": 4,
+              "repeated": false,
+              "type": "bytes"
+            },
+            {
+              "map": false,
+              "name": "server_random",
+              "number": 5,
+              "repeated": false,
+              "type": "bytes"
+            },
+            {
+              "map": false,
+              "name": "selected_aead",
+              "number": 6,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "kcp_conv",
+              "number": 7,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "key_id",
+              "number": 8,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "transcript_hash",
+              "number": 9,
+              "repeated": false,
+              "type": "bytes"
+            },
+            {
+              "map": false,
+              "name": "server_signature",
+              "number": 10,
+              "repeated": false,
+              "type": "SignedBlob"
+            }
+          ],
+          "name": "BattleHandshakeAccept"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "match_id",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "player_id",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "tick",
+              "number": 4,
+              "repeated": false,
+              "type": "uint64"
+            },
+            {
+              "map": false,
+              "name": "seq",
+              "number": 5,
+              "repeated": false,
+              "type": "uint64"
+            },
+            {
+              "map": false,
+              "name": "direction_bits",
+              "number": 6,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "slow",
+              "number": 7,
+              "repeated": false,
+              "type": "bool"
+            },
+            {
+              "map": false,
+              "name": "shoot",
+              "number": 8,
+              "repeated": false,
+              "type": "bool"
+            },
+            {
+              "map": false,
+              "name": "bomb",
+              "number": 9,
+              "repeated": false,
+              "type": "bool"
+            },
+            {
+              "map": false,
+              "name": "card_slot",
+              "number": 10,
+              "repeated": false,
+              "type": "int32"
+            },
+            {
+              "map": false,
+              "name": "mode_action_id",
+              "number": 11,
+              "repeated": false,
+              "type": "string"
+            }
+          ],
+          "name": "BattleInput"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "player_id",
+              "number": 1,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "x_milli",
+              "number": 2,
+              "repeated": false,
+              "type": "int32"
+            },
+            {
+              "map": false,
+              "name": "y_milli",
+              "number": 3,
+              "repeated": false,
+              "type": "int32"
+            },
+            {
+              "map": false,
+              "name": "connected",
+              "number": 4,
+              "repeated": false,
+              "type": "bool"
+            },
+            {
+              "map": false,
+              "name": "hand_size",
+              "number": 5,
+              "repeated": false,
+              "type": "uint32"
+            }
+          ],
+          "name": "BattlePlayerSnapshot"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "bullet_id",
+              "number": 1,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "op",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "x_milli",
+              "number": 3,
+              "repeated": false,
+              "type": "int32"
+            },
+            {
+              "map": false,
+              "name": "y_milli",
+              "number": 4,
+              "repeated": false,
+              "type": "int32"
+            },
+            {
+              "map": false,
+              "name": "vx_milli",
+              "number": 5,
+              "repeated": false,
+              "type": "int32"
+            },
+            {
+              "map": false,
+              "name": "vy_milli",
+              "number": 6,
+              "repeated": false,
+              "type": "int32"
+            },
+            {
+              "map": false,
+              "name": "radius_milli",
+              "number": 7,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "pattern_id",
+              "number": 8,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "color",
+              "number": 9,
+              "repeated": false,
+              "type": "string"
+            }
+          ],
+          "name": "BattleBulletDelta"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "match_id",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "snapshot_tick",
+              "number": 3,
+              "repeated": false,
+              "type": "uint64"
+            },
+            {
+              "map": false,
+              "name": "snapshot_kind",
+              "number": 4,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "state_hash",
+              "number": 5,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "players",
+              "number": 6,
+              "repeated": true,
+              "type": "BattlePlayerSnapshot"
+            },
+            {
+              "map": false,
+              "name": "bullets_delta",
+              "number": 7,
+              "repeated": true,
+              "type": "BattleBulletDelta"
+            },
+            {
+              "map": true,
+              "name": "mode_state",
+              "number": 8,
+              "repeated": false,
+              "type": "map<string,string>"
+            },
+            {
+              "map": false,
+              "name": "event_cursor",
+              "number": 9,
+              "repeated": false,
+              "type": "uint64"
+            }
+          ],
+          "name": "BattleSnapshot"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "match_id",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "cursor",
+              "number": 3,
+              "repeated": false,
+              "type": "uint64"
+            },
+            {
+              "map": false,
+              "name": "tick",
+              "number": 4,
+              "repeated": false,
+              "type": "uint64"
+            },
+            {
+              "map": false,
+              "name": "type",
+              "number": 5,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "player_id",
+              "number": 6,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "payload_json",
+              "number": 7,
+              "repeated": false,
+              "type": "bytes"
+            },
+            {
+              "map": false,
+              "name": "server_authoritative",
+              "number": 8,
+              "repeated": false,
+              "type": "bool"
+            }
+          ],
+          "name": "BattleEvent"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "match_id",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "mode_id",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "result_hash",
+              "number": 4,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "replay_id",
+              "number": 5,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "player_ids",
+              "number": 6,
+              "repeated": true,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "reward_projection_json",
+              "number": 7,
+              "repeated": false,
+              "type": "bytes"
+            },
+            {
+              "map": false,
+              "name": "mode_result_json",
+              "number": 8,
+              "repeated": false,
+              "type": "bytes"
+            },
+            {
+              "map": false,
+              "name": "settled_at_ms",
+              "number": 9,
+              "repeated": false,
+              "type": "int64"
+            }
+          ],
+          "name": "BattleResult"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "result",
+              "number": 1,
+              "repeated": false,
+              "type": "BattleResult"
+            },
+            {
+              "map": false,
+              "name": "signature_alg",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "key_id",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "signature",
+              "number": 4,
+              "repeated": false,
+              "type": "bytes"
+            }
+          ],
+          "name": "SignedBattleResult"
+        }
+      ],
+      "package": "phk.v1",
+      "path": "proto/phk/v1/battle.proto",
+      "sha256": "d5b675fae2f6bf52f9ddf5621a3bf25a950a6894b5d2a1c6c201718878a0c3b7"
+    },
+    {
+      "enums": [
+        {
+          "name": "BusinessOpCode",
+          "values": [
+            {
+              "name": "BUSINESS_OP_CODE_UNSPECIFIED",
+              "number": 0
+            },
+            {
+              "name": "BUSINESS_OP_CODE_LOGIN",
+              "number": 1
+            },
+            {
+              "name": "BUSINESS_OP_CODE_BOOTSTRAP",
+              "number": 2
+            },
+            {
+              "name": "BUSINESS_OP_CODE_INVENTORY_SYNC",
+              "number": 3
+            },
+            {
+              "name": "BUSINESS_OP_CODE_DECK_SAVE",
+              "number": 4
+            },
+            {
+              "name": "BUSINESS_OP_CODE_CHEST_OPEN",
+              "number": 5
+            },
+            {
+              "name": "BUSINESS_OP_CODE_MATCHMAKING_JOIN",
+              "number": 6
+            },
+            {
+              "name": "BUSINESS_OP_CODE_ROOM_CREATE",
+              "number": 7
+            },
+            {
+              "name": "BUSINESS_OP_CODE_ROOM_JOIN",
+              "number": 8
+            },
+            {
+              "name": "BUSINESS_OP_CODE_BATTLE_TICKET_REQUEST",
+              "number": 9
+            },
+            {
+              "name": "BUSINESS_OP_CODE_ACTIVITY_CLAIM",
+              "number": 10
+            },
+            {
+              "name": "BUSINESS_OP_CODE_RESULT_NOTICE",
+              "number": 11
+            }
+          ]
+        }
+      ],
+      "go_package": "github.com/phantasm-klash/phk-protocol/gen/go/phk/v1;phkv1",
+      "imports": [
+        "phk/v1/common.proto"
+      ],
+      "messages": [
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "session_id",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "seq",
+              "number": 3,
+              "repeated": false,
+              "type": "uint64"
+            },
+            {
+              "map": false,
+              "name": "timestamp_ms",
+              "number": 4,
+              "repeated": false,
+              "type": "int64"
+            },
+            {
+              "map": false,
+              "name": "nonce",
+              "number": 5,
+              "repeated": false,
+              "type": "bytes"
+            },
+            {
+              "map": false,
+              "name": "op_code",
+              "number": 6,
+              "repeated": false,
+              "type": "BusinessOpCode"
+            },
+            {
+              "map": false,
+              "name": "key_id",
+              "number": 7,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "aead_alg",
+              "number": 8,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "body_ciphertext",
+              "number": 9,
+              "repeated": false,
+              "type": "bytes"
+            },
+            {
+              "map": false,
+              "name": "auth_tag",
+              "number": 10,
+              "repeated": false,
+              "type": "bytes"
+            },
+            {
+              "map": false,
+              "name": "session_mac",
+              "number": 11,
+              "repeated": false,
+              "type": "bytes"
+            },
+            {
+              "map": false,
+              "name": "request_signature",
+              "number": 12,
+              "repeated": false,
+              "type": "bytes"
+            }
+          ],
+          "name": "BusinessSecureEnvelope"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "idempotency_key",
+              "number": 1,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "user_id",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "body",
+              "number": 3,
+              "repeated": false,
+              "type": "bytes"
+            }
+          ],
+          "name": "BusinessEnvelopePlaintext"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "session_id",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "ack_seq",
+              "number": 3,
+              "repeated": false,
+              "type": "uint64"
+            },
+            {
+              "map": false,
+              "name": "error",
+              "number": 4,
+              "repeated": false,
+              "type": "ErrorStatus"
+            }
+          ],
+          "name": "BusinessAck"
+        }
+      ],
+      "package": "phk.v1",
+      "path": "proto/phk/v1/business.proto",
+      "sha256": "fc1556e6f46a0d2ebce935d85692f4ac9f6ae49c17228a11d205b44e192fd058"
+    },
+    {
+      "enums": [],
+      "go_package": "github.com/phantasm-klash/phk-protocol/gen/go/phk/v1;phkv1",
+      "imports": [],
+      "messages": [
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "protocol_version",
+              "number": 1,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "business_api_version",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "battle_api_version",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "ruleset_version",
+              "number": 4,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "ruleset_hash",
+              "number": 5,
+              "repeated": false,
+              "type": "string"
+            }
+          ],
+          "name": "VersionStamp"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "payload",
+              "number": 1,
+              "repeated": false,
+              "type": "bytes"
+            },
+            {
+              "map": false,
+              "name": "signature_alg",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "key_id",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "signature",
+              "number": 4,
+              "repeated": false,
+              "type": "bytes"
+            }
+          ],
+          "name": "SignedBlob"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "code",
+              "number": 1,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "message",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "retryable",
+              "number": 3,
+              "repeated": false,
+              "type": "bool"
+            }
+          ],
+          "name": "ErrorStatus"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "deck_id",
+              "number": 1,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "deck_snapshot_hash",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "ruleset_version",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "card_ids",
+              "number": 4,
+              "repeated": true,
+              "type": "string"
+            }
+          ],
+          "name": "DeckSnapshotRef"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "user_id",
+              "number": 1,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "player_id",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "character_id",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "stage_id",
+              "number": 4,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "rating_code",
+              "number": 5,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "deck",
+              "number": 6,
+              "repeated": false,
+              "type": "DeckSnapshotRef"
+            }
+          ],
+          "name": "LoadoutRef"
+        }
+      ],
+      "package": "phk.v1",
+      "path": "proto/phk/v1/common.proto",
+      "sha256": "c6d9bb468140dbf74fa971f5a38e0d6bfd3c28c422a7208ba7f33a43d4293f27"
+    },
+    {
+      "enums": [],
+      "go_package": "github.com/phantasm-klash/phk-protocol/gen/go/phk/v1;phkv1",
+      "imports": [
+        "phk/v1/common.proto"
+      ],
+      "messages": [
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "mode_id",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "room_code",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "loadout",
+              "number": 4,
+              "repeated": false,
+              "type": "LoadoutRef"
+            },
+            {
+              "map": true,
+              "name": "mode_params",
+              "number": 5,
+              "repeated": false,
+              "type": "map<string,string>"
+            }
+          ],
+          "name": "MatchAllocationRequest"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "ticket_id",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "match_id",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "user_id",
+              "number": 4,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "player_id",
+              "number": 5,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "mode_id",
+              "number": 6,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "battle_server_id",
+              "number": 7,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "endpoint",
+              "number": 8,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "deck_snapshot_hash",
+              "number": 9,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "ruleset_version",
+              "number": 10,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "ticket_nonce",
+              "number": 11,
+              "repeated": false,
+              "type": "bytes"
+            },
+            {
+              "map": false,
+              "name": "issued_at_ms",
+              "number": 12,
+              "repeated": false,
+              "type": "int64"
+            },
+            {
+              "map": false,
+              "name": "expires_at_ms",
+              "number": 13,
+              "repeated": false,
+              "type": "int64"
+            },
+            {
+              "map": false,
+              "name": "business_session_id",
+              "number": 14,
+              "repeated": false,
+              "type": "string"
+            }
+          ],
+          "name": "BattleTicket"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "ticket",
+              "number": 1,
+              "repeated": false,
+              "type": "BattleTicket"
+            },
+            {
+              "map": false,
+              "name": "signature_alg",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "key_id",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "signature",
+              "number": 4,
+              "repeated": false,
+              "type": "bytes"
+            }
+          ],
+          "name": "SignedBattleTicket"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "match_id",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "mode_id",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "battle_server_id",
+              "number": 4,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "endpoint",
+              "number": 5,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "players",
+              "number": 6,
+              "repeated": true,
+              "type": "LoadoutRef"
+            },
+            {
+              "map": false,
+              "name": "server_seed",
+              "number": 7,
+              "repeated": false,
+              "type": "bytes"
+            },
+            {
+              "map": false,
+              "name": "mode_config_hash",
+              "number": 8,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "allocated_at_ms",
+              "number": 9,
+              "repeated": false,
+              "type": "int64"
+            }
+          ],
+          "name": "BattleServerAllocation"
+        }
+      ],
+      "package": "phk.v1",
+      "path": "proto/phk/v1/matchmaking.proto",
+      "sha256": "eef9d8678cf2cabbfc332b54bf3152f0a73eaa6267c293c25b157839c1b5a90d"
+    },
+    {
+      "enums": [],
+      "go_package": "github.com/phantasm-klash/phk-protocol/gen/go/phk/v1;phkv1",
+      "imports": [
+        "phk/v1/common.proto",
+        "phk/v1/battle.proto"
+      ],
+      "messages": [
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "replay_id",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "match_id",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "owner_user_id",
+              "number": 4,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "input_count",
+              "number": 5,
+              "repeated": false,
+              "type": "uint64"
+            },
+            {
+              "map": false,
+              "name": "event_count",
+              "number": 6,
+              "repeated": false,
+              "type": "uint64"
+            },
+            {
+              "map": false,
+              "name": "input_stream_hash",
+              "number": 7,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "event_stream_hash",
+              "number": 8,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "final_state_hash",
+              "number": 9,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "final_tick",
+              "number": 10,
+              "repeated": false,
+              "type": "uint64"
+            }
+          ],
+          "name": "ReplayInputStreamSummary"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "replay_id",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "match_id",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "owner_user_id",
+              "number": 4,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "mode_id",
+              "number": 5,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "stage_id",
+              "number": 6,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "loadout",
+              "number": 7,
+              "repeated": false,
+              "type": "LoadoutRef"
+            },
+            {
+              "map": false,
+              "name": "stream",
+              "number": 8,
+              "repeated": false,
+              "type": "ReplayInputStreamSummary"
+            },
+            {
+              "map": false,
+              "name": "settlement",
+              "number": 9,
+              "repeated": false,
+              "type": "SignedBattleResult"
+            },
+            {
+              "map": false,
+              "name": "server_authoritative",
+              "number": 10,
+              "repeated": false,
+              "type": "bool"
+            },
+            {
+              "map": false,
+              "name": "created_at_ms",
+              "number": 11,
+              "repeated": false,
+              "type": "int64"
+            }
+          ],
+          "name": "ReplayRecord"
+        }
+      ],
+      "package": "phk.v1",
+      "path": "proto/phk/v1/replay.proto",
+      "sha256": "28267ea3c045f42753ffda71652fd03e9fbd517336055b714a55c6f6e6fcbbcd"
+    }
+  ],
+  "package": "phk.v1",
+  "protocol_version": 1,
+  "ruleset_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "ruleset_required_keys": [
+    "ruleset_version",
+    "ruleset_hash",
+    "modes",
+    "stages",
+    "characters",
+    "cards",
+    "bullet_patterns"
+  ],
+  "ruleset_version": "ruleset-local-s0",
+  "source_digest_sha256": "8d688f3830d82e1fa98045535e6d5ece0225040d39a28ce07f448328435b6e06"
+}

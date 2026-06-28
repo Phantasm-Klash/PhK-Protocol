@@ -1,0 +1,135 @@
+syntax = "proto3";
+
+package phk.v1;
+
+option go_package = "github.com/phantasm-klash/phk-protocol/gen/go/phk/v1;phkv1";
+
+import "phk/v1/common.proto";
+import "phk/v1/matchmaking.proto";
+
+enum BattlePayloadType {
+  BATTLE_PAYLOAD_TYPE_UNSPECIFIED = 0;
+  BATTLE_PAYLOAD_TYPE_HANDSHAKE_HELLO = 1;
+  BATTLE_PAYLOAD_TYPE_HANDSHAKE_ACCEPT = 2;
+  BATTLE_PAYLOAD_TYPE_INPUT = 3;
+  BATTLE_PAYLOAD_TYPE_SNAPSHOT = 4;
+  BATTLE_PAYLOAD_TYPE_EVENT = 5;
+  BATTLE_PAYLOAD_TYPE_PING = 6;
+  BATTLE_PAYLOAD_TYPE_RECONNECT = 7;
+  BATTLE_PAYLOAD_TYPE_RESULT = 8;
+}
+
+message BattlePacketHeader {
+  VersionStamp version = 1;
+  string match_id = 2;
+  string player_id = 3;
+  uint64 tick = 4;
+  uint64 seq = 5;
+  uint64 ack = 6;
+  BattlePayloadType payload_type = 7;
+  string key_id = 8;
+  bytes nonce = 9;
+}
+
+message BattleEncryptedPacket {
+  BattlePacketHeader header = 1;
+  bytes ciphertext = 2;
+  bytes auth_tag = 3;
+}
+
+message BattleHandshakeHello {
+  VersionStamp version = 1;
+  SignedBattleTicket battle_ticket = 2;
+  bytes client_x25519_pub = 3;
+  bytes client_random = 4;
+  repeated string supported_aead = 5;
+}
+
+message BattleHandshakeAccept {
+  VersionStamp version = 1;
+  string match_id = 2;
+  string player_id = 3;
+  bytes server_x25519_pub = 4;
+  bytes server_random = 5;
+  string selected_aead = 6;
+  uint32 kcp_conv = 7;
+  string key_id = 8;
+  bytes transcript_hash = 9;
+  SignedBlob server_signature = 10;
+}
+
+message BattleInput {
+  VersionStamp version = 1;
+  string match_id = 2;
+  string player_id = 3;
+  uint64 tick = 4;
+  uint64 seq = 5;
+  uint32 direction_bits = 6;
+  bool slow = 7;
+  bool shoot = 8;
+  bool bomb = 9;
+  int32 card_slot = 10;
+  string mode_action_id = 11;
+}
+
+message BattlePlayerSnapshot {
+  string player_id = 1;
+  int32 x_milli = 2;
+  int32 y_milli = 3;
+  bool connected = 4;
+  uint32 hand_size = 5;
+}
+
+message BattleBulletDelta {
+  string bullet_id = 1;
+  string op = 2;
+  int32 x_milli = 3;
+  int32 y_milli = 4;
+  int32 vx_milli = 5;
+  int32 vy_milli = 6;
+  uint32 radius_milli = 7;
+  string pattern_id = 8;
+  string color = 9;
+}
+
+message BattleSnapshot {
+  VersionStamp version = 1;
+  string match_id = 2;
+  uint64 snapshot_tick = 3;
+  string snapshot_kind = 4;
+  string state_hash = 5;
+  repeated BattlePlayerSnapshot players = 6;
+  repeated BattleBulletDelta bullets_delta = 7;
+  map<string, string> mode_state = 8;
+  uint64 event_cursor = 9;
+}
+
+message BattleEvent {
+  VersionStamp version = 1;
+  string match_id = 2;
+  uint64 cursor = 3;
+  uint64 tick = 4;
+  string type = 5;
+  string player_id = 6;
+  bytes payload_json = 7;
+  bool server_authoritative = 8;
+}
+
+message BattleResult {
+  VersionStamp version = 1;
+  string match_id = 2;
+  string mode_id = 3;
+  string result_hash = 4;
+  string replay_id = 5;
+  repeated string player_ids = 6;
+  bytes reward_projection_json = 7;
+  bytes mode_result_json = 8;
+  int64 settled_at_ms = 9;
+}
+
+message SignedBattleResult {
+  BattleResult result = 1;
+  string signature_alg = 2;
+  string key_id = 3;
+  bytes signature = 4;
+}
