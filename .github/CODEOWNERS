@@ -1,7 +1,7 @@
 # Protocol schemas, manifests, fixtures, and compatibility gates require owner review.
-/proto/ @Phantasm-Klash
-/schemas/ @Phantasm-Klash
-/fixtures/ @Phantasm-Klash
-/descriptors/ @Phantasm-Klash
-/gen/ @Phantasm-Klash
-/tools/ @Phantasm-Klash
+/proto/ @wjcwqc
+/schemas/ @wjcwqc
+/fixtures/ @wjcwqc
+/descriptors/ @wjcwqc
+/gen/ @wjcwqc
+/tools/ @wjcwqc
