@@ -36,6 +36,7 @@ def message_fields(descriptor: dict[str, object]) -> dict[str, list[str]]:
 def render(descriptor: dict[str, object]) -> str:
     fields = message_fields(descriptor)
     fixture = json.loads((ROOT / "fixtures" / "v0_1_minimal_flow.json").read_text(encoding="utf-8"))
+    mode_action = fixture.get("battle_mode_action", {})
     callback = fixture.get("signed_battle_result_callback", {})
     callback_result = callback.get("result", {})
     lines: list[str] = [
@@ -51,6 +52,13 @@ def render(descriptor: dict[str, object]) -> str:
         f"\tRulesetVersion = {go_string(descriptor.get('ruleset_version', ''))}",
         f"\tRulesetHash = {go_string(descriptor.get('ruleset_hash', ''))}",
         f"\tSourceDigestSHA256 = {go_string(descriptor.get('source_digest_sha256', ''))}",
+        f"\tBattleModeActionMatchID = {go_string(mode_action.get('match_id', ''))}",
+        f"\tBattleModeActionPlayerID = {go_string(mode_action.get('player_id', ''))}",
+        f"\tBattleModeActionActionID = {go_string(mode_action.get('action_id', ''))}",
+        f"\tBattleModeActionActionType = {go_string(mode_action.get('action_type', ''))}",
+        f"\tBattleModeActionPayloadJSON = {go_string(mode_action.get('payload_json', ''))}",
+        f"\tBattleModeActionTick = {int(mode_action.get('tick', 0))}",
+        f"\tBattleModeActionSeq = {int(mode_action.get('seq', 0))}",
         f"\tBattleResultCallbackMatchID = {go_string(callback_result.get('match_id', ''))}",
         f"\tBattleResultCallbackModeID = {go_string(callback_result.get('mode_id', ''))}",
         f"\tBattleResultCallbackResultHash = {go_string(callback_result.get('result_hash', ''))}",

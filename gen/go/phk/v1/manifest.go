@@ -10,6 +10,13 @@ const (
 	RulesetVersion = "ruleset-local-s0"
 	RulesetHash = "sha256:0000000000000000000000000000000000000000000000000000000000000000"
 	SourceDigestSHA256 = "70f1a2413e1bb36de5ac8640deae39890109a8cdde5808cd7f49cd53d417a6af"
+	BattleModeActionMatchID = "match-001"
+	BattleModeActionPlayerID = "p1"
+	BattleModeActionActionID = "match-001_a000001"
+	BattleModeActionActionType = "select_round_card"
+	BattleModeActionPayloadJSON = "{\"card_id\":\"focus_lens\",\"round_index\":0}"
+	BattleModeActionTick = 121
+	BattleModeActionSeq = 8
 	BattleResultCallbackMatchID = "match-001"
 	BattleResultCallbackModeID = "certification"
 	BattleResultCallbackResultHash = "sha256:0123456789abcdef"

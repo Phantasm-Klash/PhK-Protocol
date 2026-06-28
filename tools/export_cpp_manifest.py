@@ -33,6 +33,7 @@ def message_fields(descriptor: dict[str, object]) -> list[tuple[str, str]]:
 def render(descriptor: dict[str, object]) -> str:
     fields = message_fields(descriptor)
     fixture = json.loads((ROOT / "fixtures" / "v0_1_minimal_flow.json").read_text(encoding="utf-8"))
+    mode_action = fixture.get("battle_mode_action", {})
     callback = fixture.get("signed_battle_result_callback", {})
     callback_result = callback.get("result", {})
     lines: list[str] = [
@@ -54,6 +55,13 @@ def render(descriptor: dict[str, object]) -> str:
         f"inline constexpr std::string_view kRulesetVersion = {cpp_string(descriptor.get('ruleset_version', ''))};",
         f"inline constexpr std::string_view kRulesetHash = {cpp_string(descriptor.get('ruleset_hash', ''))};",
         f"inline constexpr std::string_view kSourceDigestSha256 = {cpp_string(descriptor.get('source_digest_sha256', ''))};",
+        f"inline constexpr std::string_view kBattleModeActionMatchId = {cpp_string(mode_action.get('match_id', ''))};",
+        f"inline constexpr std::string_view kBattleModeActionPlayerId = {cpp_string(mode_action.get('player_id', ''))};",
+        f"inline constexpr std::string_view kBattleModeActionActionId = {cpp_string(mode_action.get('action_id', ''))};",
+        f"inline constexpr std::string_view kBattleModeActionActionType = {cpp_string(mode_action.get('action_type', ''))};",
+        f"inline constexpr std::string_view kBattleModeActionPayloadJson = {cpp_string(mode_action.get('payload_json', ''))};",
+        f"inline constexpr std::uint64_t kBattleModeActionTick = {int(mode_action.get('tick', 0))};",
+        f"inline constexpr std::uint64_t kBattleModeActionSeq = {int(mode_action.get('seq', 0))};",
         f"inline constexpr std::string_view kBattleResultCallbackMatchId = {cpp_string(callback_result.get('match_id', ''))};",
         f"inline constexpr std::string_view kBattleResultCallbackModeId = {cpp_string(callback_result.get('mode_id', ''))};",
         f"inline constexpr std::string_view kBattleResultCallbackResultHash = {cpp_string(callback_result.get('result_hash', ''))};",
