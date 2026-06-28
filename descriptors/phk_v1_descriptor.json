@@ -189,6 +189,10 @@
             {
               "name": "BATTLE_PAYLOAD_TYPE_RESULT",
               "number": 8
+            },
+            {
+              "name": "BATTLE_PAYLOAD_TYPE_MODE_ACTION",
+              "number": 9
             }
           ]
         }
@@ -489,6 +493,74 @@
             }
           ],
           "name": "BattleInput"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "match_id",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "player_id",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "tick",
+              "number": 4,
+              "repeated": false,
+              "type": "uint64"
+            },
+            {
+              "map": false,
+              "name": "seq",
+              "number": 5,
+              "repeated": false,
+              "type": "uint64"
+            },
+            {
+              "map": false,
+              "name": "action_id",
+              "number": 6,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "action_type",
+              "number": 7,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "payload_json",
+              "number": 8,
+              "repeated": false,
+              "type": "bytes"
+            },
+            {
+              "map": false,
+              "name": "client_result_authoritative",
+              "number": 9,
+              "repeated": false,
+              "type": "bool"
+            }
+          ],
+          "name": "BattleModeAction"
         },
         {
           "fields": [
@@ -831,7 +903,7 @@
       ],
       "package": "phk.v1",
       "path": "proto/phk/v1/battle.proto",
-      "sha256": "d5b675fae2f6bf52f9ddf5621a3bf25a950a6894b5d2a1c6c201718878a0c3b7"
+      "sha256": "7340ee52814cbb9a24a5db746d5309f887ffa5ce162e1d8049fc1d97bad7b22e"
     },
     {
       "enums": [
@@ -1676,5 +1748,5 @@
     "bullet_patterns"
   ],
   "ruleset_version": "ruleset-local-s0",
-  "source_digest_sha256": "8d688f3830d82e1fa98045535e6d5ece0225040d39a28ce07f448328435b6e06"
+  "source_digest_sha256": "70f1a2413e1bb36de5ac8640deae39890109a8cdde5808cd7f49cd53d417a6af"
 }
