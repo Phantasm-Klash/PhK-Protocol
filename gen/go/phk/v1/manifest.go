@@ -10,6 +10,19 @@ const (
 	RulesetVersion = "ruleset-local-s0"
 	RulesetHash = "sha256:0000000000000000000000000000000000000000000000000000000000000000"
 	SourceDigestSHA256 = "8d688f3830d82e1fa98045535e6d5ece0225040d39a28ce07f448328435b6e06"
+	BattleResultCallbackMatchID = "match-001"
+	BattleResultCallbackModeID = "certification"
+	BattleResultCallbackResultHash = "sha256:0123456789abcdef"
+	BattleResultCallbackReplayID = "battle-replay-001"
+	BattleResultCallbackRewardProjectionJSON = "{\"source\":\"battle-server\"}"
+	BattleResultCallbackModeResultJSON = "{\"battle_result_owner\":\"cpp\"}"
+	BattleResultCallbackSignatureAlg = "ED25519"
+	BattleResultCallbackKeyID = "battle-local-1"
+	BattleResultCallbackPublicKeyHex = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+	BattleResultCallbackSignatureHex = "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+	BattleResultCallbackSubmitPath = "/v1/battle/results/submit"
+	BattleResultCallbackSettlementKey = "battle-result:match-001"
+	BattleResultCallbackSettledAtMS = 1782489610000
 )
 
 var MessageFields = map[string][]string{

@@ -55,5 +55,24 @@
     "replay_id": "replay-001",
     "player_ids": ["p1", "p2"],
     "settled_at_ms": 1782489720000
+  },
+  "signed_battle_result_callback": {
+    "result": {
+      "match_id": "match-001",
+      "mode_id": "certification",
+      "result_hash": "sha256:0123456789abcdef",
+      "replay_id": "battle-replay-001",
+      "player_ids": ["p1", "p2"],
+      "reward_projection_json": "{\"source\":\"battle-server\"}",
+      "mode_result_json": "{\"battle_result_owner\":\"cpp\"}",
+      "settled_at_ms": 1782489610000
+    },
+    "signature_alg": "ED25519",
+    "key_id": "battle-local-1",
+    "public_key_hex": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "signature_hex": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "server_authoritative": true,
+    "submit_path": "/v1/battle/results/submit",
+    "settlement_key": "battle-result:match-001"
   }
 }

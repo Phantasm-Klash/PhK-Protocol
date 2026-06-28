@@ -2,6 +2,7 @@
 #pragma once
 
 #include <array>
+#include <cstdint>
 #include <cstddef>
 #include <string_view>
 
@@ -15,6 +16,19 @@ inline constexpr std::string_view kBattleApiVersion = "0.1.0-draft";
 inline constexpr std::string_view kRulesetVersion = "ruleset-local-s0";
 inline constexpr std::string_view kRulesetHash = "sha256:0000000000000000000000000000000000000000000000000000000000000000";
 inline constexpr std::string_view kSourceDigestSha256 = "8d688f3830d82e1fa98045535e6d5ece0225040d39a28ce07f448328435b6e06";
+inline constexpr std::string_view kBattleResultCallbackMatchId = "match-001";
+inline constexpr std::string_view kBattleResultCallbackModeId = "certification";
+inline constexpr std::string_view kBattleResultCallbackResultHash = "sha256:0123456789abcdef";
+inline constexpr std::string_view kBattleResultCallbackReplayId = "battle-replay-001";
+inline constexpr std::string_view kBattleResultCallbackRewardProjectionJson = "{\"source\":\"battle-server\"}";
+inline constexpr std::string_view kBattleResultCallbackModeResultJson = "{\"battle_result_owner\":\"cpp\"}";
+inline constexpr std::string_view kBattleResultCallbackSignatureAlg = "ED25519";
+inline constexpr std::string_view kBattleResultCallbackKeyId = "battle-local-1";
+inline constexpr std::string_view kBattleResultCallbackPublicKeyHex = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+inline constexpr std::string_view kBattleResultCallbackSignatureHex = "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc";
+inline constexpr std::string_view kBattleResultCallbackSubmitPath = "/v1/battle/results/submit";
+inline constexpr std::string_view kBattleResultCallbackSettlementKey = "battle-result:match-001";
+inline constexpr std::int64_t kBattleResultCallbackSettledAtMs = 1782489610000;
 
 struct MessageField {
     std::string_view message;

@@ -156,12 +156,23 @@ def check_ruleset_schema() -> None:
 
 def check_fixture() -> None:
     fixture = json.loads((ROOT / "fixtures" / "v0_1_minimal_flow.json").read_text(encoding="utf-8"))
-    for key in ["protocol_version", "ruleset_version", "business_envelope", "battle_ticket", "battle_input", "battle_snapshot", "battle_event", "battle_result"]:
+    for key in ["protocol_version", "ruleset_version", "business_envelope", "battle_ticket", "battle_input", "battle_snapshot", "battle_event", "battle_result", "signed_battle_result_callback"]:
         if key not in fixture:
             fail(f"fixture missing {key}")
     forbidden_client_result_fields = {"score", "graze", "hits", "damage", "rewards", "boss_hp", "rank"}
     if forbidden_client_result_fields & set(fixture["battle_input"].keys()):
         fail("battle_input contains forbidden client-authored result fields")
+    callback = fixture["signed_battle_result_callback"]
+    result = callback.get("result", {})
+    for key in ["match_id", "mode_id", "result_hash", "replay_id", "player_ids", "settled_at_ms"]:
+        if key not in result:
+            fail(f"signed battle result callback missing result.{key}")
+    if callback.get("signature_alg") != "ED25519":
+        fail("signed battle result callback must use ED25519")
+    if len(str(callback.get("signature_hex", ""))) != 128:
+        fail("signed battle result callback signature_hex must be 64 bytes hex")
+    if not callback.get("server_authoritative", False):
+        fail("signed battle result callback must be server authoritative")
 
 
 def check_descriptor() -> None:
