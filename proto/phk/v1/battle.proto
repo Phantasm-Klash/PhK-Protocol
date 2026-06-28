@@ -17,6 +17,7 @@ enum BattlePayloadType {
   BATTLE_PAYLOAD_TYPE_PING = 6;
   BATTLE_PAYLOAD_TYPE_RECONNECT = 7;
   BATTLE_PAYLOAD_TYPE_RESULT = 8;
+  BATTLE_PAYLOAD_TYPE_MODE_ACTION = 9;
 }
 
 message BattlePacketHeader {
@@ -70,6 +71,18 @@ message BattleInput {
   bool bomb = 9;
   int32 card_slot = 10;
   string mode_action_id = 11;
+}
+
+message BattleModeAction {
+  VersionStamp version = 1;
+  string match_id = 2;
+  string player_id = 3;
+  uint64 tick = 4;
+  uint64 seq = 5;
+  string action_id = 6;
+  string action_type = 7;
+  bytes payload_json = 8;
+  bool client_result_authoritative = 9;
 }
 
 message BattlePlayerSnapshot {

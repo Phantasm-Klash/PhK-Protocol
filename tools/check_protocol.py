@@ -32,6 +32,7 @@ REQUIRED_MESSAGES = {
         "BattleHandshakeHello",
         "BattleHandshakeAccept",
         "BattleInput",
+        "BattleModeAction",
         "BattleSnapshot",
         "BattleEvent",
         "BattleResult",
@@ -89,6 +90,16 @@ REQUIRED_FIELD_NAMES = {
         "shoot",
         "bomb",
         "card_slot",
+    ],
+    "BattleModeAction": [
+        "match_id",
+        "player_id",
+        "tick",
+        "seq",
+        "action_id",
+        "action_type",
+        "payload_json",
+        "client_result_authoritative",
     ],
     "BattleSnapshot": ["match_id", "snapshot_tick", "snapshot_kind", "state_hash", "players", "bullets_delta"],
     "BattleResult": ["match_id", "mode_id", "result_hash", "replay_id", "player_ids", "settled_at_ms"],
@@ -156,12 +167,18 @@ def check_ruleset_schema() -> None:
 
 def check_fixture() -> None:
     fixture = json.loads((ROOT / "fixtures" / "v0_1_minimal_flow.json").read_text(encoding="utf-8"))
-    for key in ["protocol_version", "ruleset_version", "business_envelope", "battle_ticket", "battle_input", "battle_snapshot", "battle_event", "battle_result", "signed_battle_result_callback"]:
+    for key in ["protocol_version", "ruleset_version", "business_envelope", "battle_ticket", "battle_input", "battle_mode_action", "battle_snapshot", "battle_event", "battle_result", "signed_battle_result_callback"]:
         if key not in fixture:
             fail(f"fixture missing {key}")
     forbidden_client_result_fields = {"score", "graze", "hits", "damage", "rewards", "boss_hp", "rank"}
     if forbidden_client_result_fields & set(fixture["battle_input"].keys()):
         fail("battle_input contains forbidden client-authored result fields")
+    mode_action = fixture["battle_mode_action"]
+    for key in ["match_id", "player_id", "tick", "seq", "action_id", "action_type", "payload_json", "client_result_authoritative"]:
+        if key not in mode_action:
+            fail(f"battle_mode_action missing {key}")
+    if mode_action.get("client_result_authoritative", True):
+        fail("battle_mode_action must not be client result authoritative")
     callback = fixture["signed_battle_result_callback"]
     result = callback.get("result", {})
     for key in ["match_id", "mode_id", "result_hash", "replay_id", "player_ids", "settled_at_ms"]:
@@ -188,7 +205,7 @@ def check_descriptor() -> None:
         for proto_file in descriptor.get("files", [])
         for message in proto_file.get("messages", [])
     }
-    for required in ["BusinessSecureEnvelope", "BattleTicket", "BattlePacketHeader", "BattleInput", "BattleResult"]:
+    for required in ["BusinessSecureEnvelope", "BattleTicket", "BattlePacketHeader", "BattleInput", "BattleModeAction", "BattleResult"]:
         if required not in message_names:
             fail(f"descriptor missing message {required}")
 
@@ -212,7 +229,7 @@ def check_go_manifest() -> None:
             fail(f"Go manifest {name} is out of sync")
     if f"ProtocolVersion = {int(descriptor.get('protocol_version', 0))}" not in manifest:
         fail("Go manifest ProtocolVersion is out of sync")
-    for message_name in ["BusinessSecureEnvelope", "BattleTicket", "BattlePacketHeader", "BattleInput", "BattleResult"]:
+    for message_name in ["BusinessSecureEnvelope", "BattleTicket", "BattlePacketHeader", "BattleInput", "BattleModeAction", "BattleResult"]:
         if f'"{message_name}":' not in manifest:
             fail(f"Go manifest missing message {message_name}")
         for field in REQUIRED_FIELD_NAMES.get(message_name, []):
@@ -239,7 +256,7 @@ def check_cpp_manifest() -> None:
             fail(f"C++ manifest {name} is out of sync")
     if f"kProtocolVersion = {int(descriptor.get('protocol_version', 0))}" not in manifest:
         fail("C++ manifest kProtocolVersion is out of sync")
-    for message_name in ["BusinessSecureEnvelope", "BattleTicket", "BattlePacketHeader", "BattleInput", "BattleResult"]:
+    for message_name in ["BusinessSecureEnvelope", "BattleTicket", "BattlePacketHeader", "BattleInput", "BattleModeAction", "BattleResult"]:
         for field in REQUIRED_FIELD_NAMES.get(message_name, []):
             if f'{{"{message_name}", "{field}"}}' not in manifest:
                 fail(f"C++ manifest {message_name} missing field {field}")

@@ -9,7 +9,7 @@ const (
 	BattleAPIVersion = "0.1.0-draft"
 	RulesetVersion = "ruleset-local-s0"
 	RulesetHash = "sha256:0000000000000000000000000000000000000000000000000000000000000000"
-	SourceDigestSHA256 = "8d688f3830d82e1fa98045535e6d5ece0225040d39a28ce07f448328435b6e06"
+	SourceDigestSHA256 = "70f1a2413e1bb36de5ac8640deae39890109a8cdde5808cd7f49cd53d417a6af"
 	BattleResultCallbackMatchID = "match-001"
 	BattleResultCallbackModeID = "certification"
 	BattleResultCallbackResultHash = "sha256:0123456789abcdef"
@@ -33,6 +33,7 @@ var MessageFields = map[string][]string{
 	"BattleHandshakeAccept": {"version", "match_id", "player_id", "server_x25519_pub", "server_random", "selected_aead", "kcp_conv", "key_id", "transcript_hash", "server_signature"},
 	"BattleHandshakeHello": {"version", "battle_ticket", "client_x25519_pub", "client_random", "supported_aead"},
 	"BattleInput": {"version", "match_id", "player_id", "tick", "seq", "direction_bits", "slow", "shoot", "bomb", "card_slot", "mode_action_id"},
+	"BattleModeAction": {"version", "match_id", "player_id", "tick", "seq", "action_id", "action_type", "payload_json", "client_result_authoritative"},
 	"BattlePacketHeader": {"version", "match_id", "player_id", "tick", "seq", "ack", "payload_type", "key_id", "nonce"},
 	"BattlePlayerSnapshot": {"player_id", "x_milli", "y_milli", "connected", "hand_size"},
 	"BattleResult": {"version", "match_id", "mode_id", "result_hash", "replay_id", "player_ids", "reward_projection_json", "mode_result_json", "settled_at_ms"},

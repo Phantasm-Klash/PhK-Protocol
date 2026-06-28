@@ -34,6 +34,16 @@
     "bomb": false,
     "card_slot": -1
   },
+  "battle_mode_action": {
+    "match_id": "match-001",
+    "player_id": "p1",
+    "tick": 121,
+    "seq": 8,
+    "action_id": "match-001_a000001",
+    "action_type": "select_round_card",
+    "payload_json": "{\"card_id\":\"focus_lens\",\"round_index\":0}",
+    "client_result_authoritative": false
+  },
   "battle_snapshot": {
     "match_id": "match-001",
     "snapshot_tick": 122,
