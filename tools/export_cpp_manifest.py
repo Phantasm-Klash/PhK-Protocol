@@ -36,6 +36,7 @@ def render(descriptor: dict[str, object]) -> str:
     mode_action = fixture.get("battle_mode_action", {})
     battle_snapshot = fixture.get("battle_snapshot", {})
     battle_event = fixture.get("battle_event", {})
+    replay_summary = fixture.get("golden_replay_summary", fixture.get("replay_summary", {}))
     callback = fixture.get("signed_battle_result_callback", {})
     callback_result = callback.get("result", {})
     lines: list[str] = [
@@ -74,6 +75,15 @@ def render(descriptor: dict[str, object]) -> str:
         f"inline constexpr std::uint64_t kBattleEventTick = {int(battle_event.get('tick', 0))};",
         f"inline constexpr std::string_view kBattleEventType = {cpp_string(battle_event.get('type', ''))};",
         f"inline constexpr bool kBattleEventServerAuthoritative = {str(bool(battle_event.get('server_authoritative', False))).lower()};",
+        f"inline constexpr std::string_view kGoldenReplaySummaryReplayId = {cpp_string(replay_summary.get('replay_id', ''))};",
+        f"inline constexpr std::string_view kGoldenReplaySummaryMatchId = {cpp_string(replay_summary.get('match_id', ''))};",
+        f"inline constexpr std::string_view kGoldenReplaySummaryOwnerUserId = {cpp_string(replay_summary.get('owner_user_id', ''))};",
+        f"inline constexpr std::uint64_t kGoldenReplaySummaryInputCount = {int(replay_summary.get('input_count', 0))};",
+        f"inline constexpr std::uint64_t kGoldenReplaySummaryEventCount = {int(replay_summary.get('event_count', 0))};",
+        f"inline constexpr std::string_view kGoldenReplaySummaryInputStreamHash = {cpp_string(replay_summary.get('input_stream_hash', ''))};",
+        f"inline constexpr std::string_view kGoldenReplaySummaryEventStreamHash = {cpp_string(replay_summary.get('event_stream_hash', ''))};",
+        f"inline constexpr std::string_view kGoldenReplaySummaryFinalStateHash = {cpp_string(replay_summary.get('final_state_hash', ''))};",
+        f"inline constexpr std::uint64_t kGoldenReplaySummaryFinalTick = {int(replay_summary.get('final_tick', 0))};",
         f"inline constexpr std::string_view kBattleResultCallbackMatchId = {cpp_string(callback_result.get('match_id', ''))};",
         f"inline constexpr std::string_view kBattleResultCallbackModeId = {cpp_string(callback_result.get('mode_id', ''))};",
         f"inline constexpr std::string_view kBattleResultCallbackResultHash = {cpp_string(callback_result.get('result_hash', ''))};",

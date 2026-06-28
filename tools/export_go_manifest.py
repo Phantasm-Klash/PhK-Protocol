@@ -39,6 +39,7 @@ def render(descriptor: dict[str, object]) -> str:
     mode_action = fixture.get("battle_mode_action", {})
     battle_snapshot = fixture.get("battle_snapshot", {})
     battle_event = fixture.get("battle_event", {})
+    replay_summary = fixture.get("golden_replay_summary", fixture.get("replay_summary", {}))
     callback = fixture.get("signed_battle_result_callback", {})
     callback_result = callback.get("result", {})
     lines: list[str] = [
@@ -71,6 +72,15 @@ def render(descriptor: dict[str, object]) -> str:
         f"\tBattleEventTick = {int(battle_event.get('tick', 0))}",
         f"\tBattleEventType = {go_string(battle_event.get('type', ''))}",
         f"\tBattleEventServerAuthoritative = {str(bool(battle_event.get('server_authoritative', False))).lower()}",
+        f"\tGoldenReplaySummaryReplayID = {go_string(replay_summary.get('replay_id', ''))}",
+        f"\tGoldenReplaySummaryMatchID = {go_string(replay_summary.get('match_id', ''))}",
+        f"\tGoldenReplaySummaryOwnerUserID = {go_string(replay_summary.get('owner_user_id', ''))}",
+        f"\tGoldenReplaySummaryInputCount = {int(replay_summary.get('input_count', 0))}",
+        f"\tGoldenReplaySummaryEventCount = {int(replay_summary.get('event_count', 0))}",
+        f"\tGoldenReplaySummaryInputStreamHash = {go_string(replay_summary.get('input_stream_hash', ''))}",
+        f"\tGoldenReplaySummaryEventStreamHash = {go_string(replay_summary.get('event_stream_hash', ''))}",
+        f"\tGoldenReplaySummaryFinalStateHash = {go_string(replay_summary.get('final_state_hash', ''))}",
+        f"\tGoldenReplaySummaryFinalTick = {int(replay_summary.get('final_tick', 0))}",
         f"\tBattleResultCallbackMatchID = {go_string(callback_result.get('match_id', ''))}",
         f"\tBattleResultCallbackModeID = {go_string(callback_result.get('mode_id', ''))}",
         f"\tBattleResultCallbackResultHash = {go_string(callback_result.get('result_hash', ''))}",
