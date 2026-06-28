@@ -27,6 +27,15 @@ const (
 	BattleEventTick = 122
 	BattleEventType = "bullet_spawn"
 	BattleEventServerAuthoritative = true
+	GoldenReplaySummaryReplayID = "battle-replay-001"
+	GoldenReplaySummaryMatchID = "match-001"
+	GoldenReplaySummaryOwnerUserID = "user-alice"
+	GoldenReplaySummaryInputCount = 2
+	GoldenReplaySummaryEventCount = 4
+	GoldenReplaySummaryInputStreamHash = "sha256:input-stream"
+	GoldenReplaySummaryEventStreamHash = "sha256:event-stream"
+	GoldenReplaySummaryFinalStateHash = "sha256:state"
+	GoldenReplaySummaryFinalTick = 122
 	BattleResultCallbackMatchID = "match-001"
 	BattleResultCallbackModeID = "certification"
 	BattleResultCallbackResultHash = "sha256:0123456789abcdef"

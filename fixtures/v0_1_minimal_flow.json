@@ -66,6 +66,17 @@
     "player_ids": ["p1", "p2"],
     "settled_at_ms": 1782489720000
   },
+  "golden_replay_summary": {
+    "replay_id": "battle-replay-001",
+    "match_id": "match-001",
+    "owner_user_id": "user-alice",
+    "input_count": 2,
+    "event_count": 4,
+    "input_stream_hash": "sha256:input-stream",
+    "event_stream_hash": "sha256:event-stream",
+    "final_state_hash": "sha256:state",
+    "final_tick": 122
+  },
   "signed_battle_result_callback": {
     "result": {
       "match_id": "match-001",
