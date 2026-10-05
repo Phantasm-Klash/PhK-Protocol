@@ -26,7 +26,8 @@
     "bullet_patterns": {
       "type": "array",
       "items": { "$ref": "#/$defs/bullet_pattern" }
-    }
+    },
+    "mvp_boss_race": { "$ref": "#/$defs/boss_race" }
   },
   "$defs": {
     "mode": {
@@ -37,7 +38,43 @@
         "min_players": { "type": "integer", "minimum": 1 },
         "max_players": { "type": "integer", "minimum": 1 },
         "ruleset_version": { "type": "string" },
-        "reward_table_id": { "type": "string" }
+        "reward_table_id": { "type": "string" },
+        "win_condition": { "type": "string" },
+        "boss_id": { "type": "string" },
+        "pattern_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "boss_race": {
+      "type": "object",
+      "description": "MVP 2-player boss race: each player fights an identical-seed copy of one boss, first to defeat their own boss wins and settles points.",
+      "required": [
+        "mode_id",
+        "boss_count",
+        "pattern_count",
+        "min_players",
+        "max_players",
+        "win_condition",
+        "ruleset_version"
+      ],
+      "properties": {
+        "mode_id": { "const": "mvp_boss_race" },
+        "boss_count": { "const": 1 },
+        "pattern_count": { "const": 10 },
+        "min_players": { "const": 2 },
+        "max_players": { "const": 2 },
+        "win_condition": { "const": "first_boss_defeat" },
+        "server_authoritative": { "const": true },
+        "boss_id": { "type": "string" },
+        "pattern_ids": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 10,
+          "maxItems": 10
+        },
+        "ruleset_version": { "type": "string", "minLength": 1 }
       }
     },
     "stage": {

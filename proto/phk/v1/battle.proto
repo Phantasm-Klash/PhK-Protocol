@@ -18,6 +18,7 @@ enum BattlePayloadType {
   BATTLE_PAYLOAD_TYPE_RECONNECT = 7;
   BATTLE_PAYLOAD_TYPE_RESULT = 8;
   BATTLE_PAYLOAD_TYPE_MODE_ACTION = 9;
+  BATTLE_PAYLOAD_TYPE_BOSS_RACE_STATE = 10;
 }
 
 message BattlePacketHeader {
@@ -145,4 +146,25 @@ message SignedBattleResult {
   string signature_alg = 2;
   string key_id = 3;
   bytes signature = 4;
+}
+
+message BossRacePlayerState {
+  string player_id = 1;
+  int32 boss_current_hp = 2;
+  int32 boss_max_hp = 3;
+  int64 damage_dealt = 4;
+  bool defeated = 5;
+  uint64 defeat_tick = 6;
+  int32 points_awarded = 7;
+}
+
+message BossRaceModeState {
+  VersionStamp version = 1;
+  string match_id = 2;
+  string mode_id = 3;
+  uint64 tick = 4;
+  repeated BossRacePlayerState players = 5;
+  string winner_player_id = 6;
+  bool match_over = 7;
+  string ruleset_version = 8;
 }

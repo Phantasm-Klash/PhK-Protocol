@@ -15,7 +15,7 @@ inline constexpr std::string_view kBusinessApiVersion = "0.1.0-draft";
 inline constexpr std::string_view kBattleApiVersion = "0.1.0-draft";
 inline constexpr std::string_view kRulesetVersion = "ruleset-local-s0";
 inline constexpr std::string_view kRulesetHash = "sha256:0000000000000000000000000000000000000000000000000000000000000000";
-inline constexpr std::string_view kSourceDigestSha256 = "70f1a2413e1bb36de5ac8640deae39890109a8cdde5808cd7f49cd53d417a6af";
+inline constexpr std::string_view kSourceDigestSha256 = "1d7bc3d325358efdecfe5a6f4a8d411c747c3a9ca5ebf718f25ad0bf7e6e4d5d";
 inline constexpr std::string_view kBattleModeActionMatchId = "match-001";
 inline constexpr std::string_view kBattleModeActionPlayerId = "p1";
 inline constexpr std::string_view kBattleModeActionActionId = "match-001_a000001";
@@ -55,13 +55,23 @@ inline constexpr std::string_view kBattleResultCallbackSignatureHex = "ccccccccc
 inline constexpr std::string_view kBattleResultCallbackSubmitPath = "/v1/battle/results/submit";
 inline constexpr std::string_view kBattleResultCallbackSettlementKey = "battle-result:match-001";
 inline constexpr std::int64_t kBattleResultCallbackSettledAtMs = 1782489610000;
+inline constexpr std::string_view kMvpBossRaceModeId = "mvp_boss_race";
+inline constexpr std::string_view kMvpBossRaceWinCondition = "first_boss_defeat";
+inline constexpr int kMvpBossRaceBossCount = 1;
+inline constexpr int kMvpBossRacePatternCount = 10;
+inline constexpr int kMvpBossRaceMaxPlayers = 2;
+inline constexpr std::string_view kMvpBossRaceMatchId = "match-mvp-001";
+inline constexpr std::string_view kMvpBossRaceWinnerPlayerId = "p1";
+inline constexpr std::string_view kMvpBossRaceReplayId = "replay-mvp-001";
+inline constexpr bool kMvpBossRaceServerAuthoritative = true;
+inline constexpr std::uint64_t kMvpBossRaceFinalTick = 5400;
 
 struct MessageField {
     std::string_view message;
     std::string_view field;
 };
 
-inline constexpr std::array<MessageField, 201> kMessageFields = {{
+inline constexpr std::array<MessageField, 308> kMessageFields = {{
     {"BattleAllocationPush", "allocation"},
     {"BattleAllocationPush", "business_signature"},
     {"BattleBulletDelta", "bullet_id"},
@@ -188,6 +198,21 @@ inline constexpr std::array<MessageField, 201> kMessageFields = {{
     {"BattleTicket", "ticket_nonce"},
     {"BattleTicket", "user_id"},
     {"BattleTicket", "version"},
+    {"BossRaceModeState", "match_id"},
+    {"BossRaceModeState", "match_over"},
+    {"BossRaceModeState", "mode_id"},
+    {"BossRaceModeState", "players"},
+    {"BossRaceModeState", "ruleset_version"},
+    {"BossRaceModeState", "tick"},
+    {"BossRaceModeState", "version"},
+    {"BossRaceModeState", "winner_player_id"},
+    {"BossRacePlayerState", "boss_current_hp"},
+    {"BossRacePlayerState", "boss_max_hp"},
+    {"BossRacePlayerState", "damage_dealt"},
+    {"BossRacePlayerState", "defeat_tick"},
+    {"BossRacePlayerState", "defeated"},
+    {"BossRacePlayerState", "player_id"},
+    {"BossRacePlayerState", "points_awarded"},
     {"BusinessAck", "ack_seq"},
     {"BusinessAck", "error"},
     {"BusinessAck", "session_id"},
@@ -220,11 +245,66 @@ inline constexpr std::array<MessageField, 201> kMessageFields = {{
     {"LoadoutRef", "rating_code"},
     {"LoadoutRef", "stage_id"},
     {"LoadoutRef", "user_id"},
+    {"LobbyAuthRequest", "client_build"},
+    {"LobbyAuthRequest", "platform"},
+    {"LobbyAuthRequest", "session_token"},
+    {"LobbyAuthRequest", "user_id"},
+    {"LobbyAuthRequest", "version"},
+    {"LobbyAuthResponse", "error"},
+    {"LobbyAuthResponse", "expires_at_ms"},
+    {"LobbyAuthResponse", "issued_at_ms"},
+    {"LobbyAuthResponse", "player_id"},
+    {"LobbyAuthResponse", "session_token"},
+    {"LobbyAuthResponse", "user_id"},
+    {"LobbyAuthResponse", "version"},
+    {"LobbyBootstrapRequest", "known_ruleset_version"},
+    {"LobbyBootstrapRequest", "session_token"},
+    {"LobbyBootstrapRequest", "user_id"},
+    {"LobbyBootstrapRequest", "version"},
+    {"LobbyBootstrapResponse", "error"},
+    {"LobbyBootstrapResponse", "profile"},
+    {"LobbyBootstrapResponse", "ruleset_version"},
+    {"LobbyBootstrapResponse", "server_flags"},
+    {"LobbyBootstrapResponse", "unlocked_character_ids"},
+    {"LobbyBootstrapResponse", "version"},
+    {"LobbyPlayer", "character_id"},
+    {"LobbyPlayer", "connected"},
+    {"LobbyPlayer", "display_name"},
+    {"LobbyPlayer", "host"},
+    {"LobbyPlayer", "loadout"},
+    {"LobbyPlayer", "player_id"},
+    {"LobbyPlayer", "ready"},
+    {"LobbyPlayer", "user_id"},
+    {"LobbyPlayerProfile", "character_id"},
+    {"LobbyPlayerProfile", "display_name"},
+    {"LobbyPlayerProfile", "level"},
+    {"LobbyPlayerProfile", "loadout"},
+    {"LobbyPlayerProfile", "player_id"},
+    {"LobbyPlayerProfile", "rating_code"},
+    {"LobbyPlayerProfile", "user_id"},
     {"MatchAllocationRequest", "loadout"},
     {"MatchAllocationRequest", "mode_id"},
     {"MatchAllocationRequest", "mode_params"},
     {"MatchAllocationRequest", "room_code"},
     {"MatchAllocationRequest", "version"},
+    {"MatchResultMessage", "match_id"},
+    {"MatchResultMessage", "mode_id"},
+    {"MatchResultMessage", "points"},
+    {"MatchResultMessage", "replay_id"},
+    {"MatchResultMessage", "server_authoritative"},
+    {"MatchResultMessage", "settled_at_ms"},
+    {"MatchResultMessage", "version"},
+    {"MatchResultMessage", "winner_player_id"},
+    {"MatchStartMessage", "battle_server_id"},
+    {"MatchStartMessage", "endpoint"},
+    {"MatchStartMessage", "match_id"},
+    {"MatchStartMessage", "mode_id"},
+    {"MatchStartMessage", "player_ids"},
+    {"MatchStartMessage", "ruleset_version"},
+    {"MatchStartMessage", "server_seed"},
+    {"MatchStartMessage", "signed_battle_ticket"},
+    {"MatchStartMessage", "started_at_ms"},
+    {"MatchStartMessage", "version"},
     {"ReplayInputStreamSummary", "event_count"},
     {"ReplayInputStreamSummary", "event_stream_hash"},
     {"ReplayInputStreamSummary", "final_state_hash"},
@@ -246,6 +326,43 @@ inline constexpr std::array<MessageField, 201> kMessageFields = {{
     {"ReplayRecord", "stage_id"},
     {"ReplayRecord", "stream"},
     {"ReplayRecord", "version"},
+    {"RoomCreateRequest", "host_user_id"},
+    {"RoomCreateRequest", "loadout"},
+    {"RoomCreateRequest", "mode_id"},
+    {"RoomCreateRequest", "mode_params"},
+    {"RoomCreateRequest", "room_code"},
+    {"RoomCreateRequest", "version"},
+    {"RoomCreateResponse", "error"},
+    {"RoomCreateResponse", "host_user_id"},
+    {"RoomCreateResponse", "mode_id"},
+    {"RoomCreateResponse", "room"},
+    {"RoomCreateResponse", "room_code"},
+    {"RoomCreateResponse", "version"},
+    {"RoomJoinRequest", "loadout"},
+    {"RoomJoinRequest", "player_id"},
+    {"RoomJoinRequest", "room_code"},
+    {"RoomJoinRequest", "user_id"},
+    {"RoomJoinRequest", "version"},
+    {"RoomJoinResponse", "error"},
+    {"RoomJoinResponse", "host_user_id"},
+    {"RoomJoinResponse", "mode_id"},
+    {"RoomJoinResponse", "players"},
+    {"RoomJoinResponse", "room"},
+    {"RoomJoinResponse", "room_code"},
+    {"RoomJoinResponse", "version"},
+    {"RoomLeaveRequest", "player_id"},
+    {"RoomLeaveRequest", "reason"},
+    {"RoomLeaveRequest", "room_code"},
+    {"RoomLeaveRequest", "user_id"},
+    {"RoomLeaveRequest", "version"},
+    {"RoomStateMessage", "all_ready"},
+    {"RoomStateMessage", "host_user_id"},
+    {"RoomStateMessage", "mode_id"},
+    {"RoomStateMessage", "mode_params"},
+    {"RoomStateMessage", "players"},
+    {"RoomStateMessage", "room_code"},
+    {"RoomStateMessage", "ruleset_version"},
+    {"RoomStateMessage", "version"},
     {"SignedBattleResult", "key_id"},
     {"SignedBattleResult", "result"},
     {"SignedBattleResult", "signature"},
