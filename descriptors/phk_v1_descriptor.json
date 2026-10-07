@@ -193,6 +193,10 @@
             {
               "name": "BATTLE_PAYLOAD_TYPE_MODE_ACTION",
               "number": 9
+            },
+            {
+              "name": "BATTLE_PAYLOAD_TYPE_BOSS_RACE_STATE",
+              "number": 10
             }
           ]
         }
@@ -899,11 +903,126 @@
             }
           ],
           "name": "SignedBattleResult"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "player_id",
+              "number": 1,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "boss_current_hp",
+              "number": 2,
+              "repeated": false,
+              "type": "int32"
+            },
+            {
+              "map": false,
+              "name": "boss_max_hp",
+              "number": 3,
+              "repeated": false,
+              "type": "int32"
+            },
+            {
+              "map": false,
+              "name": "damage_dealt",
+              "number": 4,
+              "repeated": false,
+              "type": "int64"
+            },
+            {
+              "map": false,
+              "name": "defeated",
+              "number": 5,
+              "repeated": false,
+              "type": "bool"
+            },
+            {
+              "map": false,
+              "name": "defeat_tick",
+              "number": 6,
+              "repeated": false,
+              "type": "uint64"
+            },
+            {
+              "map": false,
+              "name": "points_awarded",
+              "number": 7,
+              "repeated": false,
+              "type": "int32"
+            }
+          ],
+          "name": "BossRacePlayerState"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "match_id",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "mode_id",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "tick",
+              "number": 4,
+              "repeated": false,
+              "type": "uint64"
+            },
+            {
+              "map": false,
+              "name": "players",
+              "number": 5,
+              "repeated": true,
+              "type": "BossRacePlayerState"
+            },
+            {
+              "map": false,
+              "name": "winner_player_id",
+              "number": 6,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "match_over",
+              "number": 7,
+              "repeated": false,
+              "type": "bool"
+            },
+            {
+              "map": false,
+              "name": "ruleset_version",
+              "number": 8,
+              "repeated": false,
+              "type": "string"
+            }
+          ],
+          "name": "BossRaceModeState"
         }
       ],
       "package": "phk.v1",
       "path": "proto/phk/v1/battle.proto",
-      "sha256": "7340ee52814cbb9a24a5db746d5309f887ffa5ce162e1d8049fc1d97bad7b22e"
+      "sha256": "dd3484a2ebb04d6df1e510b1044042dfb805cb9969d8b94fb7a741ef570aa0f3"
     },
     {
       "enums": [
@@ -1307,6 +1426,791 @@
       "package": "phk.v1",
       "path": "proto/phk/v1/common.proto",
       "sha256": "c6d9bb468140dbf74fa971f5a38e0d6bfd3c28c422a7208ba7f33a43d4293f27"
+    },
+    {
+      "enums": [
+        {
+          "name": "LobbyMessageType",
+          "values": [
+            {
+              "name": "LOBBY_MESSAGE_TYPE_UNSPECIFIED",
+              "number": 0
+            },
+            {
+              "name": "LOBBY_MESSAGE_TYPE_AUTH_REQUEST",
+              "number": 1
+            },
+            {
+              "name": "LOBBY_MESSAGE_TYPE_AUTH_RESPONSE",
+              "number": 2
+            },
+            {
+              "name": "LOBBY_MESSAGE_TYPE_BOOTSTRAP_REQUEST",
+              "number": 3
+            },
+            {
+              "name": "LOBBY_MESSAGE_TYPE_BOOTSTRAP_RESPONSE",
+              "number": 4
+            },
+            {
+              "name": "LOBBY_MESSAGE_TYPE_ROOM_CREATE_REQUEST",
+              "number": 5
+            },
+            {
+              "name": "LOBBY_MESSAGE_TYPE_ROOM_CREATE_RESPONSE",
+              "number": 6
+            },
+            {
+              "name": "LOBBY_MESSAGE_TYPE_ROOM_JOIN_REQUEST",
+              "number": 7
+            },
+            {
+              "name": "LOBBY_MESSAGE_TYPE_ROOM_JOIN_RESPONSE",
+              "number": 8
+            },
+            {
+              "name": "LOBBY_MESSAGE_TYPE_ROOM_LEAVE_REQUEST",
+              "number": 9
+            },
+            {
+              "name": "LOBBY_MESSAGE_TYPE_ROOM_STATE",
+              "number": 10
+            },
+            {
+              "name": "LOBBY_MESSAGE_TYPE_MATCH_START",
+              "number": 11
+            },
+            {
+              "name": "LOBBY_MESSAGE_TYPE_MATCH_RESULT",
+              "number": 12
+            }
+          ]
+        }
+      ],
+      "go_package": "github.com/phantasm-klash/phk-protocol/gen/go/phk/v1;phkv1",
+      "imports": [
+        "phk/v1/common.proto",
+        "phk/v1/matchmaking.proto"
+      ],
+      "messages": [
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "user_id",
+              "number": 1,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "player_id",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "display_name",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "character_id",
+              "number": 4,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "level",
+              "number": 5,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "rating_code",
+              "number": 6,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "loadout",
+              "number": 7,
+              "repeated": false,
+              "type": "LoadoutRef"
+            }
+          ],
+          "name": "LobbyPlayerProfile"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "user_id",
+              "number": 1,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "player_id",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "display_name",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "ready",
+              "number": 4,
+              "repeated": false,
+              "type": "bool"
+            },
+            {
+              "map": false,
+              "name": "host",
+              "number": 5,
+              "repeated": false,
+              "type": "bool"
+            },
+            {
+              "map": false,
+              "name": "connected",
+              "number": 6,
+              "repeated": false,
+              "type": "bool"
+            },
+            {
+              "map": false,
+              "name": "character_id",
+              "number": 7,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "loadout",
+              "number": 8,
+              "repeated": false,
+              "type": "LoadoutRef"
+            }
+          ],
+          "name": "LobbyPlayer"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "session_token",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "user_id",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "platform",
+              "number": 4,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "client_build",
+              "number": 5,
+              "repeated": false,
+              "type": "string"
+            }
+          ],
+          "name": "LobbyAuthRequest"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "session_token",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "user_id",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "player_id",
+              "number": 4,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "issued_at_ms",
+              "number": 5,
+              "repeated": false,
+              "type": "int64"
+            },
+            {
+              "map": false,
+              "name": "expires_at_ms",
+              "number": 6,
+              "repeated": false,
+              "type": "int64"
+            },
+            {
+              "map": false,
+              "name": "error",
+              "number": 7,
+              "repeated": false,
+              "type": "ErrorStatus"
+            }
+          ],
+          "name": "LobbyAuthResponse"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "session_token",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "user_id",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "known_ruleset_version",
+              "number": 4,
+              "repeated": false,
+              "type": "string"
+            }
+          ],
+          "name": "LobbyBootstrapRequest"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "profile",
+              "number": 2,
+              "repeated": false,
+              "type": "LobbyPlayerProfile"
+            },
+            {
+              "map": false,
+              "name": "ruleset_version",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "unlocked_character_ids",
+              "number": 4,
+              "repeated": true,
+              "type": "string"
+            },
+            {
+              "map": true,
+              "name": "server_flags",
+              "number": 5,
+              "repeated": false,
+              "type": "map<string,string>"
+            },
+            {
+              "map": false,
+              "name": "error",
+              "number": 6,
+              "repeated": false,
+              "type": "ErrorStatus"
+            }
+          ],
+          "name": "LobbyBootstrapResponse"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "room_code",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "mode_id",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "host_user_id",
+              "number": 4,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "loadout",
+              "number": 5,
+              "repeated": false,
+              "type": "LoadoutRef"
+            },
+            {
+              "map": true,
+              "name": "mode_params",
+              "number": 6,
+              "repeated": false,
+              "type": "map<string,string>"
+            }
+          ],
+          "name": "RoomCreateRequest"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "room_code",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "mode_id",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "host_user_id",
+              "number": 4,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "room",
+              "number": 5,
+              "repeated": false,
+              "type": "RoomStateMessage"
+            },
+            {
+              "map": false,
+              "name": "error",
+              "number": 6,
+              "repeated": false,
+              "type": "ErrorStatus"
+            }
+          ],
+          "name": "RoomCreateResponse"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "room_code",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "user_id",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "player_id",
+              "number": 4,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "loadout",
+              "number": 5,
+              "repeated": false,
+              "type": "LoadoutRef"
+            }
+          ],
+          "name": "RoomJoinRequest"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "room_code",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "mode_id",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "host_user_id",
+              "number": 4,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "players",
+              "number": 5,
+              "repeated": true,
+              "type": "LobbyPlayer"
+            },
+            {
+              "map": false,
+              "name": "room",
+              "number": 6,
+              "repeated": false,
+              "type": "RoomStateMessage"
+            },
+            {
+              "map": false,
+              "name": "error",
+              "number": 7,
+              "repeated": false,
+              "type": "ErrorStatus"
+            }
+          ],
+          "name": "RoomJoinResponse"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "room_code",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "user_id",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "player_id",
+              "number": 4,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "reason",
+              "number": 5,
+              "repeated": false,
+              "type": "string"
+            }
+          ],
+          "name": "RoomLeaveRequest"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "room_code",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "host_user_id",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "players",
+              "number": 4,
+              "repeated": true,
+              "type": "LobbyPlayer"
+            },
+            {
+              "map": false,
+              "name": "mode_id",
+              "number": 5,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "all_ready",
+              "number": 6,
+              "repeated": false,
+              "type": "bool"
+            },
+            {
+              "map": false,
+              "name": "ruleset_version",
+              "number": 7,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": true,
+              "name": "mode_params",
+              "number": 8,
+              "repeated": false,
+              "type": "map<string,string>"
+            }
+          ],
+          "name": "RoomStateMessage"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "match_id",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "server_seed",
+              "number": 3,
+              "repeated": false,
+              "type": "bytes"
+            },
+            {
+              "map": false,
+              "name": "battle_server_id",
+              "number": 4,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "endpoint",
+              "number": 5,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "signed_battle_ticket",
+              "number": 6,
+              "repeated": false,
+              "type": "SignedBattleTicket"
+            },
+            {
+              "map": false,
+              "name": "ruleset_version",
+              "number": 7,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "mode_id",
+              "number": 8,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "player_ids",
+              "number": 9,
+              "repeated": true,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "started_at_ms",
+              "number": 10,
+              "repeated": false,
+              "type": "int64"
+            }
+          ],
+          "name": "MatchStartMessage"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "version",
+              "number": 1,
+              "repeated": false,
+              "type": "VersionStamp"
+            },
+            {
+              "map": false,
+              "name": "match_id",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "winner_player_id",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": true,
+              "name": "points",
+              "number": 4,
+              "repeated": false,
+              "type": "map<string,int32>"
+            },
+            {
+              "map": false,
+              "name": "replay_id",
+              "number": 5,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "server_authoritative",
+              "number": 6,
+              "repeated": false,
+              "type": "bool"
+            },
+            {
+              "map": false,
+              "name": "mode_id",
+              "number": 7,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "settled_at_ms",
+              "number": 8,
+              "repeated": false,
+              "type": "int64"
+            }
+          ],
+          "name": "MatchResultMessage"
+        }
+      ],
+      "package": "phk.v1",
+      "path": "proto/phk/v1/lobby.proto",
+      "sha256": "47547622732a0041f27f2d5880287480b5ed335ba39cc9a9e734fe00f2eeae3c"
     },
     {
       "enums": [],
@@ -1748,5 +2652,5 @@
     "bullet_patterns"
   ],
   "ruleset_version": "ruleset-local-s0",
-  "source_digest_sha256": "70f1a2413e1bb36de5ac8640deae39890109a8cdde5808cd7f49cd53d417a6af"
+  "source_digest_sha256": "1d7bc3d325358efdecfe5a6f4a8d411c747c3a9ca5ebf718f25ad0bf7e6e4d5d"
 }

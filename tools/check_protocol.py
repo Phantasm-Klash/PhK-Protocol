@@ -21,6 +21,7 @@ REQUIRED_PROTO_FILES = {
     "battle.proto",
     "replay.proto",
     "admin.proto",
+    "lobby.proto",
 }
 
 REQUIRED_MESSAGES = {
@@ -37,9 +38,25 @@ REQUIRED_MESSAGES = {
         "BattleEvent",
         "BattleResult",
         "SignedBattleResult",
+        "BossRacePlayerState",
+        "BossRaceModeState",
     ],
     "replay.proto": ["ReplayInputStreamSummary", "ReplayRecord"],
     "admin.proto": ["BattleServerHeartbeat", "BattleResultSubmitRequest", "BattleResultSubmitResponse"],
+    "lobby.proto": [
+        "LobbyAuthRequest",
+        "LobbyAuthResponse",
+        "LobbyBootstrapRequest",
+        "LobbyBootstrapResponse",
+        "RoomCreateRequest",
+        "RoomCreateResponse",
+        "RoomJoinRequest",
+        "RoomJoinResponse",
+        "RoomLeaveRequest",
+        "RoomStateMessage",
+        "MatchStartMessage",
+        "MatchResultMessage",
+    ],
 }
 
 REQUIRED_FIELD_NAMES = {
@@ -116,7 +133,81 @@ REQUIRED_FIELD_NAMES = {
         "final_state_hash",
         "final_tick",
     ],
+    "BossRacePlayerState": [
+        "player_id",
+        "boss_current_hp",
+        "boss_max_hp",
+        "damage_dealt",
+        "defeated",
+        "defeat_tick",
+    ],
+    "BossRaceModeState": [
+        "version",
+        "match_id",
+        "mode_id",
+        "tick",
+        "players",
+        "winner_player_id",
+        "match_over",
+        "ruleset_version",
+    ],
+    "LobbyAuthRequest": ["version", "session_token", "user_id"],
+    "LobbyAuthResponse": ["version", "session_token", "user_id", "player_id"],
+    "LobbyBootstrapRequest": ["version", "session_token", "known_ruleset_version"],
+    "LobbyBootstrapResponse": ["version", "profile", "ruleset_version"],
+    "RoomCreateRequest": ["version", "room_code", "mode_id", "host_user_id"],
+    "RoomCreateResponse": ["version", "room_code", "mode_id", "host_user_id", "room"],
+    "RoomJoinRequest": ["version", "room_code", "user_id", "player_id"],
+    "RoomJoinResponse": ["version", "room_code", "players"],
+    "RoomLeaveRequest": ["version", "room_code", "user_id", "player_id"],
+    "RoomStateMessage": ["version", "room_code", "host_user_id", "players", "mode_id", "all_ready"],
+    "MatchStartMessage": [
+        "version",
+        "match_id",
+        "server_seed",
+        "battle_server_id",
+        "endpoint",
+        "signed_battle_ticket",
+        "ruleset_version",
+        "mode_id",
+        "player_ids",
+    ],
+    "MatchResultMessage": [
+        "version",
+        "match_id",
+        "winner_player_id",
+        "points",
+        "replay_id",
+        "server_authoritative",
+    ],
 }
+
+
+MANIFEST_GATED_MESSAGES = [
+    "BusinessSecureEnvelope",
+    "BattleTicket",
+    "BattlePacketHeader",
+    "BattleInput",
+    "BattleModeAction",
+    "BattleSnapshot",
+    "BattleEvent",
+    "BattleResult",
+    "ReplayInputStreamSummary",
+    "BossRaceModeState",
+    "BossRacePlayerState",
+    "LobbyAuthRequest",
+    "LobbyAuthResponse",
+    "LobbyBootstrapRequest",
+    "LobbyBootstrapResponse",
+    "RoomCreateRequest",
+    "RoomCreateResponse",
+    "RoomJoinRequest",
+    "RoomJoinResponse",
+    "RoomLeaveRequest",
+    "RoomStateMessage",
+    "MatchStartMessage",
+    "MatchResultMessage",
+]
 
 
 def fail(message: str) -> None:
@@ -164,7 +255,11 @@ def check_proto_files() -> None:
 
 
 def check_json_files() -> None:
-    for path in [ROOT / "schemas" / "ruleset.schema.json", ROOT / "fixtures" / "v0_1_minimal_flow.json"]:
+    for path in [
+        ROOT / "schemas" / "ruleset.schema.json",
+        ROOT / "fixtures" / "v0_1_minimal_flow.json",
+        ROOT / "fixtures" / "v0_1_mvp_boss_race_flow.json",
+    ]:
         with path.open("r", encoding="utf-8") as handle:
             json.load(handle)
 
@@ -176,6 +271,22 @@ def check_ruleset_schema() -> None:
     missing = expected - required
     if missing:
         fail(f"ruleset schema missing required keys {sorted(missing)}")
+    boss_race = schema.get("$defs", {}).get("boss_race")
+    if not isinstance(boss_race, dict):
+        fail("ruleset schema missing $defs.boss_race for mvp_boss_race")
+    properties = boss_race.get("properties", {})
+    if properties.get("mode_id", {}).get("const") != "mvp_boss_race":
+        fail("ruleset schema boss_race mode_id must be const mvp_boss_race")
+    if properties.get("boss_count", {}).get("const") != 1:
+        fail("ruleset schema boss_race boss_count must be const 1")
+    if properties.get("pattern_count", {}).get("const") != 10:
+        fail("ruleset schema boss_race pattern_count must be const 10")
+    if properties.get("min_players", {}).get("const") != 2 or properties.get("max_players", {}).get("const") != 2:
+        fail("ruleset schema boss_race must be const 2 players")
+    if properties.get("win_condition", {}).get("const") != "first_boss_defeat":
+        fail("ruleset schema boss_race win_condition must be const first_boss_defeat")
+    if "mvp_boss_race" not in schema.get("properties", {}):
+        fail("ruleset schema missing top-level mvp_boss_race property")
 
 
 def check_fixture() -> None:
@@ -237,6 +348,88 @@ def check_fixture() -> None:
         fail("golden_replay_summary match_id must match signed battle result callback")
 
 
+def check_mvp_boss_race_fixture() -> None:
+    fixture = json.loads((ROOT / "fixtures" / "v0_1_mvp_boss_race_flow.json").read_text(encoding="utf-8"))
+    for key in [
+        "mode",
+        "lobby_auth_request",
+        "lobby_auth_response",
+        "lobby_bootstrap_request",
+        "lobby_bootstrap_response",
+        "room_create_request",
+        "room_create_response",
+        "room_join_request",
+        "room_join_response",
+        "room_state",
+        "match_start",
+        "boss_race_mode_state",
+        "match_result",
+    ]:
+        if key not in fixture:
+            fail(f"mvp fixture missing {key}")
+    mode = fixture["mode"]
+    if mode.get("mode_id") != "mvp_boss_race":
+        fail("mvp fixture mode_id must be mvp_boss_race")
+    if mode.get("boss_count") != 1:
+        fail("mvp fixture must have exactly 1 boss")
+    if mode.get("pattern_count") != 10:
+        fail("mvp fixture must have exactly 10 bullet patterns")
+    if mode.get("min_players") != 2 or mode.get("max_players") != 2:
+        fail("mvp fixture must be exactly 2 players")
+    if mode.get("win_condition") != "first_boss_defeat":
+        fail("mvp fixture win_condition must be first_boss_defeat")
+    if mode.get("server_authoritative") is not True:
+        fail("mvp fixture mode must be server authoritative")
+    start = fixture["match_start"]
+    for key in ["match_id", "server_seed_hex", "battle_server_id", "endpoint", "ruleset_version", "mode_id", "player_ids"]:
+        if key not in start:
+            fail(f"mvp match_start missing {key}")
+    if len(start.get("player_ids", [])) != 2:
+        fail("mvp match_start must carry exactly 2 player ids")
+    if start.get("mode_id") != "mvp_boss_race":
+        fail("mvp match_start mode_id must be mvp_boss_race")
+    seed_hex = str(start.get("server_seed_hex", ""))
+    if len(seed_hex) != 32 or any(ch not in "0123456789abcdef" for ch in seed_hex):
+        fail("mvp match_start server_seed_hex must be 16 bytes hex")
+    state = fixture["boss_race_mode_state"]
+    if state.get("match_id") != start.get("match_id"):
+        fail("mvp boss_race_mode_state match_id must match match_start")
+    players = state.get("players", [])
+    if len(players) != 2:
+        fail("mvp boss_race_mode_state must carry 2 player states")
+    if state.get("winner_player_id") not in start.get("player_ids", []):
+        fail("mvp boss_race_mode_state winner_player_id must be a match player")
+    for player in players:
+        for key in ["player_id", "boss_current_hp", "boss_max_hp", "damage_dealt", "defeated"]:
+            if key not in player:
+                fail(f"mvp boss race player state missing {key}")
+        if player.get("boss_max_hp", 0) <= 0:
+            fail("mvp boss race player state boss_max_hp must be positive")
+        if player.get("boss_current_hp", -1) < 0:
+            fail("mvp boss race player state boss_current_hp must be non-negative")
+        if player.get("damage_dealt", -1) < 0:
+            fail("mvp boss race player state damage_dealt must be non-negative")
+    result = fixture["match_result"]
+    if result.get("match_id") != start.get("match_id"):
+        fail("mvp match_result match_id must match match_start")
+    if result.get("winner_player_id") != state.get("winner_player_id"):
+        fail("mvp match_result winner_player_id must match boss_race_mode_state")
+    if result.get("server_authoritative") is not True:
+        fail("mvp match_result must be server authoritative")
+    points = result.get("points", {})
+    if set(points.keys()) != set(start.get("player_ids", [])):
+        fail("mvp match_result points must cover every match player")
+    if points.get(result.get("winner_player_id"), 0) <= 0:
+        fail("mvp match_result winner must receive positive points")
+    room_state = fixture["room_state"]
+    if room_state.get("mode_id") != "mvp_boss_race":
+        fail("mvp room_state mode_id must be mvp_boss_race")
+    if len(room_state.get("players", [])) != 2:
+        fail("mvp room_state must carry 2 players")
+    if room_state.get("all_ready") is not True:
+        fail("mvp room_state must be all ready before match start")
+
+
 def check_descriptor() -> None:
     descriptor_path = ROOT / "descriptors" / "phk_v1_descriptor.json"
     if not descriptor_path.exists():
@@ -250,7 +443,31 @@ def check_descriptor() -> None:
         for proto_file in descriptor.get("files", [])
         for message in proto_file.get("messages", [])
     }
-    for required in ["BusinessSecureEnvelope", "BattleTicket", "BattlePacketHeader", "BattleInput", "BattleModeAction", "BattleSnapshot", "BattleEvent", "BattleResult", "ReplayInputStreamSummary"]:
+    for required in [
+        "BusinessSecureEnvelope",
+        "BattleTicket",
+        "BattlePacketHeader",
+        "BattleInput",
+        "BattleModeAction",
+        "BattleSnapshot",
+        "BattleEvent",
+        "BattleResult",
+        "ReplayInputStreamSummary",
+        "BossRaceModeState",
+        "BossRacePlayerState",
+        "LobbyAuthRequest",
+        "LobbyAuthResponse",
+        "LobbyBootstrapRequest",
+        "LobbyBootstrapResponse",
+        "RoomCreateRequest",
+        "RoomCreateResponse",
+        "RoomJoinRequest",
+        "RoomJoinResponse",
+        "RoomLeaveRequest",
+        "RoomStateMessage",
+        "MatchStartMessage",
+        "MatchResultMessage",
+    ]:
         if required not in message_names:
             fail(f"descriptor missing message {required}")
 
@@ -288,6 +505,20 @@ def check_go_manifest() -> None:
             "GoldenReplaySummaryFinalStateHash": str(replay_summary.get("final_state_hash", "")),
         }
     )
+    mvp_fixture = json.loads((ROOT / "fixtures" / "v0_1_mvp_boss_race_flow.json").read_text(encoding="utf-8"))
+    mvp_mode = mvp_fixture["mode"]
+    mvp_start = mvp_fixture["match_start"]
+    mvp_state = mvp_fixture["boss_race_mode_state"]
+    mvp_result = mvp_fixture["match_result"]
+    expected_constants.update(
+        {
+            "MvpBossRaceModeID": str(mvp_mode.get("mode_id", "")),
+            "MvpBossRaceWinCondition": str(mvp_mode.get("win_condition", "")),
+            "MvpBossRaceMatchID": str(mvp_start.get("match_id", "")),
+            "MvpBossRaceWinnerPlayerID": str(mvp_result.get("winner_player_id", "")),
+            "MvpBossRaceReplayID": str(mvp_result.get("replay_id", "")),
+        }
+    )
     for name, value in expected_constants.items():
         if f'{name} = "{value}"' not in manifest:
             fail(f"Go manifest {name} is out of sync")
@@ -301,13 +532,19 @@ def check_go_manifest() -> None:
         "GoldenReplaySummaryInputCount": int(replay_summary.get("input_count", 0)),
         "GoldenReplaySummaryEventCount": int(replay_summary.get("event_count", 0)),
         "GoldenReplaySummaryFinalTick": int(replay_summary.get("final_tick", 0)),
+        "MvpBossRaceBossCount": int(mvp_mode.get("boss_count", 0)),
+        "MvpBossRacePatternCount": int(mvp_mode.get("pattern_count", 0)),
+        "MvpBossRaceMaxPlayers": int(mvp_mode.get("max_players", 0)),
+        "MvpBossRaceFinalTick": int(mvp_state.get("tick", 0)),
     }
     for name, value in expected_int_constants.items():
         if f"{name} = {value}" not in manifest:
             fail(f"Go manifest {name} is out of sync")
     if f"BattleEventServerAuthoritative = {str(bool(battle_event.get('server_authoritative', False))).lower()}" not in manifest:
         fail("Go manifest BattleEventServerAuthoritative is out of sync")
-    for message_name in ["BusinessSecureEnvelope", "BattleTicket", "BattlePacketHeader", "BattleInput", "BattleModeAction", "BattleSnapshot", "BattleEvent", "BattleResult", "ReplayInputStreamSummary"]:
+    if f"MvpBossRaceServerAuthoritative = {str(bool(mvp_result.get('server_authoritative', False))).lower()}" not in manifest:
+        fail("Go manifest MvpBossRaceServerAuthoritative is out of sync")
+    for message_name in MANIFEST_GATED_MESSAGES:
         if f'"{message_name}":' not in manifest:
             fail(f"Go manifest missing message {message_name}")
         for field in REQUIRED_FIELD_NAMES.get(message_name, []):
@@ -348,6 +585,20 @@ def check_cpp_manifest() -> None:
             "kGoldenReplaySummaryFinalStateHash": str(replay_summary.get("final_state_hash", "")),
         }
     )
+    mvp_fixture = json.loads((ROOT / "fixtures" / "v0_1_mvp_boss_race_flow.json").read_text(encoding="utf-8"))
+    mvp_mode = mvp_fixture["mode"]
+    mvp_start = mvp_fixture["match_start"]
+    mvp_state = mvp_fixture["boss_race_mode_state"]
+    mvp_result = mvp_fixture["match_result"]
+    expected_constants.update(
+        {
+            "kMvpBossRaceModeId": str(mvp_mode.get("mode_id", "")),
+            "kMvpBossRaceWinCondition": str(mvp_mode.get("win_condition", "")),
+            "kMvpBossRaceMatchId": str(mvp_start.get("match_id", "")),
+            "kMvpBossRaceWinnerPlayerId": str(mvp_result.get("winner_player_id", "")),
+            "kMvpBossRaceReplayId": str(mvp_result.get("replay_id", "")),
+        }
+    )
     for name, value in expected_constants.items():
         if f'{name} = "{value}"' not in manifest:
             fail(f"C++ manifest {name} is out of sync")
@@ -361,13 +612,19 @@ def check_cpp_manifest() -> None:
         "kGoldenReplaySummaryInputCount": int(replay_summary.get("input_count", 0)),
         "kGoldenReplaySummaryEventCount": int(replay_summary.get("event_count", 0)),
         "kGoldenReplaySummaryFinalTick": int(replay_summary.get("final_tick", 0)),
+        "kMvpBossRaceBossCount": int(mvp_mode.get("boss_count", 0)),
+        "kMvpBossRacePatternCount": int(mvp_mode.get("pattern_count", 0)),
+        "kMvpBossRaceMaxPlayers": int(mvp_mode.get("max_players", 0)),
+        "kMvpBossRaceFinalTick": int(mvp_state.get("tick", 0)),
     }
     for name, value in expected_int_constants.items():
         if f"{name} = {value}" not in manifest:
             fail(f"C++ manifest {name} is out of sync")
     if f"kBattleEventServerAuthoritative = {str(bool(battle_event.get('server_authoritative', False))).lower()}" not in manifest:
         fail("C++ manifest kBattleEventServerAuthoritative is out of sync")
-    for message_name in ["BusinessSecureEnvelope", "BattleTicket", "BattlePacketHeader", "BattleInput", "BattleModeAction", "BattleSnapshot", "BattleEvent", "BattleResult", "ReplayInputStreamSummary"]:
+    if f"kMvpBossRaceServerAuthoritative = {str(bool(mvp_result.get('server_authoritative', False))).lower()}" not in manifest:
+        fail("C++ manifest kMvpBossRaceServerAuthoritative is out of sync")
+    for message_name in MANIFEST_GATED_MESSAGES:
         for field in REQUIRED_FIELD_NAMES.get(message_name, []):
             if f'{{"{message_name}", "{field}"}}' not in manifest:
                 fail(f"C++ manifest {message_name} missing field {field}")
@@ -378,6 +635,7 @@ def main() -> None:
     check_json_files()
     check_ruleset_schema()
     check_fixture()
+    check_mvp_boss_race_fixture()
     check_descriptor()
     check_go_manifest()
     check_cpp_manifest()

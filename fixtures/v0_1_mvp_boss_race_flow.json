@@ -1,0 +1,162 @@
+{
+  "fixture_version": "0.1.0",
+  "flow_id": "v0_1_mvp_boss_race_flow",
+  "protocol_version": 1,
+  "business_api_version": "0.1.0-draft",
+  "battle_api_version": "0.1.0-draft",
+  "ruleset_version": "ruleset-local-s0",
+  "ruleset_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "mode": {
+    "mode_id": "mvp_boss_race",
+    "min_players": 2,
+    "max_players": 2,
+    "boss_count": 1,
+    "pattern_count": 10,
+    "win_condition": "first_boss_defeat",
+    "server_authoritative": true,
+    "boss_id": "boss_mvp_01",
+    "ruleset_version": "ruleset-local-s0"
+  },
+  "lobby_auth_request": {
+    "session_token": "session-dev-alice",
+    "user_id": "user-alice",
+    "platform": "web",
+    "client_build": "0.1.0-draft"
+  },
+  "lobby_auth_response": {
+    "session_token": "session-dev-alice",
+    "user_id": "user-alice",
+    "player_id": "p1",
+    "issued_at_ms": 1782489500000,
+    "expires_at_ms": 1782493100000
+  },
+  "lobby_bootstrap_request": {
+    "session_token": "session-dev-alice",
+    "user_id": "user-alice",
+    "known_ruleset_version": "ruleset-local-s0"
+  },
+  "lobby_bootstrap_response": {
+    "profile": {
+      "user_id": "user-alice",
+      "player_id": "p1",
+      "display_name": "Alice",
+      "character_id": "char_reimu",
+      "level": 1,
+      "rating_code": "bronze"
+    },
+    "ruleset_version": "ruleset-local-s0",
+    "unlocked_character_ids": ["char_reimu"]
+  },
+  "room_create_request": {
+    "room_code": "RACE01",
+    "mode_id": "mvp_boss_race",
+    "host_user_id": "user-alice"
+  },
+  "room_create_response": {
+    "room_code": "RACE01",
+    "mode_id": "mvp_boss_race",
+    "host_user_id": "user-alice"
+  },
+  "room_join_request": {
+    "room_code": "RACE01",
+    "user_id": "user-bob",
+    "player_id": "p2"
+  },
+  "room_join_response": {
+    "room_code": "RACE01",
+    "mode_id": "mvp_boss_race",
+    "host_user_id": "user-alice",
+    "players": [
+      {
+        "user_id": "user-alice",
+        "player_id": "p1",
+        "display_name": "Alice",
+        "ready": true,
+        "host": true,
+        "connected": true,
+        "character_id": "char_reimu"
+      },
+      {
+        "user_id": "user-bob",
+        "player_id": "p2",
+        "display_name": "Bob",
+        "ready": true,
+        "host": false,
+        "connected": true,
+        "character_id": "char_marisa"
+      }
+    ]
+  },
+  "room_state": {
+    "room_code": "RACE01",
+    "host_user_id": "user-alice",
+    "mode_id": "mvp_boss_race",
+    "all_ready": true,
+    "ruleset_version": "ruleset-local-s0",
+    "players": [
+      {
+        "user_id": "user-alice",
+        "player_id": "p1",
+        "display_name": "Alice",
+        "ready": true,
+        "host": true,
+        "connected": true
+      },
+      {
+        "user_id": "user-bob",
+        "player_id": "p2",
+        "display_name": "Bob",
+        "ready": true,
+        "host": false,
+        "connected": true
+      }
+    ]
+  },
+  "match_start": {
+    "match_id": "match-mvp-001",
+    "server_seed_hex": "000102030405060708090a0b0c0d0e0f",
+    "battle_server_id": "battle-local-1",
+    "endpoint": "127.0.0.1:7901",
+    "ruleset_version": "ruleset-local-s0",
+    "mode_id": "mvp_boss_race",
+    "player_ids": ["p1", "p2"],
+    "started_at_ms": 1782489600000
+  },
+  "boss_race_mode_state": {
+    "match_id": "match-mvp-001",
+    "mode_id": "mvp_boss_race",
+    "tick": 5400,
+    "winner_player_id": "p1",
+    "match_over": true,
+    "ruleset_version": "ruleset-local-s0",
+    "players": [
+      {
+        "player_id": "p1",
+        "boss_current_hp": 0,
+        "boss_max_hp": 100000,
+        "damage_dealt": 100000,
+        "defeated": true,
+        "defeat_tick": 5400,
+        "points_awarded": 3
+      },
+      {
+        "player_id": "p2",
+        "boss_current_hp": 24000,
+        "boss_max_hp": 100000,
+        "damage_dealt": 76000,
+        "defeated": false,
+        "defeat_tick": 0,
+        "points_awarded": 0
+      }
+    ]
+  },
+  "match_result": {
+    "match_id": "match-mvp-001",
+    "winner_player_id": "p1",
+    "points": { "p1": 3, "p2": 0 },
+    "replay_id": "replay-mvp-001",
+    "server_authoritative": true,
+    "mode_id": "mvp_boss_race",
+    "settled_at_ms": 1782489720000
+  }
+}

@@ -9,7 +9,7 @@ const (
 	BattleAPIVersion = "0.1.0-draft"
 	RulesetVersion = "ruleset-local-s0"
 	RulesetHash = "sha256:0000000000000000000000000000000000000000000000000000000000000000"
-	SourceDigestSHA256 = "70f1a2413e1bb36de5ac8640deae39890109a8cdde5808cd7f49cd53d417a6af"
+	SourceDigestSHA256 = "1d7bc3d325358efdecfe5a6f4a8d411c747c3a9ca5ebf718f25ad0bf7e6e4d5d"
 	BattleModeActionMatchID = "match-001"
 	BattleModeActionPlayerID = "p1"
 	BattleModeActionActionID = "match-001_a000001"
@@ -49,6 +49,16 @@ const (
 	BattleResultCallbackSubmitPath = "/v1/battle/results/submit"
 	BattleResultCallbackSettlementKey = "battle-result:match-001"
 	BattleResultCallbackSettledAtMS = 1782489610000
+	MvpBossRaceModeID = "mvp_boss_race"
+	MvpBossRaceWinCondition = "first_boss_defeat"
+	MvpBossRaceBossCount = 1
+	MvpBossRacePatternCount = 10
+	MvpBossRaceMaxPlayers = 2
+	MvpBossRaceMatchID = "match-mvp-001"
+	MvpBossRaceWinnerPlayerID = "p1"
+	MvpBossRaceReplayID = "replay-mvp-001"
+	MvpBossRaceServerAuthoritative = true
+	MvpBossRaceFinalTick = 5400
 )
 
 var MessageFields = map[string][]string{
@@ -69,15 +79,31 @@ var MessageFields = map[string][]string{
 	"BattleServerHeartbeat": {"version", "battle_server_id", "endpoint", "active_matches", "max_matches", "observed_at_ms", "labels"},
 	"BattleSnapshot": {"version", "match_id", "snapshot_tick", "snapshot_kind", "state_hash", "players", "bullets_delta", "mode_state", "event_cursor"},
 	"BattleTicket": {"version", "ticket_id", "match_id", "user_id", "player_id", "mode_id", "battle_server_id", "endpoint", "deck_snapshot_hash", "ruleset_version", "ticket_nonce", "issued_at_ms", "expires_at_ms", "business_session_id"},
+	"BossRaceModeState": {"version", "match_id", "mode_id", "tick", "players", "winner_player_id", "match_over", "ruleset_version"},
+	"BossRacePlayerState": {"player_id", "boss_current_hp", "boss_max_hp", "damage_dealt", "defeated", "defeat_tick", "points_awarded"},
 	"BusinessAck": {"version", "session_id", "ack_seq", "error"},
 	"BusinessEnvelopePlaintext": {"idempotency_key", "user_id", "body"},
 	"BusinessSecureEnvelope": {"version", "session_id", "seq", "timestamp_ms", "nonce", "op_code", "key_id", "aead_alg", "body_ciphertext", "auth_tag", "session_mac", "request_signature"},
 	"DeckSnapshotRef": {"deck_id", "deck_snapshot_hash", "ruleset_version", "card_ids"},
 	"ErrorStatus": {"code", "message", "retryable"},
 	"LoadoutRef": {"user_id", "player_id", "character_id", "stage_id", "rating_code", "deck"},
+	"LobbyAuthRequest": {"version", "session_token", "user_id", "platform", "client_build"},
+	"LobbyAuthResponse": {"version", "session_token", "user_id", "player_id", "issued_at_ms", "expires_at_ms", "error"},
+	"LobbyBootstrapRequest": {"version", "session_token", "user_id", "known_ruleset_version"},
+	"LobbyBootstrapResponse": {"version", "profile", "ruleset_version", "unlocked_character_ids", "server_flags", "error"},
+	"LobbyPlayer": {"user_id", "player_id", "display_name", "ready", "host", "connected", "character_id", "loadout"},
+	"LobbyPlayerProfile": {"user_id", "player_id", "display_name", "character_id", "level", "rating_code", "loadout"},
 	"MatchAllocationRequest": {"version", "mode_id", "room_code", "loadout", "mode_params"},
+	"MatchResultMessage": {"version", "match_id", "winner_player_id", "points", "replay_id", "server_authoritative", "mode_id", "settled_at_ms"},
+	"MatchStartMessage": {"version", "match_id", "server_seed", "battle_server_id", "endpoint", "signed_battle_ticket", "ruleset_version", "mode_id", "player_ids", "started_at_ms"},
 	"ReplayInputStreamSummary": {"version", "replay_id", "match_id", "owner_user_id", "input_count", "event_count", "input_stream_hash", "event_stream_hash", "final_state_hash", "final_tick"},
 	"ReplayRecord": {"version", "replay_id", "match_id", "owner_user_id", "mode_id", "stage_id", "loadout", "stream", "settlement", "server_authoritative", "created_at_ms"},
+	"RoomCreateRequest": {"version", "room_code", "mode_id", "host_user_id", "loadout", "mode_params"},
+	"RoomCreateResponse": {"version", "room_code", "mode_id", "host_user_id", "room", "error"},
+	"RoomJoinRequest": {"version", "room_code", "user_id", "player_id", "loadout"},
+	"RoomJoinResponse": {"version", "room_code", "mode_id", "host_user_id", "players", "room", "error"},
+	"RoomLeaveRequest": {"version", "room_code", "user_id", "player_id", "reason"},
+	"RoomStateMessage": {"version", "room_code", "host_user_id", "players", "mode_id", "all_ready", "ruleset_version", "mode_params"},
 	"SignedBattleResult": {"result", "signature_alg", "key_id", "signature"},
 	"SignedBattleTicket": {"ticket", "signature_alg", "key_id", "signature"},
 	"SignedBlob": {"payload", "signature_alg", "key_id", "signature"},
