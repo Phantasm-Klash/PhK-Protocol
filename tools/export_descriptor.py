@@ -116,7 +116,7 @@ def build_descriptor() -> dict[str, object]:
 def main() -> None:
     DESCRIPTOR_DIR.mkdir(parents=True, exist_ok=True)
     descriptor = build_descriptor()
-    DESCRIPTOR_PATH.write_text(json.dumps(descriptor, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    DESCRIPTOR_PATH.write_text(json.dumps(descriptor, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
     print(f"exported {DESCRIPTOR_PATH.relative_to(ROOT)}")
 
 

@@ -197,6 +197,10 @@
             {
               "name": "BATTLE_PAYLOAD_TYPE_BOSS_RACE_STATE",
               "number": 10
+            },
+            {
+              "name": "BATTLE_PAYLOAD_TYPE_DANMAKU_SPAWN",
+              "number": 11
             }
           ]
         }
@@ -204,6 +208,7 @@
       "go_package": "github.com/phantasm-klash/phk-protocol/gen/go/phk/v1;phkv1",
       "imports": [
         "phk/v1/common.proto",
+        "phk/v1/danmaku.proto",
         "phk/v1/matchmaking.proto"
       ],
       "messages": [
@@ -1022,7 +1027,7 @@
       ],
       "package": "phk.v1",
       "path": "proto/phk/v1/battle.proto",
-      "sha256": "dd3484a2ebb04d6df1e510b1044042dfb805cb9969d8b94fb7a741ef570aa0f3"
+      "sha256": "7b1edeba75f720410658c6eab9cfa860fb5d1584d9d1325f172107f0499f5068"
     },
     {
       "enums": [
@@ -1426,6 +1431,2334 @@
       "package": "phk.v1",
       "path": "proto/phk/v1/common.proto",
       "sha256": "c6d9bb468140dbf74fa971f5a38e0d6bfd3c28c422a7208ba7f33a43d4293f27"
+    },
+    {
+      "enums": [
+        {
+          "name": "BulletKind",
+          "values": [
+            {
+              "name": "BULLET_KIND_UNSPECIFIED",
+              "number": 0
+            },
+            {
+              "name": "BULLET_KIND_KUSABI_01",
+              "number": 9
+            },
+            {
+              "name": "BULLET_KIND_KUSABI_02",
+              "number": 10
+            },
+            {
+              "name": "BULLET_KIND_KUSABI_03",
+              "number": 11
+            },
+            {
+              "name": "BULLET_KIND_KUSABI_04",
+              "number": 12
+            },
+            {
+              "name": "BULLET_KIND_KUSABI_05",
+              "number": 13
+            },
+            {
+              "name": "BULLET_KIND_KUSABI_06",
+              "number": 14
+            },
+            {
+              "name": "BULLET_KIND_KUSABI_07",
+              "number": 15
+            },
+            {
+              "name": "BULLET_KIND_KUSABI_08",
+              "number": 16
+            },
+            {
+              "name": "BULLET_KIND_KUSABI_09",
+              "number": 17
+            },
+            {
+              "name": "BULLET_KIND_FUDA_01",
+              "number": 18
+            },
+            {
+              "name": "BULLET_KIND_FUDA_02",
+              "number": 19
+            },
+            {
+              "name": "BULLET_KIND_FUDA_03",
+              "number": 20
+            },
+            {
+              "name": "BULLET_KIND_FUDA_04",
+              "number": 21
+            },
+            {
+              "name": "BULLET_KIND_FUDA_05",
+              "number": 22
+            },
+            {
+              "name": "BULLET_KIND_FUDA_06",
+              "number": 23
+            },
+            {
+              "name": "BULLET_KIND_FUDA_07",
+              "number": 24
+            },
+            {
+              "name": "BULLET_KIND_FUDA_08",
+              "number": 25
+            },
+            {
+              "name": "BULLET_KIND_FUDA_09",
+              "number": 26
+            },
+            {
+              "name": "BULLET_KIND_RING_01",
+              "number": 27
+            },
+            {
+              "name": "BULLET_KIND_RING_02",
+              "number": 28
+            },
+            {
+              "name": "BULLET_KIND_RING_03",
+              "number": 29
+            },
+            {
+              "name": "BULLET_KIND_RING_04",
+              "number": 30
+            },
+            {
+              "name": "BULLET_KIND_RING_05",
+              "number": 31
+            },
+            {
+              "name": "BULLET_KIND_RING_06",
+              "number": 32
+            },
+            {
+              "name": "BULLET_KIND_RING_07",
+              "number": 33
+            },
+            {
+              "name": "BULLET_KIND_RING_08",
+              "number": 34
+            },
+            {
+              "name": "BULLET_KIND_RING_09",
+              "number": 35
+            },
+            {
+              "name": "BULLET_KIND_STAMA_01",
+              "number": 36
+            },
+            {
+              "name": "BULLET_KIND_STAMA_02",
+              "number": 37
+            },
+            {
+              "name": "BULLET_KIND_STAMA_03",
+              "number": 38
+            },
+            {
+              "name": "BULLET_KIND_STAMA_04",
+              "number": 39
+            },
+            {
+              "name": "BULLET_KIND_STAMA_05",
+              "number": 40
+            },
+            {
+              "name": "BULLET_KIND_STAMA_06",
+              "number": 41
+            },
+            {
+              "name": "BULLET_KIND_STAMA_07",
+              "number": 42
+            },
+            {
+              "name": "BULLET_KIND_STAMA_08",
+              "number": 43
+            },
+            {
+              "name": "BULLET_KIND_STAMA_09",
+              "number": 44
+            },
+            {
+              "name": "BULLET_KIND_KOME_01",
+              "number": 45
+            },
+            {
+              "name": "BULLET_KIND_KOME_02",
+              "number": 46
+            },
+            {
+              "name": "BULLET_KIND_KOME_03",
+              "number": 47
+            },
+            {
+              "name": "BULLET_KIND_KOME_04",
+              "number": 48
+            },
+            {
+              "name": "BULLET_KIND_KOME_05",
+              "number": 49
+            },
+            {
+              "name": "BULLET_KIND_KOME_06",
+              "number": 50
+            },
+            {
+              "name": "BULLET_KIND_KOME_07",
+              "number": 51
+            },
+            {
+              "name": "BULLET_KIND_KOME_08",
+              "number": 52
+            },
+            {
+              "name": "BULLET_KIND_KOME_09",
+              "number": 53
+            },
+            {
+              "name": "BULLET_KIND_DKOME_01",
+              "number": 54
+            },
+            {
+              "name": "BULLET_KIND_DKOME_02",
+              "number": 55
+            },
+            {
+              "name": "BULLET_KIND_DKOME_03",
+              "number": 56
+            },
+            {
+              "name": "BULLET_KIND_DKOME_04",
+              "number": 57
+            },
+            {
+              "name": "BULLET_KIND_DKOME_05",
+              "number": 58
+            },
+            {
+              "name": "BULLET_KIND_DKOME_06",
+              "number": 59
+            },
+            {
+              "name": "BULLET_KIND_DKOME_07",
+              "number": 60
+            },
+            {
+              "name": "BULLET_KIND_DKOME_08",
+              "number": 61
+            },
+            {
+              "name": "BULLET_KIND_DKOME_09",
+              "number": 62
+            },
+            {
+              "name": "BULLET_KIND_SHOSHI_01",
+              "number": 63
+            },
+            {
+              "name": "BULLET_KIND_SHOSHI_02",
+              "number": 64
+            },
+            {
+              "name": "BULLET_KIND_SHOSHI_03",
+              "number": 65
+            },
+            {
+              "name": "BULLET_KIND_SHOSHI_04",
+              "number": 66
+            },
+            {
+              "name": "BULLET_KIND_SHOSHI_05",
+              "number": 67
+            },
+            {
+              "name": "BULLET_KIND_SHOSHI_06",
+              "number": 68
+            },
+            {
+              "name": "BULLET_KIND_SHOSHI_07",
+              "number": 69
+            },
+            {
+              "name": "BULLET_KIND_SHOSHI_08",
+              "number": 70
+            },
+            {
+              "name": "BULLET_KIND_SHOSHI_09",
+              "number": 71
+            },
+            {
+              "name": "BULLET_KIND_SSTAMA_01",
+              "number": 72
+            },
+            {
+              "name": "BULLET_KIND_SSTAMA_02",
+              "number": 73
+            },
+            {
+              "name": "BULLET_KIND_SSTAMA_03",
+              "number": 74
+            },
+            {
+              "name": "BULLET_KIND_SSTAMA_04",
+              "number": 75
+            },
+            {
+              "name": "BULLET_KIND_SSTAMA_05",
+              "number": 76
+            },
+            {
+              "name": "BULLET_KIND_SSTAMA_06",
+              "number": 77
+            },
+            {
+              "name": "BULLET_KIND_SSTAMA_07",
+              "number": 78
+            },
+            {
+              "name": "BULLET_KIND_SSTAMA_08",
+              "number": 79
+            },
+            {
+              "name": "BULLET_KIND_SSTAMA_09",
+              "number": 80
+            },
+            {
+              "name": "BULLET_KIND_DSSTAMA_01",
+              "number": 81
+            },
+            {
+              "name": "BULLET_KIND_DSSTAMA_02",
+              "number": 82
+            },
+            {
+              "name": "BULLET_KIND_DSSTAMA_03",
+              "number": 83
+            },
+            {
+              "name": "BULLET_KIND_DSSTAMA_04",
+              "number": 84
+            },
+            {
+              "name": "BULLET_KIND_DSSTAMA_05",
+              "number": 85
+            },
+            {
+              "name": "BULLET_KIND_DSSTAMA_06",
+              "number": 86
+            },
+            {
+              "name": "BULLET_KIND_DSSTAMA_07",
+              "number": 87
+            },
+            {
+              "name": "BULLET_KIND_DSSTAMA_08",
+              "number": 88
+            },
+            {
+              "name": "BULLET_KIND_DSSTAMA_09",
+              "number": 89
+            },
+            {
+              "name": "BULLET_KIND_ARROW_01",
+              "number": 90
+            },
+            {
+              "name": "BULLET_KIND_ARROW_02",
+              "number": 91
+            },
+            {
+              "name": "BULLET_KIND_ARROW_03",
+              "number": 92
+            },
+            {
+              "name": "BULLET_KIND_ARROW_04",
+              "number": 93
+            },
+            {
+              "name": "BULLET_KIND_ARROW_05",
+              "number": 94
+            },
+            {
+              "name": "BULLET_KIND_ARROW_06",
+              "number": 95
+            },
+            {
+              "name": "BULLET_KIND_ARROW_07",
+              "number": 96
+            },
+            {
+              "name": "BULLET_KIND_ARROW_08",
+              "number": 97
+            },
+            {
+              "name": "BULLET_KIND_ARROW_09",
+              "number": 98
+            },
+            {
+              "name": "BULLET_KIND_SIZUKU_01",
+              "number": 99
+            },
+            {
+              "name": "BULLET_KIND_SIZUKU_02",
+              "number": 100
+            },
+            {
+              "name": "BULLET_KIND_SIZUKU_03",
+              "number": 101
+            },
+            {
+              "name": "BULLET_KIND_SIZUKU_04",
+              "number": 102
+            },
+            {
+              "name": "BULLET_KIND_SIZUKU_05",
+              "number": 103
+            },
+            {
+              "name": "BULLET_KIND_SIZUKU_06",
+              "number": 104
+            },
+            {
+              "name": "BULLET_KIND_SIZUKU_07",
+              "number": 105
+            },
+            {
+              "name": "BULLET_KIND_SIZUKU_08",
+              "number": 106
+            },
+            {
+              "name": "BULLET_KIND_SIZUKU_09",
+              "number": 107
+            },
+            {
+              "name": "BULLET_KIND_HYOU_01",
+              "number": 108
+            },
+            {
+              "name": "BULLET_KIND_HYOU_02",
+              "number": 109
+            },
+            {
+              "name": "BULLET_KIND_HYOU_03",
+              "number": 110
+            },
+            {
+              "name": "BULLET_KIND_HYOU_04",
+              "number": 111
+            },
+            {
+              "name": "BULLET_KIND_HYOU_05",
+              "number": 112
+            },
+            {
+              "name": "BULLET_KIND_HYOU_06",
+              "number": 113
+            },
+            {
+              "name": "BULLET_KIND_HYOU_07",
+              "number": 114
+            },
+            {
+              "name": "BULLET_KIND_HYOU_08",
+              "number": 115
+            },
+            {
+              "name": "BULLET_KIND_HYOU_09",
+              "number": 116
+            },
+            {
+              "name": "BULLET_KIND_DANGAN_01",
+              "number": 117
+            },
+            {
+              "name": "BULLET_KIND_DANGAN_02",
+              "number": 118
+            },
+            {
+              "name": "BULLET_KIND_DANGAN_03",
+              "number": 119
+            },
+            {
+              "name": "BULLET_KIND_DANGAN_04",
+              "number": 120
+            },
+            {
+              "name": "BULLET_KIND_DANGAN_05",
+              "number": 121
+            },
+            {
+              "name": "BULLET_KIND_DANGAN_06",
+              "number": 122
+            },
+            {
+              "name": "BULLET_KIND_DANGAN_07",
+              "number": 123
+            },
+            {
+              "name": "BULLET_KIND_DANGAN_08",
+              "number": 124
+            },
+            {
+              "name": "BULLET_KIND_DANGAN_09",
+              "number": 125
+            },
+            {
+              "name": "BULLET_KIND_KUNAI_01",
+              "number": 126
+            },
+            {
+              "name": "BULLET_KIND_KUNAI_02",
+              "number": 127
+            },
+            {
+              "name": "BULLET_KIND_KUNAI_03",
+              "number": 128
+            },
+            {
+              "name": "BULLET_KIND_KUNAI_04",
+              "number": 129
+            },
+            {
+              "name": "BULLET_KIND_KUNAI_05",
+              "number": 130
+            },
+            {
+              "name": "BULLET_KIND_KUNAI_06",
+              "number": 131
+            },
+            {
+              "name": "BULLET_KIND_KUNAI_07",
+              "number": 132
+            },
+            {
+              "name": "BULLET_KIND_KUNAI_08",
+              "number": 133
+            },
+            {
+              "name": "BULLET_KIND_KUNAI_09",
+              "number": 134
+            },
+            {
+              "name": "BULLET_KIND_ZENI_01",
+              "number": 135
+            },
+            {
+              "name": "BULLET_KIND_ZENI_02",
+              "number": 136
+            },
+            {
+              "name": "BULLET_KIND_ZENI_03",
+              "number": 137
+            },
+            {
+              "name": "BULLET_KIND_MHOSHI_01",
+              "number": 138
+            },
+            {
+              "name": "BULLET_KIND_MHOSHI_02",
+              "number": 139
+            },
+            {
+              "name": "BULLET_KIND_MHOSHI_03",
+              "number": 140
+            },
+            {
+              "name": "BULLET_KIND_MHOSHI_04",
+              "number": 141
+            },
+            {
+              "name": "BULLET_KIND_MHOSHI_05",
+              "number": 142
+            },
+            {
+              "name": "BULLET_KIND_MHOSHI_06",
+              "number": 143
+            },
+            {
+              "name": "BULLET_KIND_MHOSHI_07",
+              "number": 144
+            },
+            {
+              "name": "BULLET_KIND_MHOSHI_08",
+              "number": 145
+            },
+            {
+              "name": "BULLET_KIND_MHOSHI_09",
+              "number": 146
+            },
+            {
+              "name": "BULLET_KIND_MTAMA_01",
+              "number": 147
+            },
+            {
+              "name": "BULLET_KIND_MTAMA_02",
+              "number": 148
+            },
+            {
+              "name": "BULLET_KIND_MTAMA_03",
+              "number": 149
+            },
+            {
+              "name": "BULLET_KIND_MTAMA_04",
+              "number": 150
+            },
+            {
+              "name": "BULLET_KIND_MTAMA_05",
+              "number": 151
+            },
+            {
+              "name": "BULLET_KIND_MTAMA_06",
+              "number": 152
+            },
+            {
+              "name": "BULLET_KIND_MTAMA_07",
+              "number": 153
+            },
+            {
+              "name": "BULLET_KIND_MTAMA_08",
+              "number": 154
+            },
+            {
+              "name": "BULLET_KIND_MTAMA_09",
+              "number": 155
+            },
+            {
+              "name": "BULLET_KIND_CHOU_01",
+              "number": 156
+            },
+            {
+              "name": "BULLET_KIND_CHOU_02",
+              "number": 157
+            },
+            {
+              "name": "BULLET_KIND_CHOU_03",
+              "number": 158
+            },
+            {
+              "name": "BULLET_KIND_CHOU_04",
+              "number": 159
+            },
+            {
+              "name": "BULLET_KIND_CHOU_05",
+              "number": 160
+            },
+            {
+              "name": "BULLET_KIND_CHOU_06",
+              "number": 161
+            },
+            {
+              "name": "BULLET_KIND_CHOU_07",
+              "number": 162
+            },
+            {
+              "name": "BULLET_KIND_CHOU_08",
+              "number": 163
+            },
+            {
+              "name": "BULLET_KIND_CHOU_09",
+              "number": 164
+            },
+            {
+              "name": "BULLET_KIND_BEAN_01",
+              "number": 165
+            },
+            {
+              "name": "BULLET_KIND_BEAN_02",
+              "number": 166
+            },
+            {
+              "name": "BULLET_KIND_BEAN_03",
+              "number": 167
+            },
+            {
+              "name": "BULLET_KIND_BEAN_04",
+              "number": 168
+            },
+            {
+              "name": "BULLET_KIND_BEAN_05",
+              "number": 169
+            },
+            {
+              "name": "BULLET_KIND_BEAN_06",
+              "number": 170
+            },
+            {
+              "name": "BULLET_KIND_BEAN_07",
+              "number": 171
+            },
+            {
+              "name": "BULLET_KIND_BEAN_08",
+              "number": 172
+            },
+            {
+              "name": "BULLET_KIND_BEAN_09",
+              "number": 173
+            },
+            {
+              "name": "BULLET_KIND_HEART_01",
+              "number": 174
+            },
+            {
+              "name": "BULLET_KIND_HEART_02",
+              "number": 175
+            },
+            {
+              "name": "BULLET_KIND_HEART_03",
+              "number": 176
+            },
+            {
+              "name": "BULLET_KIND_HEART_04",
+              "number": 177
+            },
+            {
+              "name": "BULLET_KIND_HEART_05",
+              "number": 178
+            },
+            {
+              "name": "BULLET_KIND_HEART_06",
+              "number": 179
+            },
+            {
+              "name": "BULLET_KIND_HEART_07",
+              "number": 180
+            },
+            {
+              "name": "BULLET_KIND_HEART_08",
+              "number": 181
+            },
+            {
+              "name": "BULLET_KIND_HEART_09",
+              "number": 182
+            },
+            {
+              "name": "BULLET_KIND_KNIFE_01",
+              "number": 183
+            },
+            {
+              "name": "BULLET_KIND_KNIFE_02",
+              "number": 184
+            },
+            {
+              "name": "BULLET_KIND_KNIFE_03",
+              "number": 185
+            },
+            {
+              "name": "BULLET_KIND_KNIFE_04",
+              "number": 186
+            },
+            {
+              "name": "BULLET_KIND_KNIFE_05",
+              "number": 187
+            },
+            {
+              "name": "BULLET_KIND_KNIFE_06",
+              "number": 188
+            },
+            {
+              "name": "BULLET_KIND_KNIFE_07",
+              "number": 189
+            },
+            {
+              "name": "BULLET_KIND_KNIFE_08",
+              "number": 190
+            },
+            {
+              "name": "BULLET_KIND_KNIFE_09",
+              "number": 191
+            },
+            {
+              "name": "BULLET_KIND_LTAMA_02",
+              "number": 192
+            },
+            {
+              "name": "BULLET_KIND_LTAMA_04",
+              "number": 193
+            },
+            {
+              "name": "BULLET_KIND_LTAMA_05",
+              "number": 194
+            },
+            {
+              "name": "BULLET_KIND_LTAMA_07",
+              "number": 195
+            },
+            {
+              "name": "BULLET_KIND_LTAMA_08",
+              "number": 196
+            },
+            {
+              "name": "BULLET_KIND_KOU_01",
+              "number": 197
+            },
+            {
+              "name": "BULLET_KIND_KOU_02",
+              "number": 198
+            },
+            {
+              "name": "BULLET_KIND_KOU_04",
+              "number": 199
+            },
+            {
+              "name": "BULLET_KIND_KOU_05",
+              "number": 200
+            },
+            {
+              "name": "BULLET_KIND_KOU_06",
+              "number": 201
+            },
+            {
+              "name": "BULLET_KIND_KOU_07",
+              "number": 202
+            },
+            {
+              "name": "BULLET_KIND_KOU_08",
+              "number": 203
+            },
+            {
+              "name": "BULLET_KIND_SUN_02",
+              "number": 204
+            },
+            {
+              "name": "BULLET_KIND_DELAY_06",
+              "number": 205
+            },
+            {
+              "name": "BULLET_KIND_EN_01_01",
+              "number": 206
+            },
+            {
+              "name": "BULLET_KIND_EN_02_01",
+              "number": 207
+            },
+            {
+              "name": "BULLET_KIND_EN_04_01",
+              "number": 208
+            },
+            {
+              "name": "BULLET_KIND_EN_05_01",
+              "number": 209
+            },
+            {
+              "name": "BULLET_KIND_EN_07_01",
+              "number": 210
+            },
+            {
+              "name": "BULLET_KIND_EN_08_01",
+              "number": 211
+            },
+            {
+              "name": "BULLET_KIND_ONPU_02_01",
+              "number": 212
+            },
+            {
+              "name": "BULLET_KIND_ONPU_04_01",
+              "number": 213
+            },
+            {
+              "name": "BULLET_KIND_ONPU_05_01",
+              "number": 214
+            },
+            {
+              "name": "BULLET_KIND_ONPU_07_01",
+              "number": 215
+            },
+            {
+              "name": "BULLET_KIND_ONPU_08_01",
+              "number": 216
+            },
+            {
+              "name": "BULLET_KIND_BIRD_01",
+              "number": 217
+            },
+            {
+              "name": "BULLET_KIND_HUMAN_01",
+              "number": 218
+            },
+            {
+              "name": "BULLET_KIND_DARK_01",
+              "number": 219
+            },
+            {
+              "name": "BULLET_KIND_POISON_01",
+              "number": 220
+            },
+            {
+              "name": "BULLET_KIND_ANCHOR_01",
+              "number": 221
+            },
+            {
+              "name": "BULLET_KIND_SPARK_01",
+              "number": 222
+            },
+            {
+              "name": "BULLET_KIND_SPARK_02",
+              "number": 223
+            },
+            {
+              "name": "BULLET_KIND_UNZAN_01",
+              "number": 224
+            }
+          ]
+        },
+        {
+          "name": "BulletMotion",
+          "values": [
+            {
+              "name": "BULLET_MOTION_FUNC_00",
+              "number": 0
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_01",
+              "number": 1
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_02",
+              "number": 2
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_03",
+              "number": 3
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_04",
+              "number": 4
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_05",
+              "number": 5
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_06",
+              "number": 6
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_07",
+              "number": 7
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_08",
+              "number": 8
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_11",
+              "number": 11
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_12",
+              "number": 12
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_13",
+              "number": 13
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_14",
+              "number": 14
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_15",
+              "number": 15
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_16",
+              "number": 16
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_17",
+              "number": 17
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_18",
+              "number": 18
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_19",
+              "number": 19
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_20",
+              "number": 20
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_21",
+              "number": 21
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_22",
+              "number": 22
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_23",
+              "number": 23
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_24",
+              "number": 24
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_25",
+              "number": 25
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_26",
+              "number": 26
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_27",
+              "number": 27
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_28",
+              "number": 28
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_29",
+              "number": 29
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_30",
+              "number": 30
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_31",
+              "number": 31
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_32",
+              "number": 32
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_33",
+              "number": 33
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_34",
+              "number": 34
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_35",
+              "number": 35
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_36",
+              "number": 36
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_37",
+              "number": 37
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_38",
+              "number": 38
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_39",
+              "number": 39
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_40",
+              "number": 40
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_41",
+              "number": 41
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_42",
+              "number": 42
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_43",
+              "number": 43
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_44",
+              "number": 44
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_45",
+              "number": 45
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_46",
+              "number": 46
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_47",
+              "number": 47
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_48",
+              "number": 48
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_50",
+              "number": 50
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_51",
+              "number": 51
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_52",
+              "number": 52
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_53",
+              "number": 53
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_54",
+              "number": 54
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_55",
+              "number": 55
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_57",
+              "number": 57
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_58",
+              "number": 58
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_60",
+              "number": 60
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_61",
+              "number": 61
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_62",
+              "number": 62
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_63",
+              "number": 63
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_64",
+              "number": 64
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_65",
+              "number": 65
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_66",
+              "number": 66
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_67",
+              "number": 67
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_70",
+              "number": 70
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_71",
+              "number": 71
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_72",
+              "number": 72
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_73",
+              "number": 73
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_74",
+              "number": 74
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_75",
+              "number": 75
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_76",
+              "number": 76
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_77",
+              "number": 77
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_78",
+              "number": 78
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_79",
+              "number": 79
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_80",
+              "number": 80
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_81",
+              "number": 81
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_82",
+              "number": 82
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_83",
+              "number": 83
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_84",
+              "number": 84
+            },
+            {
+              "name": "BULLET_MOTION_FUNC_85",
+              "number": 85
+            }
+          ]
+        },
+        {
+          "name": "BulletMotionFamily",
+          "values": [
+            {
+              "name": "BULLET_MOTION_FAMILY_UNSPECIFIED",
+              "number": 0
+            },
+            {
+              "name": "BULLET_MOTION_FAMILY_A_INIT_STRAIGHT",
+              "number": 1
+            },
+            {
+              "name": "BULLET_MOTION_FAMILY_B_ACCEL",
+              "number": 2
+            },
+            {
+              "name": "BULLET_MOTION_FAMILY_C_SINUSOID",
+              "number": 3
+            },
+            {
+              "name": "BULLET_MOTION_FAMILY_D_HOMING",
+              "number": 4
+            },
+            {
+              "name": "BULLET_MOTION_FAMILY_E_AIM_TURN",
+              "number": 5
+            },
+            {
+              "name": "BULLET_MOTION_FAMILY_F_BOUNCE_MIRROR",
+              "number": 6
+            },
+            {
+              "name": "BULLET_MOTION_FAMILY_G_PROXIMITY",
+              "number": 7
+            },
+            {
+              "name": "BULLET_MOTION_FAMILY_H_SPLIT_SUMMON",
+              "number": 8
+            },
+            {
+              "name": "BULLET_MOTION_FAMILY_I_RETEXTURE_RADIUS",
+              "number": 9
+            },
+            {
+              "name": "BULLET_MOTION_FAMILY_J_PARAMETRIC",
+              "number": 10
+            },
+            {
+              "name": "BULLET_MOTION_FAMILY_K_STATE_MACHINE",
+              "number": 11
+            },
+            {
+              "name": "BULLET_MOTION_FAMILY_L_HELPER",
+              "number": 12
+            },
+            {
+              "name": "BULLET_MOTION_FAMILY_M_UNDETERMINED",
+              "number": 13
+            },
+            {
+              "name": "BULLET_MOTION_FAMILY_UNCLASSIFIED",
+              "number": 14
+            }
+          ]
+        },
+        {
+          "name": "PlayerBulletType",
+          "values": [
+            {
+              "name": "PLAYER_BULLET_TYPE_REIMU_A_11",
+              "number": 0
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_REIMU_A_21",
+              "number": 1
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_REIMU_B_11",
+              "number": 2
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_MARISA_A_11",
+              "number": 3
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_MARISA_A_21",
+              "number": 4
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_MARISA_A_22",
+              "number": 5
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_MARISA_A_23",
+              "number": 6
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_MARISA_A_24",
+              "number": 7
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_MARISA_B_11",
+              "number": 8
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_MARISA_B_21",
+              "number": 9
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_SANAE_A_11",
+              "number": 10
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_SANAE_A_12",
+              "number": 11
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_SANAE_A_13",
+              "number": 12
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_SANAE_A_14",
+              "number": 13
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_SANAE_A_15",
+              "number": 14
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_SANAE_A_16",
+              "number": 15
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_SANAE_A_21",
+              "number": 16
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_SANAE_B_11",
+              "number": 17
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_SAKUYA_A_11",
+              "number": 18
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_SAKUYA_A_21",
+              "number": 19
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_SAKUYA_B_11",
+              "number": 20
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_REISEN_A_11",
+              "number": 21
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_REISEN_A_21",
+              "number": 22
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_REISEN_B_11",
+              "number": 23
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_YOUMU_A_11",
+              "number": 24
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_YOUMU_A_21",
+              "number": 25
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_YOUMU_A_22",
+              "number": 26
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_YOUMU_A_23",
+              "number": 27
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_YOUMU_A_24",
+              "number": 28
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_YOUMU_A_25",
+              "number": 29
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_YOUMU_A_26",
+              "number": 30
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_YOUMU_A_27",
+              "number": 31
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_YOUMU_A_28",
+              "number": 32
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_YOUMU_A_11_T33",
+              "number": 33
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_YOUMU_B_11",
+              "number": 34
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_AYA_A_11",
+              "number": 35
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_AYA_A_21",
+              "number": 36
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_AYA_B_11",
+              "number": 37
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_AYA_B_21",
+              "number": 38
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_SEIJA_A_11",
+              "number": 39
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_SEIJA_B_11",
+              "number": 40
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_CIRNO_A_11",
+              "number": 41
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_CIRNO_B_11",
+              "number": 42
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_CIRNO_B_21",
+              "number": 43
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_YUKARI_A_11",
+              "number": 44
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_YUKARI_A_12",
+              "number": 45
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_YUKARI_A_21",
+              "number": 46
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_YUKARI_B_11",
+              "number": 47
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_ALICE_A_11",
+              "number": 48
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_ALICE_A_12",
+              "number": 49
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_ALICE_A_13",
+              "number": 50
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_ALICE_A_14",
+              "number": 51
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_ALICE_B_11",
+              "number": 52
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_ALICE_B_21",
+              "number": 53
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_REMILIA_A_11",
+              "number": 54
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_REMILIA_A_21",
+              "number": 55
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_REMILIA_B_11",
+              "number": 56
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_REMILIA_B_21",
+              "number": 57
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_YUYUKO_A_11",
+              "number": 58
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_YUYUKO_A_21",
+              "number": 59
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_YUYUKO_B_11",
+              "number": 60
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_YUYUKO_B_21",
+              "number": 61
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_BOMB_REIMU_01",
+              "number": 62
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_BOMB_MARISA_01",
+              "number": 63
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_BOMB_MARISA_02",
+              "number": 64
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_BOMB_SANAE_01",
+              "number": 65
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_BOMB_SAKUYA_01",
+              "number": 66
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_BOMB_SAKUYA_02",
+              "number": 67
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_BOMB_REISEN_01",
+              "number": 68
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_BOMB_REISEN_02",
+              "number": 69
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_BOMB_REISEN_03",
+              "number": 70
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_BOMB_YOUMU_01",
+              "number": 71
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_BOMB_AYA_01",
+              "number": 72
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_BOMB_SEIJA_01",
+              "number": 73
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_BOMB_CIRNO_01",
+              "number": 74
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_BOMB_CIRNO_02",
+              "number": 75
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_BOMB_YUKARI_01",
+              "number": 76
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_BOMB_YUKARI_02",
+              "number": 77
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_BOMB_ALICE_01",
+              "number": 78
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_BOMB_ALICE_01_T79",
+              "number": 79
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_BOMB_REMILLIA_01",
+              "number": 80
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_BOMB_YUYUKO_01",
+              "number": 81
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_BOMB_YUYUKO_02",
+              "number": 82
+            },
+            {
+              "name": "PLAYER_BULLET_TYPE_GRAZE",
+              "number": 83
+            }
+          ]
+        }
+      ],
+      "go_package": "github.com/phantasm-klash/phk-protocol/gen/go/phk/v1;phkv1",
+      "imports": [],
+      "messages": [
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "width",
+              "number": 1,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "height",
+              "number": 2,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "half_width",
+              "number": 3,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "half_height",
+              "number": 4,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "tick_rate_hz",
+              "number": 5,
+              "repeated": false,
+              "type": "uint32"
+            }
+          ],
+          "name": "DanmakuFieldSpec"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "bullet_type",
+              "number": 1,
+              "repeated": false,
+              "type": "int32"
+            },
+            {
+              "map": false,
+              "name": "frame_index",
+              "number": 2,
+              "repeated": false,
+              "type": "int32"
+            },
+            {
+              "map": false,
+              "name": "spawn_x",
+              "number": 3,
+              "repeated": false,
+              "type": "float"
+            },
+            {
+              "map": false,
+              "name": "spawn_y",
+              "number": 4,
+              "repeated": false,
+              "type": "float"
+            },
+            {
+              "map": false,
+              "name": "flag16",
+              "number": 5,
+              "repeated": false,
+              "type": "bool"
+            },
+            {
+              "map": false,
+              "name": "base_angle_deg",
+              "number": 6,
+              "repeated": false,
+              "type": "float"
+            },
+            {
+              "map": false,
+              "name": "f24",
+              "number": 7,
+              "repeated": false,
+              "type": "float"
+            },
+            {
+              "map": false,
+              "name": "f28",
+              "number": 8,
+              "repeated": false,
+              "type": "float"
+            },
+            {
+              "map": false,
+              "name": "f32",
+              "number": 9,
+              "repeated": false,
+              "type": "float"
+            },
+            {
+              "map": false,
+              "name": "f36",
+              "number": 10,
+              "repeated": false,
+              "type": "float"
+            },
+            {
+              "map": false,
+              "name": "f40",
+              "number": 11,
+              "repeated": false,
+              "type": "float"
+            },
+            {
+              "map": false,
+              "name": "count",
+              "number": 12,
+              "repeated": false,
+              "type": "int32"
+            },
+            {
+              "map": false,
+              "name": "spread_or_speed",
+              "number": 13,
+              "repeated": false,
+              "type": "float"
+            },
+            {
+              "map": false,
+              "name": "s52",
+              "number": 14,
+              "repeated": false,
+              "type": "int32"
+            },
+            {
+              "map": false,
+              "name": "s54",
+              "number": 15,
+              "repeated": false,
+              "type": "int32"
+            },
+            {
+              "map": false,
+              "name": "s56",
+              "number": 16,
+              "repeated": false,
+              "type": "int32"
+            },
+            {
+              "map": false,
+              "name": "f60",
+              "number": 17,
+              "repeated": false,
+              "type": "float"
+            },
+            {
+              "map": false,
+              "name": "f64",
+              "number": 18,
+              "repeated": false,
+              "type": "float"
+            },
+            {
+              "map": false,
+              "name": "f68",
+              "number": 19,
+              "repeated": false,
+              "type": "float"
+            },
+            {
+              "map": false,
+              "name": "f72",
+              "number": 20,
+              "repeated": false,
+              "type": "float"
+            },
+            {
+              "map": false,
+              "name": "f76",
+              "number": 21,
+              "repeated": false,
+              "type": "float"
+            },
+            {
+              "map": false,
+              "name": "f80",
+              "number": 22,
+              "repeated": false,
+              "type": "float"
+            },
+            {
+              "map": false,
+              "name": "s84",
+              "number": 23,
+              "repeated": false,
+              "type": "int32"
+            },
+            {
+              "map": false,
+              "name": "s86",
+              "number": 24,
+              "repeated": false,
+              "type": "int32"
+            },
+            {
+              "map": false,
+              "name": "s88",
+              "number": 25,
+              "repeated": false,
+              "type": "int32"
+            },
+            {
+              "map": false,
+              "name": "s90",
+              "number": 26,
+              "repeated": false,
+              "type": "int32"
+            },
+            {
+              "map": false,
+              "name": "s92",
+              "number": 27,
+              "repeated": false,
+              "type": "int32"
+            },
+            {
+              "map": false,
+              "name": "s94",
+              "number": 28,
+              "repeated": false,
+              "type": "int32"
+            }
+          ],
+          "name": "BulletSpawnCommand"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "tick",
+              "number": 1,
+              "repeated": false,
+              "type": "uint64"
+            },
+            {
+              "map": false,
+              "name": "pattern_index",
+              "number": 2,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "spawn_index",
+              "number": 3,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "owner_enemy_id",
+              "number": 4,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "commands",
+              "number": 5,
+              "repeated": true,
+              "type": "BulletSpawnCommand"
+            }
+          ],
+          "name": "DanmakuSpawnBatch"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "bullet_id",
+              "number": 1,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "bullet_kind",
+              "number": 2,
+              "repeated": false,
+              "type": "BulletKind"
+            },
+            {
+              "map": false,
+              "name": "motion",
+              "number": 3,
+              "repeated": false,
+              "type": "BulletMotion"
+            },
+            {
+              "map": false,
+              "name": "x_milli",
+              "number": 4,
+              "repeated": false,
+              "type": "int32"
+            },
+            {
+              "map": false,
+              "name": "y_milli",
+              "number": 5,
+              "repeated": false,
+              "type": "int32"
+            },
+            {
+              "map": false,
+              "name": "vx_milli",
+              "number": 6,
+              "repeated": false,
+              "type": "int32"
+            },
+            {
+              "map": false,
+              "name": "vy_milli",
+              "number": 7,
+              "repeated": false,
+              "type": "int32"
+            },
+            {
+              "map": false,
+              "name": "life_ticks",
+              "number": 8,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "radius_milli",
+              "number": 9,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "age_ticks",
+              "number": 10,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "func_state",
+              "number": 11,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "angle_deg",
+              "number": 12,
+              "repeated": false,
+              "type": "float"
+            },
+            {
+              "map": false,
+              "name": "owner_enemy_id",
+              "number": 13,
+              "repeated": false,
+              "type": "string"
+            }
+          ],
+          "name": "DanmakuBulletState"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "phase",
+              "number": 1,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "sub_phase",
+              "number": 2,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "sub_phase_2",
+              "number": 3,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "period_ticks",
+              "number": 4,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "phase_offset",
+              "number": 5,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "node_size_bytes",
+              "number": 6,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "bullet_count",
+              "number": 7,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "pattern_node_id",
+              "number": 8,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "base_angle_deg",
+              "number": 9,
+              "repeated": false,
+              "type": "float"
+            },
+            {
+              "map": false,
+              "name": "spread_deg",
+              "number": 10,
+              "repeated": false,
+              "type": "float"
+            },
+            {
+              "map": false,
+              "name": "bullet_kind",
+              "number": 11,
+              "repeated": false,
+              "type": "BulletKind"
+            },
+            {
+              "map": false,
+              "name": "motion",
+              "number": 12,
+              "repeated": false,
+              "type": "BulletMotion"
+            },
+            {
+              "map": false,
+              "name": "sound_effect_id",
+              "number": 13,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "angle_expr",
+              "number": 14,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "offset_expr",
+              "number": 15,
+              "repeated": false,
+              "type": "string"
+            }
+          ],
+          "name": "DanmakuTimelineEntry"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "pattern_id",
+              "number": 1,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "boss_index",
+              "number": 2,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "phase_field_offset",
+              "number": 3,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "source_addr",
+              "number": 4,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "entries",
+              "number": 5,
+              "repeated": true,
+              "type": "DanmakuTimelineEntry"
+            },
+            {
+              "map": false,
+              "name": "notes",
+              "number": 6,
+              "repeated": false,
+              "type": "string"
+            }
+          ],
+          "name": "BossPhasePattern"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "name",
+              "number": 1,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "character",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "mode",
+              "number": 3,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "variant",
+              "number": 4,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "volley_count",
+              "number": 5,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "bullet_types",
+              "number": 6,
+              "repeated": true,
+              "type": "PlayerBulletType"
+            },
+            {
+              "map": false,
+              "name": "angles_deg",
+              "number": 7,
+              "repeated": true,
+              "type": "float"
+            },
+            {
+              "map": false,
+              "name": "speed",
+              "number": 8,
+              "repeated": false,
+              "type": "float"
+            },
+            {
+              "map": false,
+              "name": "muzzle_expr",
+              "number": 9,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "resolved",
+              "number": 10,
+              "repeated": false,
+              "type": "bool"
+            },
+            {
+              "map": false,
+              "name": "raw_angle",
+              "number": 11,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "raw_speed",
+              "number": 12,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "raw_tex_type",
+              "number": 13,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "raw_volley",
+              "number": 14,
+              "repeated": false,
+              "type": "string"
+            }
+          ],
+          "name": "PlayerShotSpec"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "name",
+              "number": 1,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "character",
+              "number": 2,
+              "repeated": false,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "total_frames",
+              "number": 3,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "invuln_frames",
+              "number": 4,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "bullet_count",
+              "number": 5,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "bullet_types",
+              "number": 6,
+              "repeated": true,
+              "type": "PlayerBulletType"
+            },
+            {
+              "map": false,
+              "name": "sprites",
+              "number": 7,
+              "repeated": true,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "notes",
+              "number": 8,
+              "repeated": false,
+              "type": "string"
+            }
+          ],
+          "name": "PlayerBombSpec"
+        },
+        {
+          "fields": [
+            {
+              "map": false,
+              "name": "shots",
+              "number": 1,
+              "repeated": true,
+              "type": "PlayerShotSpec"
+            },
+            {
+              "map": false,
+              "name": "bombs",
+              "number": 2,
+              "repeated": true,
+              "type": "PlayerBombSpec"
+            }
+          ],
+          "name": "DanmakuLoadout"
+        }
+      ],
+      "package": "phk.v1",
+      "path": "proto/phk/v1/danmaku.proto",
+      "sha256": "3051576bda7592ec6f08325b546dd5cd67dcf827f1232663a537720a3b46d864"
     },
     {
       "enums": [
@@ -2652,5 +4985,5 @@
     "bullet_patterns"
   ],
   "ruleset_version": "ruleset-local-s0",
-  "source_digest_sha256": "1d7bc3d325358efdecfe5a6f4a8d411c747c3a9ca5ebf718f25ad0bf7e6e4d5d"
+  "source_digest_sha256": "eeb511b9cc031e8f9a69a1c491e7825d686486d0b164a15344ad984bade65612"
 }

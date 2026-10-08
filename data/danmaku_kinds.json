@@ -1,0 +1,1527 @@
+{
+  "schema_version": "1.0.0",
+  "source": "data/tna_contract.json (千夜追忆 1.40 libMyGame.so 逆向)",
+  "unit": "degree; positions in milli (1/1000 px) server-side",
+  "playfield": {
+    "width": 640,
+    "height": 960,
+    "half_width": 320,
+    "half_height": 480
+  },
+  "tick_rate_hz": 60,
+  "count": 216,
+  "kinds": [
+    {
+      "type": 9,
+      "species": "kusabi",
+      "frame": 1,
+      "frame_name": "kusabi_01",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 10,
+      "species": "kusabi",
+      "frame": 2,
+      "frame_name": "kusabi_02",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 11,
+      "species": "kusabi",
+      "frame": 3,
+      "frame_name": "kusabi_03",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 12,
+      "species": "kusabi",
+      "frame": 4,
+      "frame_name": "kusabi_04",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 13,
+      "species": "kusabi",
+      "frame": 5,
+      "frame_name": "kusabi_05",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 14,
+      "species": "kusabi",
+      "frame": 6,
+      "frame_name": "kusabi_06",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 15,
+      "species": "kusabi",
+      "frame": 7,
+      "frame_name": "kusabi_07",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 16,
+      "species": "kusabi",
+      "frame": 8,
+      "frame_name": "kusabi_08",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 17,
+      "species": "kusabi",
+      "frame": 9,
+      "frame_name": "kusabi_09",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 18,
+      "species": "fuda",
+      "frame": 1,
+      "frame_name": "fuda_01",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 19,
+      "species": "fuda",
+      "frame": 2,
+      "frame_name": "fuda_02",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 20,
+      "species": "fuda",
+      "frame": 3,
+      "frame_name": "fuda_03",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 21,
+      "species": "fuda",
+      "frame": 4,
+      "frame_name": "fuda_04",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 22,
+      "species": "fuda",
+      "frame": 5,
+      "frame_name": "fuda_05",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 23,
+      "species": "fuda",
+      "frame": 6,
+      "frame_name": "fuda_06",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 24,
+      "species": "fuda",
+      "frame": 7,
+      "frame_name": "fuda_07",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 25,
+      "species": "fuda",
+      "frame": 8,
+      "frame_name": "fuda_08",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 26,
+      "species": "fuda",
+      "frame": 9,
+      "frame_name": "fuda_09",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 27,
+      "species": "ring",
+      "frame": 1,
+      "frame_name": "ring_01",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 28,
+      "species": "ring",
+      "frame": 2,
+      "frame_name": "ring_02",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 29,
+      "species": "ring",
+      "frame": 3,
+      "frame_name": "ring_03",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 30,
+      "species": "ring",
+      "frame": 4,
+      "frame_name": "ring_04",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 31,
+      "species": "ring",
+      "frame": 5,
+      "frame_name": "ring_05",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 32,
+      "species": "ring",
+      "frame": 6,
+      "frame_name": "ring_06",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 33,
+      "species": "ring",
+      "frame": 7,
+      "frame_name": "ring_07",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 34,
+      "species": "ring",
+      "frame": 8,
+      "frame_name": "ring_08",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 35,
+      "species": "ring",
+      "frame": 9,
+      "frame_name": "ring_09",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 36,
+      "species": "stama",
+      "frame": 1,
+      "frame_name": "stama_01",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 37,
+      "species": "stama",
+      "frame": 2,
+      "frame_name": "stama_02",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 38,
+      "species": "stama",
+      "frame": 3,
+      "frame_name": "stama_03",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 39,
+      "species": "stama",
+      "frame": 4,
+      "frame_name": "stama_04",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 40,
+      "species": "stama",
+      "frame": 5,
+      "frame_name": "stama_05",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 41,
+      "species": "stama",
+      "frame": 6,
+      "frame_name": "stama_06",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 42,
+      "species": "stama",
+      "frame": 7,
+      "frame_name": "stama_07",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 43,
+      "species": "stama",
+      "frame": 8,
+      "frame_name": "stama_08",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 44,
+      "species": "stama",
+      "frame": 9,
+      "frame_name": "stama_09",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 45,
+      "species": "kome",
+      "frame": 1,
+      "frame_name": "kome_01",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 46,
+      "species": "kome",
+      "frame": 2,
+      "frame_name": "kome_02",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 47,
+      "species": "kome",
+      "frame": 3,
+      "frame_name": "kome_03",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 48,
+      "species": "kome",
+      "frame": 4,
+      "frame_name": "kome_04",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 49,
+      "species": "kome",
+      "frame": 5,
+      "frame_name": "kome_05",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 50,
+      "species": "kome",
+      "frame": 6,
+      "frame_name": "kome_06",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 51,
+      "species": "kome",
+      "frame": 7,
+      "frame_name": "kome_07",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 52,
+      "species": "kome",
+      "frame": 8,
+      "frame_name": "kome_08",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 53,
+      "species": "kome",
+      "frame": 9,
+      "frame_name": "kome_09",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 54,
+      "species": "dkome",
+      "frame": 1,
+      "frame_name": "dkome_01",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 55,
+      "species": "dkome",
+      "frame": 2,
+      "frame_name": "dkome_02",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 56,
+      "species": "dkome",
+      "frame": 3,
+      "frame_name": "dkome_03",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 57,
+      "species": "dkome",
+      "frame": 4,
+      "frame_name": "dkome_04",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 58,
+      "species": "dkome",
+      "frame": 5,
+      "frame_name": "dkome_05",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 59,
+      "species": "dkome",
+      "frame": 6,
+      "frame_name": "dkome_06",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 60,
+      "species": "dkome",
+      "frame": 7,
+      "frame_name": "dkome_07",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 61,
+      "species": "dkome",
+      "frame": 8,
+      "frame_name": "dkome_08",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 62,
+      "species": "dkome",
+      "frame": 9,
+      "frame_name": "dkome_09",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 63,
+      "species": "shoshi",
+      "frame": 1,
+      "frame_name": "shoshi_01",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 64,
+      "species": "shoshi",
+      "frame": 2,
+      "frame_name": "shoshi_02",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 65,
+      "species": "shoshi",
+      "frame": 3,
+      "frame_name": "shoshi_03",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 66,
+      "species": "shoshi",
+      "frame": 4,
+      "frame_name": "shoshi_04",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 67,
+      "species": "shoshi",
+      "frame": 5,
+      "frame_name": "shoshi_05",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 68,
+      "species": "shoshi",
+      "frame": 6,
+      "frame_name": "shoshi_06",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 69,
+      "species": "shoshi",
+      "frame": 7,
+      "frame_name": "shoshi_07",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 70,
+      "species": "shoshi",
+      "frame": 8,
+      "frame_name": "shoshi_08",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 71,
+      "species": "shoshi",
+      "frame": 9,
+      "frame_name": "shoshi_09",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 72,
+      "species": "sstama",
+      "frame": 1,
+      "frame_name": "sstama_01",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 73,
+      "species": "sstama",
+      "frame": 2,
+      "frame_name": "sstama_02",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 74,
+      "species": "sstama",
+      "frame": 3,
+      "frame_name": "sstama_03",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 75,
+      "species": "sstama",
+      "frame": 4,
+      "frame_name": "sstama_04",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 76,
+      "species": "sstama",
+      "frame": 5,
+      "frame_name": "sstama_05",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 77,
+      "species": "sstama",
+      "frame": 6,
+      "frame_name": "sstama_06",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 78,
+      "species": "sstama",
+      "frame": 7,
+      "frame_name": "sstama_07",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 79,
+      "species": "sstama",
+      "frame": 8,
+      "frame_name": "sstama_08",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 80,
+      "species": "sstama",
+      "frame": 9,
+      "frame_name": "sstama_09",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 81,
+      "species": "dsstama",
+      "frame": 1,
+      "frame_name": "dsstama_01",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 82,
+      "species": "dsstama",
+      "frame": 2,
+      "frame_name": "dsstama_02",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 83,
+      "species": "dsstama",
+      "frame": 3,
+      "frame_name": "dsstama_03",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 84,
+      "species": "dsstama",
+      "frame": 4,
+      "frame_name": "dsstama_04",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 85,
+      "species": "dsstama",
+      "frame": 5,
+      "frame_name": "dsstama_05",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 86,
+      "species": "dsstama",
+      "frame": 6,
+      "frame_name": "dsstama_06",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 87,
+      "species": "dsstama",
+      "frame": 7,
+      "frame_name": "dsstama_07",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 88,
+      "species": "dsstama",
+      "frame": 8,
+      "frame_name": "dsstama_08",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 89,
+      "species": "dsstama",
+      "frame": 9,
+      "frame_name": "dsstama_09",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 90,
+      "species": "arrow",
+      "frame": 1,
+      "frame_name": "arrow_01",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 91,
+      "species": "arrow",
+      "frame": 2,
+      "frame_name": "arrow_02",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 92,
+      "species": "arrow",
+      "frame": 3,
+      "frame_name": "arrow_03",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 93,
+      "species": "arrow",
+      "frame": 4,
+      "frame_name": "arrow_04",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 94,
+      "species": "arrow",
+      "frame": 5,
+      "frame_name": "arrow_05",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 95,
+      "species": "arrow",
+      "frame": 6,
+      "frame_name": "arrow_06",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 96,
+      "species": "arrow",
+      "frame": 7,
+      "frame_name": "arrow_07",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 97,
+      "species": "arrow",
+      "frame": 8,
+      "frame_name": "arrow_08",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 98,
+      "species": "arrow",
+      "frame": 9,
+      "frame_name": "arrow_09",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 99,
+      "species": "sizuku",
+      "frame": 1,
+      "frame_name": "sizuku_01",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 100,
+      "species": "sizuku",
+      "frame": 2,
+      "frame_name": "sizuku_02",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 101,
+      "species": "sizuku",
+      "frame": 3,
+      "frame_name": "sizuku_03",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 102,
+      "species": "sizuku",
+      "frame": 4,
+      "frame_name": "sizuku_04",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 103,
+      "species": "sizuku",
+      "frame": 5,
+      "frame_name": "sizuku_05",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 104,
+      "species": "sizuku",
+      "frame": 6,
+      "frame_name": "sizuku_06",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 105,
+      "species": "sizuku",
+      "frame": 7,
+      "frame_name": "sizuku_07",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 106,
+      "species": "sizuku",
+      "frame": 8,
+      "frame_name": "sizuku_08",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 107,
+      "species": "sizuku",
+      "frame": 9,
+      "frame_name": "sizuku_09",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 108,
+      "species": "hyou",
+      "frame": 1,
+      "frame_name": "hyou_01",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 109,
+      "species": "hyou",
+      "frame": 2,
+      "frame_name": "hyou_02",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 110,
+      "species": "hyou",
+      "frame": 3,
+      "frame_name": "hyou_03",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 111,
+      "species": "hyou",
+      "frame": 4,
+      "frame_name": "hyou_04",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 112,
+      "species": "hyou",
+      "frame": 5,
+      "frame_name": "hyou_05",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 113,
+      "species": "hyou",
+      "frame": 6,
+      "frame_name": "hyou_06",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 114,
+      "species": "hyou",
+      "frame": 7,
+      "frame_name": "hyou_07",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 115,
+      "species": "hyou",
+      "frame": 8,
+      "frame_name": "hyou_08",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 116,
+      "species": "hyou",
+      "frame": 9,
+      "frame_name": "hyou_09",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 117,
+      "species": "dangan",
+      "frame": 1,
+      "frame_name": "dangan_01",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 118,
+      "species": "dangan",
+      "frame": 2,
+      "frame_name": "dangan_02",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 119,
+      "species": "dangan",
+      "frame": 3,
+      "frame_name": "dangan_03",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 120,
+      "species": "dangan",
+      "frame": 4,
+      "frame_name": "dangan_04",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 121,
+      "species": "dangan",
+      "frame": 5,
+      "frame_name": "dangan_05",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 122,
+      "species": "dangan",
+      "frame": 6,
+      "frame_name": "dangan_06",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 123,
+      "species": "dangan",
+      "frame": 7,
+      "frame_name": "dangan_07",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 124,
+      "species": "dangan",
+      "frame": 8,
+      "frame_name": "dangan_08",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 125,
+      "species": "dangan",
+      "frame": 9,
+      "frame_name": "dangan_09",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 126,
+      "species": "kunai",
+      "frame": 1,
+      "frame_name": "kunai_01",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 127,
+      "species": "kunai",
+      "frame": 2,
+      "frame_name": "kunai_02",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 128,
+      "species": "kunai",
+      "frame": 3,
+      "frame_name": "kunai_03",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 129,
+      "species": "kunai",
+      "frame": 4,
+      "frame_name": "kunai_04",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 130,
+      "species": "kunai",
+      "frame": 5,
+      "frame_name": "kunai_05",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 131,
+      "species": "kunai",
+      "frame": 6,
+      "frame_name": "kunai_06",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 132,
+      "species": "kunai",
+      "frame": 7,
+      "frame_name": "kunai_07",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 133,
+      "species": "kunai",
+      "frame": 8,
+      "frame_name": "kunai_08",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 134,
+      "species": "kunai",
+      "frame": 9,
+      "frame_name": "kunai_09",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 135,
+      "species": "zeni",
+      "frame": 1,
+      "frame_name": "zeni_01",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 136,
+      "species": "zeni",
+      "frame": 2,
+      "frame_name": "zeni_02",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 137,
+      "species": "zeni",
+      "frame": 3,
+      "frame_name": "zeni_03",
+      "atlas": "bulletlist01"
+    },
+    {
+      "type": 138,
+      "species": "mhoshi",
+      "frame": 1,
+      "frame_name": "mhoshi_01",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 139,
+      "species": "mhoshi",
+      "frame": 2,
+      "frame_name": "mhoshi_02",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 140,
+      "species": "mhoshi",
+      "frame": 3,
+      "frame_name": "mhoshi_03",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 141,
+      "species": "mhoshi",
+      "frame": 4,
+      "frame_name": "mhoshi_04",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 142,
+      "species": "mhoshi",
+      "frame": 5,
+      "frame_name": "mhoshi_05",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 143,
+      "species": "mhoshi",
+      "frame": 6,
+      "frame_name": "mhoshi_06",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 144,
+      "species": "mhoshi",
+      "frame": 7,
+      "frame_name": "mhoshi_07",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 145,
+      "species": "mhoshi",
+      "frame": 8,
+      "frame_name": "mhoshi_08",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 146,
+      "species": "mhoshi",
+      "frame": 9,
+      "frame_name": "mhoshi_09",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 147,
+      "species": "mtama",
+      "frame": 1,
+      "frame_name": "mtama_01",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 148,
+      "species": "mtama",
+      "frame": 2,
+      "frame_name": "mtama_02",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 149,
+      "species": "mtama",
+      "frame": 3,
+      "frame_name": "mtama_03",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 150,
+      "species": "mtama",
+      "frame": 4,
+      "frame_name": "mtama_04",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 151,
+      "species": "mtama",
+      "frame": 5,
+      "frame_name": "mtama_05",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 152,
+      "species": "mtama",
+      "frame": 6,
+      "frame_name": "mtama_06",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 153,
+      "species": "mtama",
+      "frame": 7,
+      "frame_name": "mtama_07",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 154,
+      "species": "mtama",
+      "frame": 8,
+      "frame_name": "mtama_08",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 155,
+      "species": "mtama",
+      "frame": 9,
+      "frame_name": "mtama_09",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 156,
+      "species": "chou",
+      "frame": 1,
+      "frame_name": "chou_01",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 157,
+      "species": "chou",
+      "frame": 2,
+      "frame_name": "chou_02",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 158,
+      "species": "chou",
+      "frame": 3,
+      "frame_name": "chou_03",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 159,
+      "species": "chou",
+      "frame": 4,
+      "frame_name": "chou_04",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 160,
+      "species": "chou",
+      "frame": 5,
+      "frame_name": "chou_05",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 161,
+      "species": "chou",
+      "frame": 6,
+      "frame_name": "chou_06",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 162,
+      "species": "chou",
+      "frame": 7,
+      "frame_name": "chou_07",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 163,
+      "species": "chou",
+      "frame": 8,
+      "frame_name": "chou_08",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 164,
+      "species": "chou",
+      "frame": 9,
+      "frame_name": "chou_09",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 165,
+      "species": "bean",
+      "frame": 1,
+      "frame_name": "bean_01",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 166,
+      "species": "bean",
+      "frame": 2,
+      "frame_name": "bean_02",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 167,
+      "species": "bean",
+      "frame": 3,
+      "frame_name": "bean_03",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 168,
+      "species": "bean",
+      "frame": 4,
+      "frame_name": "bean_04",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 169,
+      "species": "bean",
+      "frame": 5,
+      "frame_name": "bean_05",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 170,
+      "species": "bean",
+      "frame": 6,
+      "frame_name": "bean_06",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 171,
+      "species": "bean",
+      "frame": 7,
+      "frame_name": "bean_07",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 172,
+      "species": "bean",
+      "frame": 8,
+      "frame_name": "bean_08",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 173,
+      "species": "bean",
+      "frame": 9,
+      "frame_name": "bean_09",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 174,
+      "species": "heart",
+      "frame": 1,
+      "frame_name": "heart_01",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 175,
+      "species": "heart",
+      "frame": 2,
+      "frame_name": "heart_02",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 176,
+      "species": "heart",
+      "frame": 3,
+      "frame_name": "heart_03",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 177,
+      "species": "heart",
+      "frame": 4,
+      "frame_name": "heart_04",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 178,
+      "species": "heart",
+      "frame": 5,
+      "frame_name": "heart_05",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 179,
+      "species": "heart",
+      "frame": 6,
+      "frame_name": "heart_06",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 180,
+      "species": "heart",
+      "frame": 7,
+      "frame_name": "heart_07",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 181,
+      "species": "heart",
+      "frame": 8,
+      "frame_name": "heart_08",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 182,
+      "species": "heart",
+      "frame": 9,
+      "frame_name": "heart_09",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 183,
+      "species": "knife",
+      "frame": 1,
+      "frame_name": "knife_01",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 184,
+      "species": "knife",
+      "frame": 2,
+      "frame_name": "knife_02",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 185,
+      "species": "knife",
+      "frame": 3,
+      "frame_name": "knife_03",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 186,
+      "species": "knife",
+      "frame": 4,
+      "frame_name": "knife_04",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 187,
+      "species": "knife",
+      "frame": 5,
+      "frame_name": "knife_05",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 188,
+      "species": "knife",
+      "frame": 6,
+      "frame_name": "knife_06",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 189,
+      "species": "knife",
+      "frame": 7,
+      "frame_name": "knife_07",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 190,
+      "species": "knife",
+      "frame": 8,
+      "frame_name": "knife_08",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 191,
+      "species": "knife",
+      "frame": 9,
+      "frame_name": "knife_09",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 192,
+      "species": "ltama",
+      "frame": 2,
+      "frame_name": "ltama_02",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 193,
+      "species": "ltama",
+      "frame": 4,
+      "frame_name": "ltama_04",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 194,
+      "species": "ltama",
+      "frame": 5,
+      "frame_name": "ltama_05",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 195,
+      "species": "ltama",
+      "frame": 7,
+      "frame_name": "ltama_07",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 196,
+      "species": "ltama",
+      "frame": 8,
+      "frame_name": "ltama_08",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 197,
+      "species": "kou",
+      "frame": 1,
+      "frame_name": "kou_01",
+      "atlas": "bulletlist04"
+    },
+    {
+      "type": 198,
+      "species": "kou",
+      "frame": 2,
+      "frame_name": "kou_02",
+      "atlas": "bulletlist04"
+    },
+    {
+      "type": 199,
+      "species": "kou",
+      "frame": 4,
+      "frame_name": "kou_04",
+      "atlas": "bulletlist04"
+    },
+    {
+      "type": 200,
+      "species": "kou",
+      "frame": 5,
+      "frame_name": "kou_05",
+      "atlas": "bulletlist04"
+    },
+    {
+      "type": 201,
+      "species": "kou",
+      "frame": 6,
+      "frame_name": "kou_06",
+      "atlas": "bulletlist04"
+    },
+    {
+      "type": 202,
+      "species": "kou",
+      "frame": 7,
+      "frame_name": "kou_07",
+      "atlas": "bulletlist04"
+    },
+    {
+      "type": 203,
+      "species": "kou",
+      "frame": 8,
+      "frame_name": "kou_08",
+      "atlas": "bulletlist04"
+    },
+    {
+      "type": 204,
+      "species": "sun",
+      "frame": 2,
+      "frame_name": "sun_02",
+      "atlas": "bulletlist04"
+    },
+    {
+      "type": 205,
+      "species": "delay",
+      "frame": 6,
+      "frame_name": "delay_06",
+      "atlas": "bulletlist02"
+    },
+    {
+      "type": 206,
+      "species": "en_01",
+      "frame": 1,
+      "frame_name": "en_01_01",
+      "atlas": "bulletlist05"
+    },
+    {
+      "type": 207,
+      "species": "en_02",
+      "frame": 1,
+      "frame_name": "en_02_01",
+      "atlas": "bulletlist05"
+    },
+    {
+      "type": 208,
+      "species": "en_04",
+      "frame": 1,
+      "frame_name": "en_04_01",
+      "atlas": "bulletlist05"
+    },
+    {
+      "type": 209,
+      "species": "en_05",
+      "frame": 1,
+      "frame_name": "en_05_01",
+      "atlas": "bulletlist05"
+    },
+    {
+      "type": 210,
+      "species": "en_07",
+      "frame": 1,
+      "frame_name": "en_07_01",
+      "atlas": "bulletlist05"
+    },
+    {
+      "type": 211,
+      "species": "en_08",
+      "frame": 1,
+      "frame_name": "en_08_01",
+      "atlas": "bulletlist05"
+    },
+    {
+      "type": 212,
+      "species": "onpu_02",
+      "frame": 1,
+      "frame_name": "onpu_02_01",
+      "atlas": "bulletlist05"
+    },
+    {
+      "type": 213,
+      "species": "onpu_04",
+      "frame": 1,
+      "frame_name": "onpu_04_01",
+      "atlas": "bulletlist05"
+    },
+    {
+      "type": 214,
+      "species": "onpu_05",
+      "frame": 1,
+      "frame_name": "onpu_05_01",
+      "atlas": "bulletlist05"
+    },
+    {
+      "type": 215,
+      "species": "onpu_07",
+      "frame": 1,
+      "frame_name": "onpu_07_01",
+      "atlas": "bulletlist05"
+    },
+    {
+      "type": 216,
+      "species": "onpu_08",
+      "frame": 1,
+      "frame_name": "onpu_08_01",
+      "atlas": "bulletlist05"
+    },
+    {
+      "type": 217,
+      "species": "bird",
+      "frame": 1,
+      "frame_name": "bird_01",
+      "atlas": "bulletlist05"
+    },
+    {
+      "type": 218,
+      "species": "human",
+      "frame": 1,
+      "frame_name": "human_01",
+      "atlas": "bulletlist05"
+    },
+    {
+      "type": 219,
+      "species": "dark",
+      "frame": 1,
+      "frame_name": "dark_01",
+      "atlas": "bulletlist05"
+    },
+    {
+      "type": 220,
+      "species": "poison",
+      "frame": 1,
+      "frame_name": "poison_01",
+      "atlas": "bulletlist05"
+    },
+    {
+      "type": 221,
+      "species": "anchor",
+      "frame": 1,
+      "frame_name": "anchor_01",
+      "atlas": "bulletlist05"
+    },
+    {
+      "type": 222,
+      "species": "spark",
+      "frame": 1,
+      "frame_name": "spark_01",
+      "atlas": "bulletlist05"
+    },
+    {
+      "type": 223,
+      "species": "spark",
+      "frame": 2,
+      "frame_name": "spark_02",
+      "atlas": "bulletlist05"
+    },
+    {
+      "type": 224,
+      "species": "unzan",
+      "frame": 1,
+      "frame_name": "unzan_01",
+      "atlas": "bulletlist06"
+    }
+  ]
+}

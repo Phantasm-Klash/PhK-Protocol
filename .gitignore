@@ -3,10 +3,12 @@ gen/*
 !gen/go/phk/
 !gen/go/phk/v1/
 !gen/go/phk/v1/manifest.go
+!gen/go/phk/v1/danmaku.go
 !gen/cpp/
 !gen/cpp/phk/
 !gen/cpp/phk/v1/
 !gen/cpp/phk/v1/manifest.hpp
+!gen/cpp/phk/v1/danmaku.hpp
 build/
 dist/
 *.pb.go

@@ -6,19 +6,25 @@ import re
 import sys
 from pathlib import Path
 
-from export_descriptor import build_descriptor
+from export_descriptor import PROTO_DIR, build_descriptor, parse_proto
 
 
 ROOT = Path(__file__).resolve().parents[1]
 PROTO_DIR = ROOT / "proto" / "phk" / "v1"
 GO_MANIFEST_PATH = ROOT / "gen" / "go" / "phk" / "v1" / "manifest.go"
 CPP_MANIFEST_PATH = ROOT / "gen" / "cpp" / "phk" / "v1" / "manifest.hpp"
+DANMAKU_CPP_PATH = ROOT / "gen" / "cpp" / "phk" / "v1" / "danmaku.hpp"
+DANMAKU_GO_PATH = ROOT / "gen" / "go" / "phk" / "v1" / "danmaku.go"
+DANMAKU_KINDS_PATH = ROOT / "data" / "danmaku_kinds.json"
+DANMAKU_MOTIONS_PATH = ROOT / "data" / "danmaku_motions.json"
+PLAYER_LOADOUT_PATH = ROOT / "data" / "player_loadout.json"
 
 REQUIRED_PROTO_FILES = {
     "common.proto",
     "business.proto",
     "matchmaking.proto",
     "battle.proto",
+    "danmaku.proto",
     "replay.proto",
     "admin.proto",
     "lobby.proto",
@@ -40,6 +46,17 @@ REQUIRED_MESSAGES = {
         "SignedBattleResult",
         "BossRacePlayerState",
         "BossRaceModeState",
+    ],
+    "danmaku.proto": [
+        "DanmakuFieldSpec",
+        "BulletSpawnCommand",
+        "DanmakuSpawnBatch",
+        "DanmakuBulletState",
+        "DanmakuTimelineEntry",
+        "BossPhasePattern",
+        "PlayerShotSpec",
+        "PlayerBombSpec",
+        "DanmakuLoadout",
     ],
     "replay.proto": ["ReplayInputStreamSummary", "ReplayRecord"],
     "admin.proto": ["BattleServerHeartbeat", "BattleResultSubmitRequest", "BattleResultSubmitResponse"],
@@ -630,6 +647,110 @@ def check_cpp_manifest() -> None:
                 fail(f"C++ manifest {message_name} missing field {field}")
 
 
+def check_battle_danmaku_payload() -> None:
+    text = read(PROTO_DIR / "battle.proto")
+    if 'import "phk/v1/danmaku.proto";' not in text:
+        fail("battle.proto must import phk/v1/danmaku.proto")
+    if not re.search(r"BATTLE_PAYLOAD_TYPE_DANMAKU_SPAWN\s*=\s*11\s*;", text):
+        fail("battle.proto must declare BATTLE_PAYLOAD_TYPE_DANMAKU_SPAWN = 11")
+
+
+def check_danmaku_data() -> None:
+    import export_danmaku_data as data_mod
+
+    contract = json.loads(data_mod.CONTRACT_PATH.read_text(encoding="utf-8"))
+    kinds = json.loads(DANMAKU_KINDS_PATH.read_text(encoding="utf-8"))
+    motions = json.loads(DANMAKU_MOTIONS_PATH.read_text(encoding="utf-8"))
+    loadout = json.loads(PLAYER_LOADOUT_PATH.read_text(encoding="utf-8"))
+    if kinds.get("kinds") != data_mod.build_kinds(contract):
+        fail("data/danmaku_kinds.json out of date; run tools/export_danmaku_data.py")
+    if motions.get("motions") != data_mod.build_motions(contract):
+        fail("data/danmaku_motions.json out of date; run tools/export_danmaku_data.py")
+    if loadout.get("shots") != data_mod.build_shots(contract):
+        fail("data/player_loadout.json shots out of date; run tools/export_danmaku_data.py")
+    if loadout.get("bombs") != data_mod.build_bombs():
+        fail("data/player_loadout.json bombs out of date; run tools/export_danmaku_data.py")
+    if len(kinds["kinds"]) != 216:
+        fail(f"expected 216 bullet kinds, got {len(kinds['kinds'])}")
+    if len(motions["motions"]) != 79:
+        fail(f"expected 79 bullet motions, got {len(motions['motions'])}")
+    if len(loadout["shots"]) != 52 or len(loadout["bombs"]) != 13:
+        fail("expected 52 player shots and 13 player bombs")
+
+
+def check_danmaku_proto() -> None:
+    text = read(PROTO_DIR / "danmaku.proto")
+    if "package phk.v1;" not in text:
+        fail("danmaku.proto missing package phk.v1")
+    if "option go_package = " not in text:
+        fail("danmaku.proto missing go_package option")
+    proto = parse_proto(PROTO_DIR / "danmaku.proto")
+    if proto.get("imports"):
+        fail(f"danmaku.proto should be self-contained, found imports {proto['imports']}")
+    enums = {enum["name"]: enum["values"] for enum in proto.get("enums", [])}
+    for required_enum in ["BulletKind", "BulletMotion", "BulletMotionFamily", "PlayerBulletType"]:
+        if required_enum not in enums:
+            fail(f"danmaku.proto missing enum {required_enum}")
+
+    kinds = json.loads(DANMAKU_KINDS_PATH.read_text(encoding="utf-8"))["kinds"]
+    motions = json.loads(DANMAKU_MOTIONS_PATH.read_text(encoding="utf-8"))["motions"]
+    proto_kind_values = {value["number"] for value in enums["BulletKind"]} - {0}
+    data_kind_values = {int(kind["type"]) for kind in kinds}
+    if proto_kind_values != data_kind_values:
+        missing = sorted(data_kind_values - proto_kind_values)
+        extra = sorted(proto_kind_values - data_kind_values)
+        fail(f"BulletKind mismatch vs data (missing {missing}, extra {extra})")
+    proto_motion_values = {value["number"] for value in enums["BulletMotion"]}
+    data_motion_values = {int(motion["func"]) for motion in motions}
+    if proto_motion_values != data_motion_values:
+        fail("BulletMotion values do not match data/danmaku_motions.json")
+    if len(proto_kind_values) != 216:
+        fail(f"BulletKind must declare 216 values, got {len(proto_kind_values)}")
+    if len(proto_motion_values) != 79:
+        fail(f"BulletMotion must declare 79 values, got {len(proto_motion_values)}")
+    # The spawn command must mirror the 28-field / 96-byte original layout.
+    command_body = message_body(text, "BulletSpawnCommand")
+    command_fields = re.findall(r"^\s*[A-Za-z_][A-Za-z0-9_.]*\s+([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(\d+)\s*;", command_body, re.M)
+    if len(command_fields) != 28:
+        fail(f"BulletSpawnCommand must have 28 fields, got {len(command_fields)}")
+    numbers = sorted(int(number) for _, number in command_fields)
+    if numbers != list(range(1, 29)):
+        fail("BulletSpawnCommand field numbers must be 1..28 in offset order")
+
+
+def check_danmaku_artifacts() -> None:
+    import export_danmaku_cpp
+    import export_danmaku_go
+
+    cpp_expected = export_danmaku_cpp.render()
+    if not DANMAKU_CPP_PATH.exists():
+        fail("missing gen/cpp/phk/v1/danmaku.hpp; run tools/export_danmaku_cpp.py")
+    if DANMAKU_CPP_PATH.read_text(encoding="utf-8") != cpp_expected:
+        fail("gen/cpp/phk/v1/danmaku.hpp out of date; run tools/export_danmaku_cpp.py")
+    for needle in [
+        "enum class BulletKind",
+        "enum class BulletMotion",
+        "enum class BulletMotionFamily",
+        "enum class PlayerBulletType",
+        "struct BulletSpawnCommand",
+        "struct DanmakuBulletState",
+        "struct DanmakuTimelineEntry",
+        "static_assert(sizeof(BulletSpawnCommand) == 96",
+        "BulletKindSpecies",
+    ]:
+        if needle not in cpp_expected:
+            fail(f"C++ danmaku.hpp missing {needle}")
+
+    go_expected = export_danmaku_go.render()
+    if not DANMAKU_GO_PATH.exists():
+        fail("missing gen/go/phk/v1/danmaku.go; run tools/export_danmaku_go.py")
+    if DANMAKU_GO_PATH.read_text(encoding="utf-8") != go_expected:
+        fail("gen/go/phk/v1/danmaku.go out of date; run tools/export_danmaku_go.py")
+    for needle in ["DanmakuBulletKindCount     = 216", "var PlayerShots", "var PlayerBombs", "var BulletKindSpecies"]:
+        if needle not in go_expected:
+            fail(f"Go danmaku.go missing {needle}")
+
+
 def main() -> None:
     check_proto_files()
     check_json_files()
@@ -639,6 +760,10 @@ def main() -> None:
     check_descriptor()
     check_go_manifest()
     check_cpp_manifest()
+    check_battle_danmaku_payload()
+    check_danmaku_data()
+    check_danmaku_proto()
+    check_danmaku_artifacts()
     print("check_protocol ok")
 
 
