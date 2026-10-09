@@ -1,0 +1,580 @@
+syntax = "proto3";
+
+package phk.v1;
+
+option go_package = "github.com/phantasm-klash/phk-protocol/gen/go/phk/v1;phkv1";
+
+// 千夜追忆 (Touhou: Thousand Night Anamnesis) 1.40 弹幕契约 —— 逆向成果的正式协议落点。
+//
+// 版权/用途声明：本文件由对东方 Project 同人作品《千夜追忆》1.40 的静态逆向成果移植而来，
+// 仅用于自研玩法的服务端权威模拟，不包含任何原版美术/音频二进制资源。
+//
+// 关键约定（实测，详见 docs/danmaku_contract.md 与 rev/patterns/）：
+//   1. 角度单位一律为「度」(degree)，不是弧度。原版 0xace18c = 57.29578 为 度↔弧度 换算常量。
+//   2. 发射位置 spawn_x/spawn_y == -1.0 为哨兵，表示「跟随发射者坐标」。
+//   3. BulletKind 数值 = 原版 kEnemyBullet 枚举值（9..224），客户端用它索引图集帧；此处不重编号。
+//   4. 服务端权威运行期坐标用整数 milli（1/1000 px），沿用 BossRaceBullet 风格。
+//   5. 确定性 RNG 输入 = (match_seed, tick, pattern_index, spawn_index)，禁用系统时间/帧率。
+//   6. 场地 640x960（半宽 320 / 半高 480），逻辑帧率 60 Hz。
+
+enum BulletKind {
+  BULLET_KIND_UNSPECIFIED = 0;
+  // 值 = 原版 kEnemyBullet 枚举值；命名 = BULLET_KIND_<图集帧名大写>。
+  // 分派表位于原版 EnemyBullet::spriteWithFile @ 0xb0a180（216 x uint16，索引 = type-9）。
+  // --- bulletlist01 ---
+  BULLET_KIND_KUSABI_01 = 9;
+  BULLET_KIND_KUSABI_02 = 10;
+  BULLET_KIND_KUSABI_03 = 11;
+  BULLET_KIND_KUSABI_04 = 12;
+  BULLET_KIND_KUSABI_05 = 13;
+  BULLET_KIND_KUSABI_06 = 14;
+  BULLET_KIND_KUSABI_07 = 15;
+  BULLET_KIND_KUSABI_08 = 16;
+  BULLET_KIND_KUSABI_09 = 17;
+  BULLET_KIND_FUDA_01 = 18;
+  BULLET_KIND_FUDA_02 = 19;
+  BULLET_KIND_FUDA_03 = 20;
+  BULLET_KIND_FUDA_04 = 21;
+  BULLET_KIND_FUDA_05 = 22;
+  BULLET_KIND_FUDA_06 = 23;
+  BULLET_KIND_FUDA_07 = 24;
+  BULLET_KIND_FUDA_08 = 25;
+  BULLET_KIND_FUDA_09 = 26;
+  BULLET_KIND_RING_01 = 27;
+  BULLET_KIND_RING_02 = 28;
+  BULLET_KIND_RING_03 = 29;
+  BULLET_KIND_RING_04 = 30;
+  BULLET_KIND_RING_05 = 31;
+  BULLET_KIND_RING_06 = 32;
+  BULLET_KIND_RING_07 = 33;
+  BULLET_KIND_RING_08 = 34;
+  BULLET_KIND_RING_09 = 35;
+  BULLET_KIND_STAMA_01 = 36;
+  BULLET_KIND_STAMA_02 = 37;
+  BULLET_KIND_STAMA_03 = 38;
+  BULLET_KIND_STAMA_04 = 39;
+  BULLET_KIND_STAMA_05 = 40;
+  BULLET_KIND_STAMA_06 = 41;
+  BULLET_KIND_STAMA_07 = 42;
+  BULLET_KIND_STAMA_08 = 43;
+  BULLET_KIND_STAMA_09 = 44;
+  BULLET_KIND_KOME_01 = 45;
+  BULLET_KIND_KOME_02 = 46;
+  BULLET_KIND_KOME_03 = 47;
+  BULLET_KIND_KOME_04 = 48;
+  BULLET_KIND_KOME_05 = 49;
+  BULLET_KIND_KOME_06 = 50;
+  BULLET_KIND_KOME_07 = 51;
+  BULLET_KIND_KOME_08 = 52;
+  BULLET_KIND_KOME_09 = 53;
+  BULLET_KIND_DKOME_01 = 54;
+  BULLET_KIND_DKOME_02 = 55;
+  BULLET_KIND_DKOME_03 = 56;
+  BULLET_KIND_DKOME_04 = 57;
+  BULLET_KIND_DKOME_05 = 58;
+  BULLET_KIND_DKOME_06 = 59;
+  BULLET_KIND_DKOME_07 = 60;
+  BULLET_KIND_DKOME_08 = 61;
+  BULLET_KIND_DKOME_09 = 62;
+  BULLET_KIND_SHOSHI_01 = 63;
+  BULLET_KIND_SHOSHI_02 = 64;
+  BULLET_KIND_SHOSHI_03 = 65;
+  BULLET_KIND_SHOSHI_04 = 66;
+  BULLET_KIND_SHOSHI_05 = 67;
+  BULLET_KIND_SHOSHI_06 = 68;
+  BULLET_KIND_SHOSHI_07 = 69;
+  BULLET_KIND_SHOSHI_08 = 70;
+  BULLET_KIND_SHOSHI_09 = 71;
+  BULLET_KIND_SSTAMA_01 = 72;
+  BULLET_KIND_SSTAMA_02 = 73;
+  BULLET_KIND_SSTAMA_03 = 74;
+  BULLET_KIND_SSTAMA_04 = 75;
+  BULLET_KIND_SSTAMA_05 = 76;
+  BULLET_KIND_SSTAMA_06 = 77;
+  BULLET_KIND_SSTAMA_07 = 78;
+  BULLET_KIND_SSTAMA_08 = 79;
+  BULLET_KIND_SSTAMA_09 = 80;
+  BULLET_KIND_DSSTAMA_01 = 81;
+  BULLET_KIND_DSSTAMA_02 = 82;
+  BULLET_KIND_DSSTAMA_03 = 83;
+  BULLET_KIND_DSSTAMA_04 = 84;
+  BULLET_KIND_DSSTAMA_05 = 85;
+  BULLET_KIND_DSSTAMA_06 = 86;
+  BULLET_KIND_DSSTAMA_07 = 87;
+  BULLET_KIND_DSSTAMA_08 = 88;
+  BULLET_KIND_DSSTAMA_09 = 89;
+  BULLET_KIND_ARROW_01 = 90;
+  BULLET_KIND_ARROW_02 = 91;
+  BULLET_KIND_ARROW_03 = 92;
+  BULLET_KIND_ARROW_04 = 93;
+  BULLET_KIND_ARROW_05 = 94;
+  BULLET_KIND_ARROW_06 = 95;
+  BULLET_KIND_ARROW_07 = 96;
+  BULLET_KIND_ARROW_08 = 97;
+  BULLET_KIND_ARROW_09 = 98;
+  BULLET_KIND_SIZUKU_01 = 99;
+  BULLET_KIND_SIZUKU_02 = 100;
+  BULLET_KIND_SIZUKU_03 = 101;
+  BULLET_KIND_SIZUKU_04 = 102;
+  BULLET_KIND_SIZUKU_05 = 103;
+  BULLET_KIND_SIZUKU_06 = 104;
+  BULLET_KIND_SIZUKU_07 = 105;
+  BULLET_KIND_SIZUKU_08 = 106;
+  BULLET_KIND_SIZUKU_09 = 107;
+  BULLET_KIND_HYOU_01 = 108;
+  BULLET_KIND_HYOU_02 = 109;
+  BULLET_KIND_HYOU_03 = 110;
+  BULLET_KIND_HYOU_04 = 111;
+  BULLET_KIND_HYOU_05 = 112;
+  BULLET_KIND_HYOU_06 = 113;
+  BULLET_KIND_HYOU_07 = 114;
+  BULLET_KIND_HYOU_08 = 115;
+  BULLET_KIND_HYOU_09 = 116;
+  BULLET_KIND_DANGAN_01 = 117;
+  BULLET_KIND_DANGAN_02 = 118;
+  BULLET_KIND_DANGAN_03 = 119;
+  BULLET_KIND_DANGAN_04 = 120;
+  BULLET_KIND_DANGAN_05 = 121;
+  BULLET_KIND_DANGAN_06 = 122;
+  BULLET_KIND_DANGAN_07 = 123;
+  BULLET_KIND_DANGAN_08 = 124;
+  BULLET_KIND_DANGAN_09 = 125;
+  BULLET_KIND_KUNAI_01 = 126;
+  BULLET_KIND_KUNAI_02 = 127;
+  BULLET_KIND_KUNAI_03 = 128;
+  BULLET_KIND_KUNAI_04 = 129;
+  BULLET_KIND_KUNAI_05 = 130;
+  BULLET_KIND_KUNAI_06 = 131;
+  BULLET_KIND_KUNAI_07 = 132;
+  BULLET_KIND_KUNAI_08 = 133;
+  BULLET_KIND_KUNAI_09 = 134;
+  BULLET_KIND_ZENI_01 = 135;
+  BULLET_KIND_ZENI_02 = 136;
+  BULLET_KIND_ZENI_03 = 137;
+  // --- bulletlist02 ---
+  BULLET_KIND_MHOSHI_01 = 138;
+  BULLET_KIND_MHOSHI_02 = 139;
+  BULLET_KIND_MHOSHI_03 = 140;
+  BULLET_KIND_MHOSHI_04 = 141;
+  BULLET_KIND_MHOSHI_05 = 142;
+  BULLET_KIND_MHOSHI_06 = 143;
+  BULLET_KIND_MHOSHI_07 = 144;
+  BULLET_KIND_MHOSHI_08 = 145;
+  BULLET_KIND_MHOSHI_09 = 146;
+  BULLET_KIND_MTAMA_01 = 147;
+  BULLET_KIND_MTAMA_02 = 148;
+  BULLET_KIND_MTAMA_03 = 149;
+  BULLET_KIND_MTAMA_04 = 150;
+  BULLET_KIND_MTAMA_05 = 151;
+  BULLET_KIND_MTAMA_06 = 152;
+  BULLET_KIND_MTAMA_07 = 153;
+  BULLET_KIND_MTAMA_08 = 154;
+  BULLET_KIND_MTAMA_09 = 155;
+  BULLET_KIND_CHOU_01 = 156;
+  BULLET_KIND_CHOU_02 = 157;
+  BULLET_KIND_CHOU_03 = 158;
+  BULLET_KIND_CHOU_04 = 159;
+  BULLET_KIND_CHOU_05 = 160;
+  BULLET_KIND_CHOU_06 = 161;
+  BULLET_KIND_CHOU_07 = 162;
+  BULLET_KIND_CHOU_08 = 163;
+  BULLET_KIND_CHOU_09 = 164;
+  BULLET_KIND_BEAN_01 = 165;
+  BULLET_KIND_BEAN_02 = 166;
+  BULLET_KIND_BEAN_03 = 167;
+  BULLET_KIND_BEAN_04 = 168;
+  BULLET_KIND_BEAN_05 = 169;
+  BULLET_KIND_BEAN_06 = 170;
+  BULLET_KIND_BEAN_07 = 171;
+  BULLET_KIND_BEAN_08 = 172;
+  BULLET_KIND_BEAN_09 = 173;
+  BULLET_KIND_HEART_01 = 174;
+  BULLET_KIND_HEART_02 = 175;
+  BULLET_KIND_HEART_03 = 176;
+  BULLET_KIND_HEART_04 = 177;
+  BULLET_KIND_HEART_05 = 178;
+  BULLET_KIND_HEART_06 = 179;
+  BULLET_KIND_HEART_07 = 180;
+  BULLET_KIND_HEART_08 = 181;
+  BULLET_KIND_HEART_09 = 182;
+  BULLET_KIND_KNIFE_01 = 183;
+  BULLET_KIND_KNIFE_02 = 184;
+  BULLET_KIND_KNIFE_03 = 185;
+  BULLET_KIND_KNIFE_04 = 186;
+  BULLET_KIND_KNIFE_05 = 187;
+  BULLET_KIND_KNIFE_06 = 188;
+  BULLET_KIND_KNIFE_07 = 189;
+  BULLET_KIND_KNIFE_08 = 190;
+  BULLET_KIND_KNIFE_09 = 191;
+  BULLET_KIND_LTAMA_02 = 192;
+  BULLET_KIND_LTAMA_04 = 193;
+  BULLET_KIND_LTAMA_05 = 194;
+  BULLET_KIND_LTAMA_07 = 195;
+  BULLET_KIND_LTAMA_08 = 196;
+  // --- bulletlist04 ---
+  BULLET_KIND_KOU_01 = 197;
+  BULLET_KIND_KOU_02 = 198;
+  BULLET_KIND_KOU_04 = 199;
+  BULLET_KIND_KOU_05 = 200;
+  BULLET_KIND_KOU_06 = 201;
+  BULLET_KIND_KOU_07 = 202;
+  BULLET_KIND_KOU_08 = 203;
+  BULLET_KIND_SUN_02 = 204;
+  // --- bulletlist02 ---
+  BULLET_KIND_DELAY_06 = 205;
+  // --- bulletlist05 ---
+  BULLET_KIND_EN_01_01 = 206;
+  BULLET_KIND_EN_02_01 = 207;
+  BULLET_KIND_EN_04_01 = 208;
+  BULLET_KIND_EN_05_01 = 209;
+  BULLET_KIND_EN_07_01 = 210;
+  BULLET_KIND_EN_08_01 = 211;
+  BULLET_KIND_ONPU_02_01 = 212;
+  BULLET_KIND_ONPU_04_01 = 213;
+  BULLET_KIND_ONPU_05_01 = 214;
+  BULLET_KIND_ONPU_07_01 = 215;
+  BULLET_KIND_ONPU_08_01 = 216;
+  BULLET_KIND_BIRD_01 = 217;
+  BULLET_KIND_HUMAN_01 = 218;
+  BULLET_KIND_DARK_01 = 219;
+  BULLET_KIND_POISON_01 = 220;
+  BULLET_KIND_ANCHOR_01 = 221;
+  BULLET_KIND_SPARK_01 = 222;
+  BULLET_KIND_SPARK_02 = 223;
+  // --- bulletlist06 ---
+  BULLET_KIND_UNZAN_01 = 224;
+}
+
+enum BulletMotion {
+  // 与原版 EnemyBullet::bulletFuncN 编号一一对应，即运行期状态号 (EnemyBullet+0x5B4, 1..85)。
+  // 采用 func 编号一一对应（而非 A-M 归并），因为服务端需要「状态号 -> 逐帧更新」的精确分派键；
+  // 归并信息另见 BulletMotionFamily 与 data/danmaku_motions.json。
+  // 注意：0 是真实运动（初始化/直线），不是占位值。缺失的 func（9/10/49/56/59/68/69）原版无实现。
+  BULLET_MOTION_FUNC_00 = 0;  // 初始化/直线
+  BULLET_MOTION_FUNC_01 = 1;  // 反弹+换皮
+  BULLET_MOTION_FUNC_02 = 2;  // 追踪(限速)
+  BULLET_MOTION_FUNC_03 = 3;  // 辅助(未确定)
+  BULLET_MOTION_FUNC_04 = 4;  // 速度重置
+  BULLET_MOTION_FUNC_05 = 5;  // 加速/减速
+  BULLET_MOTION_FUNC_06 = 6;  // 辅助(边界)
+  BULLET_MOTION_FUNC_07 = 7;  // 反弹+随机
+  BULLET_MOTION_FUNC_08 = 8;  // 辅助(边界)
+  BULLET_MOTION_FUNC_11 = 11;  // 出屏转向
+  BULLET_MOTION_FUNC_12 = 12;  // 出屏转向
+  BULLET_MOTION_FUNC_13 = 13;  // 周期瞄准
+  BULLET_MOTION_FUNC_14 = 14;  // 半径插值
+  BULLET_MOTION_FUNC_15 = 15;  // 接近触发
+  BULLET_MOTION_FUNC_16 = 16;  // 接近触发
+  BULLET_MOTION_FUNC_17 = 17;  // 追踪(限速)
+  BULLET_MOTION_FUNC_18 = 18;  // 追踪(限速)
+  BULLET_MOTION_FUNC_19 = 19;  // 减速+变色
+  BULLET_MOTION_FUNC_20 = 20;  // 边界分段
+  BULLET_MOTION_FUNC_21 = 21;  // 状态速度
+  BULLET_MOTION_FUNC_22 = 22;  // 状态速度
+  BULLET_MOTION_FUNC_23 = 23;  // 状态速度
+  BULLET_MOTION_FUNC_24 = 24;  // 接近触发
+  BULLET_MOTION_FUNC_25 = 25;  // 正弦调速
+  BULLET_MOTION_FUNC_26 = 26;  // 参数轨迹
+  BULLET_MOTION_FUNC_27 = 27;  // 特殊/时间
+  BULLET_MOTION_FUNC_28 = 28;  // 辅助
+  BULLET_MOTION_FUNC_29 = 29;  // 分段重置
+  BULLET_MOTION_FUNC_30 = 30;  // 换皮+半径
+  BULLET_MOTION_FUNC_31 = 31;  // 分裂/召唤
+  BULLET_MOTION_FUNC_32 = 32;  // 镜像
+  BULLET_MOTION_FUNC_33 = 33;  // 摆线(双正弦)
+  BULLET_MOTION_FUNC_34 = 34;  // 悬停
+  BULLET_MOTION_FUNC_35 = 35;  // 接近减速
+  BULLET_MOTION_FUNC_36 = 36;  // 辅助(着色)
+  BULLET_MOTION_FUNC_37 = 37;  // 正弦角
+  BULLET_MOTION_FUNC_38 = 38;  // 反弹
+  BULLET_MOTION_FUNC_39 = 39;  // 减速+换皮
+  BULLET_MOTION_FUNC_40 = 40;  // 正弦角加速
+  BULLET_MOTION_FUNC_41 = 41;  // 接近分裂
+  BULLET_MOTION_FUNC_42 = 42;  // 接近触发
+  BULLET_MOTION_FUNC_43 = 43;  // 正弦调速
+  BULLET_MOTION_FUNC_44 = 44;  // 接近触发
+  BULLET_MOTION_FUNC_45 = 45;  // 触发重置
+  BULLET_MOTION_FUNC_46 = 46;  // 折角
+  BULLET_MOTION_FUNC_47 = 47;  // 直线
+  BULLET_MOTION_FUNC_48 = 48;  // 接近瞄准
+  BULLET_MOTION_FUNC_50 = 50;  // 蓄力/阶段
+  BULLET_MOTION_FUNC_51 = 51;  // 状态位移
+  BULLET_MOTION_FUNC_52 = 52;  // 随机角
+  BULLET_MOTION_FUNC_53 = 53;  // 接近触发
+  BULLET_MOTION_FUNC_54 = 54;  // 阶段换皮
+  BULLET_MOTION_FUNC_55 = 55;  // 蓄力
+  BULLET_MOTION_FUNC_57 = 57;  // 三角波角
+  BULLET_MOTION_FUNC_58 = 58;  // 正弦/折返
+  BULLET_MOTION_FUNC_60 = 60;  // 接近触发
+  BULLET_MOTION_FUNC_61 = 61;  // 四方向
+  BULLET_MOTION_FUNC_62 = 62;  // 边界+随机
+  BULLET_MOTION_FUNC_63 = 63;  // 重置
+  BULLET_MOTION_FUNC_64 = 64;  // 分阶段
+  BULLET_MOTION_FUNC_65 = 65;  // 换皮
+  BULLET_MOTION_FUNC_66 = 66;  // 参数轨迹
+  BULLET_MOTION_FUNC_67 = 67;  // 反弹+蓄力
+  BULLET_MOTION_FUNC_70 = 70;  // 出屏瞄准
+  BULLET_MOTION_FUNC_71 = 71;  // 随机化
+  BULLET_MOTION_FUNC_72 = 72;  // 状态速度
+  BULLET_MOTION_FUNC_73 = 73;  // 正弦半径
+  BULLET_MOTION_FUNC_74 = 74;  // 接近触发
+  BULLET_MOTION_FUNC_75 = 75;  // 参数轨迹
+  BULLET_MOTION_FUNC_76 = 76;  // 出屏瞄准
+  BULLET_MOTION_FUNC_77 = 77;  // 镜像
+  BULLET_MOTION_FUNC_78 = 78;  // 镜像
+  BULLET_MOTION_FUNC_79 = 79;  // 辅助
+  BULLET_MOTION_FUNC_80 = 80;  // 接近触发
+  BULLET_MOTION_FUNC_81 = 81;  // 正弦半径
+  BULLET_MOTION_FUNC_82 = 82;  // 参数轨迹
+  BULLET_MOTION_FUNC_83 = 83;  // Boss 摆线
+  BULLET_MOTION_FUNC_84 = 84;  // 换皮/触发
+  BULLET_MOTION_FUNC_85 = 85;  // 换皮/半径
+}
+
+enum BulletMotionFamily {
+  // 粗粒度运动学族（来自 bullet_motions.family_group 的首字母 A..M）。
+  BULLET_MOTION_FAMILY_UNSPECIFIED = 0;
+  BULLET_MOTION_FAMILY_A_INIT_STRAIGHT = 1;      // A 初始化/直线
+  BULLET_MOTION_FAMILY_B_ACCEL = 2;              // B 加速/减速
+  BULLET_MOTION_FAMILY_C_SINUSOID = 3;           // C 正弦调速/正弦角
+  BULLET_MOTION_FAMILY_D_HOMING = 4;             // D 追踪/限速转向
+  BULLET_MOTION_FAMILY_E_AIM_TURN = 5;           // E 周期瞄准/出屏转向
+  BULLET_MOTION_FAMILY_F_BOUNCE_MIRROR = 6;      // F 边界反弹/镜像
+  BULLET_MOTION_FAMILY_G_PROXIMITY = 7;          // G 接近触发（自机/敌机）
+  BULLET_MOTION_FAMILY_H_SPLIT_SUMMON = 8;       // H 分裂/召唤（Boss）
+  BULLET_MOTION_FAMILY_I_RETEXTURE_RADIUS = 9;   // I 换皮/半径
+  BULLET_MOTION_FAMILY_J_PARAMETRIC = 10;        // J 参数方程/摆线
+  BULLET_MOTION_FAMILY_K_STATE_MACHINE = 11;     // K 状态机（全局状态）
+  BULLET_MOTION_FAMILY_L_HELPER = 12;            // L 辅助（无字段写入）
+  BULLET_MOTION_FAMILY_M_UNDETERMINED = 13;      // M 未确定
+  BULLET_MOTION_FAMILY_UNCLASSIFIED = 14;        // family_group 为空（func 14/37/46/52/61/63/64），待确认
+}
+
+enum PlayerBulletType {
+  // 原版 kMyBullet 枚举值（0..83）。0..61 = 自机射击贴图；62..82 = 炸弹贴图；83 = 擦弹。
+  // 命名取自 .so 内实际贴图字符串（如 myshot_reimuA_11 / mybomb_reimu_01）。
+  // 重名贴图（原版资源复用）追加 _T<NN> 消歧：33 与 24 同图、79 与 78 同图。
+  PLAYER_BULLET_TYPE_REIMU_A_11 = 0;
+  PLAYER_BULLET_TYPE_REIMU_A_21 = 1;
+  PLAYER_BULLET_TYPE_REIMU_B_11 = 2;
+  PLAYER_BULLET_TYPE_MARISA_A_11 = 3;
+  PLAYER_BULLET_TYPE_MARISA_A_21 = 4;
+  PLAYER_BULLET_TYPE_MARISA_A_22 = 5;
+  PLAYER_BULLET_TYPE_MARISA_A_23 = 6;
+  PLAYER_BULLET_TYPE_MARISA_A_24 = 7;
+  PLAYER_BULLET_TYPE_MARISA_B_11 = 8;
+  PLAYER_BULLET_TYPE_MARISA_B_21 = 9;
+  PLAYER_BULLET_TYPE_SANAE_A_11 = 10;
+  PLAYER_BULLET_TYPE_SANAE_A_12 = 11;
+  PLAYER_BULLET_TYPE_SANAE_A_13 = 12;
+  PLAYER_BULLET_TYPE_SANAE_A_14 = 13;
+  PLAYER_BULLET_TYPE_SANAE_A_15 = 14;
+  PLAYER_BULLET_TYPE_SANAE_A_16 = 15;
+  PLAYER_BULLET_TYPE_SANAE_A_21 = 16;
+  PLAYER_BULLET_TYPE_SANAE_B_11 = 17;
+  PLAYER_BULLET_TYPE_SAKUYA_A_11 = 18;
+  PLAYER_BULLET_TYPE_SAKUYA_A_21 = 19;
+  PLAYER_BULLET_TYPE_SAKUYA_B_11 = 20;
+  PLAYER_BULLET_TYPE_REISEN_A_11 = 21;
+  PLAYER_BULLET_TYPE_REISEN_A_21 = 22;
+  PLAYER_BULLET_TYPE_REISEN_B_11 = 23;
+  PLAYER_BULLET_TYPE_YOUMU_A_11 = 24;
+  PLAYER_BULLET_TYPE_YOUMU_A_21 = 25;
+  PLAYER_BULLET_TYPE_YOUMU_A_22 = 26;
+  PLAYER_BULLET_TYPE_YOUMU_A_23 = 27;
+  PLAYER_BULLET_TYPE_YOUMU_A_24 = 28;
+  PLAYER_BULLET_TYPE_YOUMU_A_25 = 29;
+  PLAYER_BULLET_TYPE_YOUMU_A_26 = 30;
+  PLAYER_BULLET_TYPE_YOUMU_A_27 = 31;
+  PLAYER_BULLET_TYPE_YOUMU_A_28 = 32;
+  PLAYER_BULLET_TYPE_YOUMU_A_11_T33 = 33;
+  PLAYER_BULLET_TYPE_YOUMU_B_11 = 34;
+  PLAYER_BULLET_TYPE_AYA_A_11 = 35;
+  PLAYER_BULLET_TYPE_AYA_A_21 = 36;
+  PLAYER_BULLET_TYPE_AYA_B_11 = 37;
+  PLAYER_BULLET_TYPE_AYA_B_21 = 38;
+  PLAYER_BULLET_TYPE_SEIJA_A_11 = 39;
+  PLAYER_BULLET_TYPE_SEIJA_B_11 = 40;
+  PLAYER_BULLET_TYPE_CIRNO_A_11 = 41;
+  PLAYER_BULLET_TYPE_CIRNO_B_11 = 42;
+  PLAYER_BULLET_TYPE_CIRNO_B_21 = 43;
+  PLAYER_BULLET_TYPE_YUKARI_A_11 = 44;
+  PLAYER_BULLET_TYPE_YUKARI_A_12 = 45;
+  PLAYER_BULLET_TYPE_YUKARI_A_21 = 46;
+  PLAYER_BULLET_TYPE_YUKARI_B_11 = 47;
+  PLAYER_BULLET_TYPE_ALICE_A_11 = 48;
+  PLAYER_BULLET_TYPE_ALICE_A_12 = 49;
+  PLAYER_BULLET_TYPE_ALICE_A_13 = 50;
+  PLAYER_BULLET_TYPE_ALICE_A_14 = 51;
+  PLAYER_BULLET_TYPE_ALICE_B_11 = 52;
+  PLAYER_BULLET_TYPE_ALICE_B_21 = 53;
+  PLAYER_BULLET_TYPE_REMILIA_A_11 = 54;
+  PLAYER_BULLET_TYPE_REMILIA_A_21 = 55;
+  PLAYER_BULLET_TYPE_REMILIA_B_11 = 56;
+  PLAYER_BULLET_TYPE_REMILIA_B_21 = 57;
+  PLAYER_BULLET_TYPE_YUYUKO_A_11 = 58;
+  PLAYER_BULLET_TYPE_YUYUKO_A_21 = 59;
+  PLAYER_BULLET_TYPE_YUYUKO_B_11 = 60;
+  PLAYER_BULLET_TYPE_YUYUKO_B_21 = 61;
+  PLAYER_BULLET_TYPE_BOMB_REIMU_01 = 62;  // bomb
+  PLAYER_BULLET_TYPE_BOMB_MARISA_01 = 63;  // bomb
+  PLAYER_BULLET_TYPE_BOMB_MARISA_02 = 64;  // bomb
+  PLAYER_BULLET_TYPE_BOMB_SANAE_01 = 65;  // bomb
+  PLAYER_BULLET_TYPE_BOMB_SAKUYA_01 = 66;  // bomb
+  PLAYER_BULLET_TYPE_BOMB_SAKUYA_02 = 67;  // bomb
+  PLAYER_BULLET_TYPE_BOMB_REISEN_01 = 68;  // bomb
+  PLAYER_BULLET_TYPE_BOMB_REISEN_02 = 69;  // bomb
+  PLAYER_BULLET_TYPE_BOMB_REISEN_03 = 70;  // bomb
+  PLAYER_BULLET_TYPE_BOMB_YOUMU_01 = 71;  // bomb
+  PLAYER_BULLET_TYPE_BOMB_AYA_01 = 72;  // bomb
+  PLAYER_BULLET_TYPE_BOMB_SEIJA_01 = 73;  // bomb
+  PLAYER_BULLET_TYPE_BOMB_CIRNO_01 = 74;  // bomb
+  PLAYER_BULLET_TYPE_BOMB_CIRNO_02 = 75;  // bomb
+  PLAYER_BULLET_TYPE_BOMB_YUKARI_01 = 76;  // bomb
+  PLAYER_BULLET_TYPE_BOMB_YUKARI_02 = 77;  // bomb
+  PLAYER_BULLET_TYPE_BOMB_ALICE_01 = 78;  // bomb
+  PLAYER_BULLET_TYPE_BOMB_ALICE_01_T79 = 79;  // bomb
+  PLAYER_BULLET_TYPE_BOMB_REMILLIA_01 = 80;  // bomb
+  PLAYER_BULLET_TYPE_BOMB_YUYUKO_01 = 81;  // bomb
+  PLAYER_BULLET_TYPE_BOMB_YUYUKO_02 = 82;  // bomb
+  PLAYER_BULLET_TYPE_GRAZE = 83;
+}
+
+// ============================ 消息定义 ============================
+
+// 场地与节拍元信息。
+message DanmakuFieldSpec {
+  uint32 width = 1;         // 640
+  uint32 height = 2;        // 960
+  uint32 half_width = 3;    // 320
+  uint32 half_height = 4;   // 480
+  uint32 tick_rate_hz = 5;  // 60
+}
+
+// 一次敌机齐射指令，严格对应原版 96 字节 Enemy::CreateBulletCommand（28 字段）。
+// 字段号 = 原版结构体偏移顺序（+0..+94）。整数 int16 字段在协议中用 int32 承载。
+// 注意：本结构保留原版 float 布局以求逐字节保真；服务端权威坐标的整数 milli 约定
+// 仅用于 DanmakuBulletState 与快照，不改变此发射指令。
+message BulletSpawnCommand {
+  int32 bullet_type = 1;       // +0  BulletKind 值（原版 kEnemyBullet 枚举值，9..224）
+  int32 frame_index = 2;       // +4  图集帧号
+  float spawn_x = 3;           // +8  -1.0 = 跟随发射者 X（哨兵）
+  float spawn_y = 4;           // +12 -1.0 = 跟随发射者 Y（哨兵）
+  bool flag16 = 5;             // +16 透传 spriteWithFile 第 5 参
+  float base_angle_deg = 6;    // +20 基础角度（度）
+  float f24 = 7;               // +24 透传
+  float f28 = 8;               // +28 透传
+  float f32 = 9;               // +32 透传
+  float f36 = 10;              // +36 透传
+  float f40 = 11;              // +40 透传
+  int32 count = 12;            // +44 本次发射数量（0 -> 直接返回）
+  float spread_or_speed = 13;  // +48 张角/速度（参与起始角计算）
+  int32 s52 = 14;              // +52 透传 spriteWithFile p11
+  int32 s54 = 15;              // +54 透传 p12
+  int32 s56 = 16;              // +56 透传 p13
+  float f60 = 17;              // +60 透传 p14
+  float f64 = 18;              // +64 透传 p15
+  float f68 = 19;              // +68 透传 p16
+  float f72 = 20;              // +72 透传 p17
+  float f76 = 21;              // +76 透传 p18
+  float f80 = 22;              // +80 透传 p19
+  int32 s84 = 23;              // +84 透传 p20
+  int32 s86 = 24;              // +86 透传 p21
+  int32 s88 = 25;              // +88 透传 p22
+  int32 s90 = 26;              // +90 透传 p23
+  int32 s92 = 27;              // +92 透传 p24
+  int32 s94 = 28;              // +94 透传 p25
+}
+
+// 一个 tick 内的整批齐射（BATTLE_PAYLOAD_TYPE_DANMAKU_SPAWN 的载荷）。
+// createBullets1 语义：整圆径向发射器，angleStep = 360.0/count，
+// 起始角 = baseAngle - spread，负值归一化 +360。
+message DanmakuSpawnBatch {
+  uint64 tick = 1;
+  uint32 pattern_index = 2;    // 确定性 RNG 输入之一
+  uint32 spawn_index = 3;      // 确定性 RNG 输入之一
+  string owner_enemy_id = 4;
+  repeated BulletSpawnCommand commands = 5;
+}
+
+// 运行期子弹状态（服务端权威；坐标/速度用整数 milli = 1/1000 px）。
+message DanmakuBulletState {
+  string bullet_id = 1;
+  BulletKind bullet_kind = 2;
+  BulletMotion motion = 3;
+  int32 x_milli = 4;
+  int32 y_milli = 5;
+  int32 vx_milli = 6;
+  int32 vy_milli = 7;
+  uint32 life_ticks = 8;
+  uint32 radius_milli = 9;
+  uint32 age_ticks = 10;
+  uint32 func_state = 11;      // 原版 EnemyBullet+0x5B4 状态号（bulletFunc 分派键，1..85）
+  float angle_deg = 12;        // 当前朝向（度）
+  string owner_enemy_id = 13;
+}
+
+// Boss 阶段时间线的一个构造批次（对应 setBossBullet* 内 frame % PERIOD == PHASE 的一个块）。
+message DanmakuTimelineEntry {
+  uint32 phase = 1;            // 阶段字段 Enemy+0x534
+  uint32 sub_phase = 2;        // 子阶段 Enemy+0x6f8
+  uint32 sub_phase_2 = 3;      // 子阶段 Enemy+0x670
+  uint32 period_ticks = 4;     // frame % period_ticks
+  uint32 phase_offset = 5;     // == phase_offset 时触发
+  uint32 node_size_bytes = 6;  // 节点尺寸（#11=0x40，#12=0x80）
+  uint32 bullet_count = 7;     // 节点 +0x24 发射数
+  uint32 pattern_node_id = 8;  // 节点 +0x28 模式 id（如 0xfa=250 / 0x32=50）
+  float base_angle_deg = 9;
+  float spread_deg = 10;
+  BulletKind bullet_kind = 11;
+  BulletMotion motion = 12;
+  uint32 sound_effect_id = 13;
+  string angle_expr = 14;      // 原始角度表达式（未静态解析时保留）
+  string offset_expr = 15;     // 原始偏移表达式
+}
+
+// 一个 Boss 的弹幕时间线（对应原版 setBossBulletNN / setBossBulletPatchou）。
+message BossPhasePattern {
+  string pattern_id = 1;         // 如 "setBossBullet11"
+  uint32 boss_index = 2;         // 11..22；Patchou 用 0
+  uint32 phase_field_offset = 3; // 主阶段字段偏移，如 0x534
+  string source_addr = 4;        // 原版函数地址
+  repeated DanmakuTimelineEntry entries = 5;
+  string notes = 6;
+}
+
+// 自机射击规格（对应 MyShip::createBullets<Chara><A|B><N>）。
+message PlayerShotSpec {
+  string name = 1;                        // 如 "ReimuA1"
+  string character = 2;                   // 如 "Reimu"
+  string mode = 3;                        // "A" / "B"
+  uint32 variant = 4;                     // 1 / 2
+  uint32 volley_count = 5;                // 每轮发数
+  repeated PlayerBulletType bullet_types = 6;  // 逐发 kMyBullet 值
+  repeated float angles_deg = 7;          // 逐发角度（度）
+  float speed = 8;                        // 逐发速度（未解析时为 0）
+  string muzzle_expr = 9;                 // 炮口偏移原始表达式
+  bool resolved = 10;                     // 是否已完整静态解析（false 表示含循环生成/未捕获项）
+  string raw_angle = 11;                  // 原始 angle 字段
+  string raw_speed = 12;                  // 原始 speed 字段
+  string raw_tex_type = 13;               // 原始 tex_type 字段
+  string raw_volley = 14;                 // 原始 volley 字段
+}
+
+// 自机炸弹规格（对应 MyShip::createBomb<Chara>）。
+message PlayerBombSpec {
+  string name = 1;                        // 如 "createBombReimu"
+  string character = 2;
+  uint32 total_frames = 3;                // #1368 bombRemainTime（炸弹总时长）
+  uint32 invuln_frames = 4;               // #1372 bombMutekiCnt（无敌帧）
+  uint32 bullet_count = 5;                // 激活时生成的 MyBomb 数
+  repeated PlayerBulletType bullet_types = 6;
+  repeated string sprites = 7;            // mybomb_* 贴图名
+  string notes = 8;
+}
+
+// 一份完整自机 loadout（52 射击 + 13 炸弹）。
+message DanmakuLoadout {
+  repeated PlayerShotSpec shots = 1;
+  repeated PlayerBombSpec bombs = 2;
+}

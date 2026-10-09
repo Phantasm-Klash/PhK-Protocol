@@ -1,0 +1,640 @@
+{
+  "schema_version": "1.0.0",
+  "source": "rev/patterns/bullet_funcs_disasm.md, rev/patterns/create_bullet_command.md",
+  "note": "func == 原版 EnemyBullet::bulletFuncN 编号 == 运行期状态号 (+0x5B4, 1..85)",
+  "count": 79,
+  "motions": [
+    {
+      "func": 0,
+      "addr": "0x50cdcc",
+      "size_bytes": 172,
+      "family": "初始化/直线",
+      "family_group": "A 初始化/直线",
+      "family_code": "A"
+    },
+    {
+      "func": 1,
+      "addr": "0x50ce78",
+      "size_bytes": 756,
+      "family": "反弹+换皮",
+      "family_group": "F 边界反弹/镜像",
+      "family_code": "F"
+    },
+    {
+      "func": 2,
+      "addr": "0x50d16c",
+      "size_bytes": 204,
+      "family": "追踪(限速)",
+      "family_group": "D 追踪/限速转向",
+      "family_code": "D"
+    },
+    {
+      "func": 3,
+      "addr": "0x51130c",
+      "size_bytes": 120,
+      "family": "辅助(未确定)",
+      "family_group": "L 辅助（无字段写入）",
+      "family_code": "L"
+    },
+    {
+      "func": 4,
+      "addr": "0x50d238",
+      "size_bytes": 24,
+      "family": "速度重置",
+      "family_group": "A 初始化/直线",
+      "family_code": "A"
+    },
+    {
+      "func": 5,
+      "addr": "0x50d250",
+      "size_bytes": 152,
+      "family": "加速/减速",
+      "family_group": "B 加速/减速",
+      "family_code": "B"
+    },
+    {
+      "func": 6,
+      "addr": "0x50d2e8",
+      "size_bytes": 208,
+      "family": "辅助(边界)",
+      "family_group": "L 辅助（无字段写入）",
+      "family_code": "L"
+    },
+    {
+      "func": 7,
+      "addr": "0x50d3b8",
+      "size_bytes": 444,
+      "family": "反弹+随机",
+      "family_group": "F 边界反弹/镜像",
+      "family_code": "F"
+    },
+    {
+      "func": 8,
+      "addr": "0x50d574",
+      "size_bytes": 368,
+      "family": "辅助(边界)",
+      "family_group": "L 辅助（无字段写入）",
+      "family_code": "L"
+    },
+    {
+      "func": 11,
+      "addr": "0x50d6e4",
+      "size_bytes": 196,
+      "family": "出屏转向",
+      "family_group": "E 周期瞄准/出屏转向",
+      "family_code": "E"
+    },
+    {
+      "func": 12,
+      "addr": "0x50d7a8",
+      "size_bytes": 184,
+      "family": "出屏转向",
+      "family_group": "E 周期瞄准/出屏转向",
+      "family_code": "E"
+    },
+    {
+      "func": 13,
+      "addr": "0x50d860",
+      "size_bytes": 240,
+      "family": "周期瞄准",
+      "family_group": "E 周期瞄准/出屏转向",
+      "family_code": "E"
+    },
+    {
+      "func": 14,
+      "addr": "0x50d950",
+      "size_bytes": 284,
+      "family": "半径插值",
+      "family_group": "",
+      "family_code": ""
+    },
+    {
+      "func": 15,
+      "addr": "0x50da6c",
+      "size_bytes": 140,
+      "family": "接近触发",
+      "family_group": "G 接近触发（自机/敌机）",
+      "family_code": "G"
+    },
+    {
+      "func": 16,
+      "addr": "0x50daf8",
+      "size_bytes": 156,
+      "family": "接近触发",
+      "family_group": "G 接近触发（自机/敌机）",
+      "family_code": "G"
+    },
+    {
+      "func": 17,
+      "addr": "0x50db94",
+      "size_bytes": 184,
+      "family": "追踪(限速)",
+      "family_group": "D 追踪/限速转向",
+      "family_code": "D"
+    },
+    {
+      "func": 18,
+      "addr": "0x50dc4c",
+      "size_bytes": 216,
+      "family": "追踪(限速)",
+      "family_group": "D 追踪/限速转向",
+      "family_code": "D"
+    },
+    {
+      "func": 19,
+      "addr": "0x50dd24",
+      "size_bytes": 188,
+      "family": "减速+变色",
+      "family_group": "K 状态机（全局状态）",
+      "family_code": "K"
+    },
+    {
+      "func": 20,
+      "addr": "0x50dde0",
+      "size_bytes": 472,
+      "family": "边界分段",
+      "family_group": "F 边界反弹/镜像",
+      "family_code": "F"
+    },
+    {
+      "func": 21,
+      "addr": "0x50dfb8",
+      "size_bytes": 96,
+      "family": "状态速度",
+      "family_group": "K 状态机（全局状态）",
+      "family_code": "K"
+    },
+    {
+      "func": 22,
+      "addr": "0x50e018",
+      "size_bytes": 96,
+      "family": "状态速度",
+      "family_group": "K 状态机（全局状态）",
+      "family_code": "K"
+    },
+    {
+      "func": 23,
+      "addr": "0x50e078",
+      "size_bytes": 136,
+      "family": "状态速度",
+      "family_group": "K 状态机（全局状态）",
+      "family_code": "K"
+    },
+    {
+      "func": 24,
+      "addr": "0x50e100",
+      "size_bytes": 148,
+      "family": "接近触发",
+      "family_group": "G 接近触发（自机/敌机）",
+      "family_code": "G"
+    },
+    {
+      "func": 25,
+      "addr": "0x50e194",
+      "size_bytes": 84,
+      "family": "正弦调速",
+      "family_group": "C 正弦调速/正弦角",
+      "family_code": "C"
+    },
+    {
+      "func": 26,
+      "addr": "0x511524",
+      "size_bytes": 232,
+      "family": "参数轨迹",
+      "family_group": "J 参数方程/摆线",
+      "family_code": "J"
+    },
+    {
+      "func": 27,
+      "addr": "0x50cd54",
+      "size_bytes": 120,
+      "family": "特殊/时间",
+      "family_group": "M 未确定",
+      "family_code": "M"
+    },
+    {
+      "func": 28,
+      "addr": "0x50e1e8",
+      "size_bytes": 60,
+      "family": "辅助",
+      "family_group": "L 辅助（无字段写入）",
+      "family_code": "L"
+    },
+    {
+      "func": 29,
+      "addr": "0x511384",
+      "size_bytes": 292,
+      "family": "分段重置",
+      "family_group": "A 初始化/直线",
+      "family_code": "A"
+    },
+    {
+      "func": 30,
+      "addr": "0x50e224",
+      "size_bytes": 628,
+      "family": "换皮+半径",
+      "family_group": "I 换皮/半径",
+      "family_code": "I"
+    },
+    {
+      "func": 31,
+      "addr": "0x50e498",
+      "size_bytes": 1392,
+      "family": "分裂/召唤",
+      "family_group": "H 分裂/召唤（Boss）",
+      "family_code": "H"
+    },
+    {
+      "func": 32,
+      "addr": "0x50ea08",
+      "size_bytes": 156,
+      "family": "镜像",
+      "family_group": "F 边界反弹/镜像",
+      "family_code": "F"
+    },
+    {
+      "func": 33,
+      "addr": "0x51160c",
+      "size_bytes": 288,
+      "family": "摆线(双正弦)",
+      "family_group": "J 参数方程/摆线",
+      "family_code": "J"
+    },
+    {
+      "func": 34,
+      "addr": "0x50eaa4",
+      "size_bytes": 384,
+      "family": "悬停",
+      "family_group": "G 接近触发（自机/敌机）",
+      "family_code": "G"
+    },
+    {
+      "func": 35,
+      "addr": "0x50ec24",
+      "size_bytes": 300,
+      "family": "接近减速",
+      "family_group": "B 加速/减速",
+      "family_code": "B"
+    },
+    {
+      "func": 36,
+      "addr": "0x50ed50",
+      "size_bytes": 124,
+      "family": "辅助(着色)",
+      "family_group": "L 辅助（无字段写入）",
+      "family_code": "L"
+    },
+    {
+      "func": 37,
+      "addr": "0x51172c",
+      "size_bytes": 328,
+      "family": "正弦角",
+      "family_group": "",
+      "family_code": ""
+    },
+    {
+      "func": 38,
+      "addr": "0x50edcc",
+      "size_bytes": 308,
+      "family": "反弹",
+      "family_group": "F 边界反弹/镜像",
+      "family_code": "F"
+    },
+    {
+      "func": 39,
+      "addr": "0x50ef00",
+      "size_bytes": 396,
+      "family": "减速+换皮",
+      "family_group": "B 加速/减速",
+      "family_code": "B"
+    },
+    {
+      "func": 40,
+      "addr": "0x50f08c",
+      "size_bytes": 108,
+      "family": "正弦角加速",
+      "family_group": "C 正弦调速/正弦角",
+      "family_code": "C"
+    },
+    {
+      "func": 41,
+      "addr": "0x50f0f8",
+      "size_bytes": 680,
+      "family": "接近分裂",
+      "family_group": "G 接近触发（自机/敌机）",
+      "family_code": "G"
+    },
+    {
+      "func": 42,
+      "addr": "0x50f3a0",
+      "size_bytes": 352,
+      "family": "接近触发",
+      "family_group": "G 接近触发（自机/敌机）",
+      "family_code": "G"
+    },
+    {
+      "func": 43,
+      "addr": "0x50f500",
+      "size_bytes": 128,
+      "family": "正弦调速",
+      "family_group": "B 加速/减速",
+      "family_code": "B"
+    },
+    {
+      "func": 44,
+      "addr": "0x50f580",
+      "size_bytes": 128,
+      "family": "接近触发",
+      "family_group": "G 接近触发（自机/敌机）",
+      "family_code": "G"
+    },
+    {
+      "func": 45,
+      "addr": "0x50f600",
+      "size_bytes": 84,
+      "family": "触发重置",
+      "family_group": "G 接近触发（自机/敌机）",
+      "family_code": "G"
+    },
+    {
+      "func": 46,
+      "addr": "0x50f654",
+      "size_bytes": 112,
+      "family": "折角",
+      "family_group": "",
+      "family_code": ""
+    },
+    {
+      "func": 47,
+      "addr": "0x5114a8",
+      "size_bytes": 124,
+      "family": "直线",
+      "family_group": "A 初始化/直线",
+      "family_code": "A"
+    },
+    {
+      "func": 48,
+      "addr": "0x50f6c4",
+      "size_bytes": 316,
+      "family": "接近瞄准",
+      "family_group": "D 追踪/限速转向",
+      "family_code": "D"
+    },
+    {
+      "func": 50,
+      "addr": "0x50f800",
+      "size_bytes": 484,
+      "family": "蓄力/阶段",
+      "family_group": "H 分裂/召唤（Boss）",
+      "family_code": "H"
+    },
+    {
+      "func": 51,
+      "addr": "0x511874",
+      "size_bytes": 576,
+      "family": "状态位移",
+      "family_group": "K 状态机（全局状态）",
+      "family_code": "K"
+    },
+    {
+      "func": 52,
+      "addr": "0x50f9e4",
+      "size_bytes": 80,
+      "family": "随机角",
+      "family_group": "",
+      "family_code": ""
+    },
+    {
+      "func": 53,
+      "addr": "0x50fa34",
+      "size_bytes": 192,
+      "family": "接近触发",
+      "family_group": "G 接近触发（自机/敌机）",
+      "family_code": "G"
+    },
+    {
+      "func": 54,
+      "addr": "0x50faf4",
+      "size_bytes": 428,
+      "family": "阶段换皮",
+      "family_group": "I 换皮/半径",
+      "family_code": "I"
+    },
+    {
+      "func": 55,
+      "addr": "0x50fca0",
+      "size_bytes": 228,
+      "family": "蓄力",
+      "family_group": "H 分裂/召唤（Boss）",
+      "family_code": "H"
+    },
+    {
+      "func": 57,
+      "addr": "0x50fd84",
+      "size_bytes": 124,
+      "family": "三角波角",
+      "family_group": "F 边界反弹/镜像",
+      "family_code": "F"
+    },
+    {
+      "func": 58,
+      "addr": "0x50fe00",
+      "size_bytes": 168,
+      "family": "正弦/折返",
+      "family_group": "F 边界反弹/镜像",
+      "family_code": "F"
+    },
+    {
+      "func": 60,
+      "addr": "0x50fea8",
+      "size_bytes": 208,
+      "family": "接近触发",
+      "family_group": "G 接近触发（自机/敌机）",
+      "family_code": "G"
+    },
+    {
+      "func": 61,
+      "addr": "0x50ff78",
+      "size_bytes": 272,
+      "family": "四方向",
+      "family_group": "",
+      "family_code": ""
+    },
+    {
+      "func": 62,
+      "addr": "0x510088",
+      "size_bytes": 780,
+      "family": "边界+随机",
+      "family_group": "F 边界反弹/镜像",
+      "family_code": "F"
+    },
+    {
+      "func": 63,
+      "addr": "0x510394",
+      "size_bytes": 60,
+      "family": "重置",
+      "family_group": "",
+      "family_code": ""
+    },
+    {
+      "func": 64,
+      "addr": "0x5103d0",
+      "size_bytes": 200,
+      "family": "分阶段",
+      "family_group": "",
+      "family_code": ""
+    },
+    {
+      "func": 65,
+      "addr": "0x510498",
+      "size_bytes": 172,
+      "family": "换皮",
+      "family_group": "I 换皮/半径",
+      "family_code": "I"
+    },
+    {
+      "func": 66,
+      "addr": "0x511ab4",
+      "size_bytes": 340,
+      "family": "参数轨迹",
+      "family_group": "J 参数方程/摆线",
+      "family_code": "J"
+    },
+    {
+      "func": 67,
+      "addr": "0x510544",
+      "size_bytes": 600,
+      "family": "反弹+蓄力",
+      "family_group": "F 边界反弹/镜像",
+      "family_code": "F"
+    },
+    {
+      "func": 70,
+      "addr": "0x51079c",
+      "size_bytes": 812,
+      "family": "出屏瞄准",
+      "family_group": "E 周期瞄准/出屏转向",
+      "family_code": "E"
+    },
+    {
+      "func": 71,
+      "addr": "0x510ac8",
+      "size_bytes": 176,
+      "family": "随机化",
+      "family_group": "K 状态机（全局状态）",
+      "family_code": "K"
+    },
+    {
+      "func": 72,
+      "addr": "0x510b78",
+      "size_bytes": 68,
+      "family": "状态速度",
+      "family_group": "K 状态机（全局状态）",
+      "family_code": "K"
+    },
+    {
+      "func": 73,
+      "addr": "0x510bbc",
+      "size_bytes": 128,
+      "family": "正弦半径",
+      "family_group": "C 正弦调速/正弦角",
+      "family_code": "C"
+    },
+    {
+      "func": 74,
+      "addr": "0x510c3c",
+      "size_bytes": 244,
+      "family": "接近触发",
+      "family_group": "G 接近触发（自机/敌机）",
+      "family_code": "G"
+    },
+    {
+      "func": 75,
+      "addr": "0x511c08",
+      "size_bytes": 320,
+      "family": "参数轨迹",
+      "family_group": "J 参数方程/摆线",
+      "family_code": "J"
+    },
+    {
+      "func": 76,
+      "addr": "0x510d30",
+      "size_bytes": 156,
+      "family": "出屏瞄准",
+      "family_group": "E 周期瞄准/出屏转向",
+      "family_code": "E"
+    },
+    {
+      "func": 77,
+      "addr": "0x510dcc",
+      "size_bytes": 188,
+      "family": "镜像",
+      "family_group": "F 边界反弹/镜像",
+      "family_code": "F"
+    },
+    {
+      "func": 78,
+      "addr": "0x510e88",
+      "size_bytes": 104,
+      "family": "镜像",
+      "family_group": "F 边界反弹/镜像",
+      "family_code": "F"
+    },
+    {
+      "func": 79,
+      "addr": "0x510ef0",
+      "size_bytes": 56,
+      "family": "辅助",
+      "family_group": "L 辅助（无字段写入）",
+      "family_code": "L"
+    },
+    {
+      "func": 80,
+      "addr": "0x510f28",
+      "size_bytes": 204,
+      "family": "接近触发",
+      "family_group": "G 接近触发（自机/敌机）",
+      "family_code": "G"
+    },
+    {
+      "func": 81,
+      "addr": "0x511d48",
+      "size_bytes": 256,
+      "family": "正弦半径",
+      "family_group": "C 正弦调速/正弦角",
+      "family_code": "C"
+    },
+    {
+      "func": 82,
+      "addr": "0x511e48",
+      "size_bytes": 388,
+      "family": "参数轨迹",
+      "family_group": "J 参数方程/摆线",
+      "family_code": "J"
+    },
+    {
+      "func": 83,
+      "addr": "0x511fcc",
+      "size_bytes": 372,
+      "family": "Boss 摆线",
+      "family_group": "H 分裂/召唤（Boss）",
+      "family_code": "H"
+    },
+    {
+      "func": 84,
+      "addr": "0x510ff4",
+      "size_bytes": 176,
+      "family": "换皮/触发",
+      "family_group": "G 接近触发（自机/敌机）",
+      "family_code": "G"
+    },
+    {
+      "func": 85,
+      "addr": "0x5110a4",
+      "size_bytes": 616,
+      "family": "换皮/半径",
+      "family_group": "G 接近触发（自机/敌机）",
+      "family_code": "G"
+    }
+  ]
+}

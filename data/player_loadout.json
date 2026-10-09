@@ -1,0 +1,1429 @@
+{
+  "schema_version": "1.0.0",
+  "source": [
+    "data/tna_contract.json (千夜追忆 1.40 libMyGame.so 逆向)",
+    "rev/patterns/player_shots_disasm.md §3.3"
+  ],
+  "note": "angle 单位=度；cocos2d 原点在左下，angle=90 朝正上",
+  "shot_count": 52,
+  "bomb_count": 13,
+  "shots": [
+    {
+      "name": "ReimuA1",
+      "character": "Reimu",
+      "mode": "A",
+      "variant": 1,
+      "volley_count": 2,
+      "bullet_types": [
+        0
+      ],
+      "angles_deg": [
+        90.0
+      ],
+      "speed": 10.0,
+      "muzzle": "(∓10, +5)",
+      "resolved": true,
+      "raw": {
+        "tex_type": "0",
+        "angle": "90",
+        "speed": "10",
+        "volley": "2"
+      }
+    },
+    {
+      "name": "ReimuA2",
+      "character": "Reimu",
+      "mode": "A",
+      "variant": 2,
+      "volley_count": 4,
+      "bullet_types": [
+        1
+      ],
+      "angles_deg": [
+        140.0,
+        100.0,
+        80.0,
+        40.0
+      ],
+      "speed": 5.0,
+      "muzzle": "循环计算",
+      "resolved": false,
+      "raw": {
+        "tex_type": "1",
+        "angle": "140/100/80/40",
+        "speed": "5",
+        "volley": "4"
+      }
+    },
+    {
+      "name": "ReimuB1",
+      "character": "Reimu",
+      "mode": "B",
+      "variant": 1,
+      "volley_count": 2,
+      "bullet_types": [
+        0
+      ],
+      "angles_deg": [
+        90.0
+      ],
+      "speed": 10.0,
+      "muzzle": "(∓10, +5)",
+      "resolved": true,
+      "raw": {
+        "tex_type": "0",
+        "angle": "90",
+        "speed": "10",
+        "volley": "2"
+      }
+    },
+    {
+      "name": "ReimuB2",
+      "character": "Reimu",
+      "mode": "B",
+      "variant": 2,
+      "volley_count": 7,
+      "bullet_types": [
+        2
+      ],
+      "angles_deg": [
+        90.0
+      ],
+      "speed": 18.0,
+      "muzzle": "x∈{-30,-20,0,10,20,30} 上排 3 + 下排 4",
+      "resolved": true,
+      "raw": {
+        "tex_type": "2",
+        "angle": "90",
+        "speed": "18",
+        "volley": "7"
+      }
+    },
+    {
+      "name": "MarisaA1",
+      "character": "Marisa",
+      "mode": "A",
+      "variant": 1,
+      "volley_count": 2,
+      "bullet_types": [
+        3
+      ],
+      "angles_deg": [
+        90.0
+      ],
+      "speed": 10.0,
+      "muzzle": "(∓10, +5)",
+      "resolved": true,
+      "raw": {
+        "tex_type": "3",
+        "angle": "90",
+        "speed": "10",
+        "volley": "2"
+      }
+    },
+    {
+      "name": "MarisaA2",
+      "character": "Marisa",
+      "mode": "A",
+      "variant": 2,
+      "volley_count": 4,
+      "bullet_types": [
+        4,
+        6,
+        7,
+        5
+      ],
+      "angles_deg": [
+        90.0
+      ],
+      "speed": 8.0,
+      "muzzle": "循环计算",
+      "resolved": false,
+      "raw": {
+        "tex_type": "4/6/7/5",
+        "angle": "90",
+        "speed": "8",
+        "volley": "4"
+      }
+    },
+    {
+      "name": "MarisaB1",
+      "character": "Marisa",
+      "mode": "B",
+      "variant": 1,
+      "volley_count": 2,
+      "bullet_types": [
+        8
+      ],
+      "angles_deg": [
+        90.0
+      ],
+      "speed": 10.0,
+      "muzzle": "(∓10, +5)",
+      "resolved": true,
+      "raw": {
+        "tex_type": "8",
+        "angle": "90",
+        "speed": "10",
+        "volley": "2"
+      }
+    },
+    {
+      "name": "MarisaB2",
+      "character": "Marisa",
+      "mode": "B",
+      "variant": 2,
+      "volley_count": 4,
+      "bullet_types": [
+        9
+      ],
+      "angles_deg": [
+        90.0
+      ],
+      "speed": 3.0,
+      "muzzle": "循环计算",
+      "resolved": false,
+      "raw": {
+        "tex_type": "9",
+        "angle": "90",
+        "speed": "3",
+        "volley": "4"
+      }
+    },
+    {
+      "name": "SakuyaA1",
+      "character": "Sakuya",
+      "mode": "A",
+      "variant": 1,
+      "volley_count": 2,
+      "bullet_types": [
+        18
+      ],
+      "angles_deg": [
+        90.0
+      ],
+      "speed": 10.0,
+      "muzzle": "(∓10, +5)",
+      "resolved": true,
+      "raw": {
+        "tex_type": "18",
+        "angle": "90",
+        "speed": "10",
+        "volley": "2"
+      }
+    },
+    {
+      "name": "SakuyaA2",
+      "character": "Sakuya",
+      "mode": "A",
+      "variant": 2,
+      "volley_count": 6,
+      "bullet_types": [
+        19
+      ],
+      "angles_deg": [
+        85.0,
+        95.0
+      ],
+      "speed": 18.0,
+      "muzzle": "(±20/±30/±40, -5/-15/-25)",
+      "resolved": true,
+      "raw": {
+        "tex_type": "19",
+        "angle": "85/95",
+        "speed": "18",
+        "volley": "6"
+      }
+    },
+    {
+      "name": "SakuyaB1",
+      "character": "Sakuya",
+      "mode": "B",
+      "variant": 1,
+      "volley_count": 2,
+      "bullet_types": [
+        18
+      ],
+      "angles_deg": [
+        90.0
+      ],
+      "speed": 10.0,
+      "muzzle": "(∓10, +5)",
+      "resolved": true,
+      "raw": {
+        "tex_type": "18",
+        "angle": "90",
+        "speed": "10",
+        "volley": "2"
+      }
+    },
+    {
+      "name": "SakuyaB2",
+      "character": "Sakuya",
+      "mode": "B",
+      "variant": 2,
+      "volley_count": 8,
+      "bullet_types": [
+        20
+      ],
+      "angles_deg": [],
+      "speed": 18.0,
+      "muzzle": "x∈{±7,±27,±47,±57}",
+      "resolved": false,
+      "raw": {
+        "tex_type": "20",
+        "angle": "?",
+        "speed": "18",
+        "volley": "8"
+      }
+    },
+    {
+      "name": "YoumuA1",
+      "character": "Youmu",
+      "mode": "A",
+      "variant": 1,
+      "volley_count": 2,
+      "bullet_types": [
+        24
+      ],
+      "angles_deg": [
+        90.0
+      ],
+      "speed": 10.0,
+      "muzzle": "(∓10, +5)",
+      "resolved": true,
+      "raw": {
+        "tex_type": "24",
+        "angle": "90",
+        "speed": "10",
+        "volley": "2"
+      }
+    },
+    {
+      "name": "YoumuA2",
+      "character": "Youmu",
+      "mode": "A",
+      "variant": 2,
+      "volley_count": 8,
+      "bullet_types": [
+        25,
+        32
+      ],
+      "angles_deg": [
+        90.0
+      ],
+      "speed": 0.0,
+      "muzzle": "表驱动 ±128/±64",
+      "resolved": true,
+      "raw": {
+        "tex_type": "25..32",
+        "angle": "90",
+        "speed": "0（原地生成）",
+        "volley": "8"
+      }
+    },
+    {
+      "name": "YoumuB1",
+      "character": "Youmu",
+      "mode": "B",
+      "variant": 1,
+      "volley_count": 2,
+      "bullet_types": [
+        33
+      ],
+      "angles_deg": [
+        90.0
+      ],
+      "speed": 10.0,
+      "muzzle": "(∓10, +5)",
+      "resolved": true,
+      "raw": {
+        "tex_type": "33",
+        "angle": "90",
+        "speed": "10",
+        "volley": "2"
+      }
+    },
+    {
+      "name": "YoumuB2",
+      "character": "Youmu",
+      "mode": "B",
+      "variant": 2,
+      "volley_count": 5,
+      "bullet_types": [
+        34
+      ],
+      "angles_deg": [
+        90.0,
+        90.0,
+        90.0,
+        75.0,
+        105.0
+      ],
+      "speed": 10.0,
+      "muzzle": "循环计算",
+      "resolved": false,
+      "raw": {
+        "tex_type": "34",
+        "angle": "90/90/90/75/105",
+        "speed": "10",
+        "volley": "5"
+      }
+    },
+    {
+      "name": "YuyukoA1",
+      "character": "Yuyuko",
+      "mode": "A",
+      "variant": 1,
+      "volley_count": 4,
+      "bullet_types": [
+        58
+      ],
+      "angles_deg": [
+        90.0,
+        90.0,
+        87.0,
+        93.0
+      ],
+      "speed": 4.0,
+      "muzzle": "(0,±20 / ±10,-10)",
+      "resolved": true,
+      "raw": {
+        "tex_type": "58",
+        "angle": "90/90/87/93",
+        "speed": "4",
+        "volley": "4"
+      }
+    },
+    {
+      "name": "YuyukoA2",
+      "character": "Yuyuko",
+      "mode": "A",
+      "variant": 2,
+      "volley_count": 4,
+      "bullet_types": [
+        59
+      ],
+      "angles_deg": [
+        72.0,
+        81.0,
+        99.0,
+        108.0
+      ],
+      "speed": 4.0,
+      "muzzle": "循环计算",
+      "resolved": false,
+      "raw": {
+        "tex_type": "59",
+        "angle": "72/81/99/108",
+        "speed": "4",
+        "volley": "4"
+      }
+    },
+    {
+      "name": "YuyukoB1",
+      "character": "Yuyuko",
+      "mode": "B",
+      "variant": 1,
+      "volley_count": 4,
+      "bullet_types": [
+        60
+      ],
+      "angles_deg": [
+        102.0,
+        72.0,
+        108.0
+      ],
+      "speed": 4.0,
+      "muzzle": "(±20,0 / ±30,-20)",
+      "resolved": false,
+      "raw": {
+        "tex_type": "60",
+        "angle": "?/102/72/108",
+        "speed": "4",
+        "volley": "4"
+      }
+    },
+    {
+      "name": "YuyukoB2",
+      "character": "Yuyuko",
+      "mode": "B",
+      "variant": 2,
+      "volley_count": 4,
+      "bullet_types": [
+        61
+      ],
+      "angles_deg": [],
+      "speed": 4.0,
+      "muzzle": "x∈{±20,±40}",
+      "resolved": false,
+      "raw": {
+        "tex_type": "61",
+        "angle": "?",
+        "speed": "4",
+        "volley": "4"
+      }
+    },
+    {
+      "name": "YukariA1",
+      "character": "Yukari",
+      "mode": "A",
+      "variant": 1,
+      "volley_count": 1,
+      "bullet_types": [
+        44
+      ],
+      "angles_deg": [
+        90.0
+      ],
+      "speed": 0.0,
+      "muzzle": "**在最近敌机处生成**",
+      "resolved": true,
+      "raw": {
+        "tex_type": "44",
+        "angle": "90",
+        "speed": "0",
+        "volley": "1"
+      }
+    },
+    {
+      "name": "YukariA2",
+      "character": "Yukari",
+      "mode": "A",
+      "variant": 2,
+      "volley_count": 7,
+      "bullet_types": [
+        45,
+        3,
+        46,
+        4
+      ],
+      "angles_deg": [
+        86.0,
+        90.0,
+        94.0,
+        90.0,
+        93.0,
+        87.0,
+        90.0
+      ],
+      "speed": 10.0,
+      "muzzle": "循环计算",
+      "resolved": false,
+      "raw": {
+        "tex_type": "45×3 + 46×4",
+        "angle": "86/90/94 & 90/93/87/90",
+        "speed": "10",
+        "volley": "7"
+      }
+    },
+    {
+      "name": "YukariB1",
+      "character": "Yukari",
+      "mode": "B",
+      "variant": 1,
+      "volley_count": 8,
+      "bullet_types": [
+        47
+      ],
+      "angles_deg": [
+        90.0
+      ],
+      "speed": 10.0,
+      "muzzle": "循环计算",
+      "resolved": false,
+      "raw": {
+        "tex_type": "47",
+        "angle": "90",
+        "speed": "10",
+        "volley": "8"
+      }
+    },
+    {
+      "name": "YukariB2",
+      "character": "Yukari",
+      "mode": "B",
+      "variant": 2,
+      "volley_count": 0,
+      "bullet_types": [],
+      "angles_deg": [],
+      "speed": null,
+      "muzzle": "—",
+      "resolved": true,
+      "raw": {
+        "tex_type": "—",
+        "angle": "—",
+        "speed": "—",
+        "volley": "0"
+      }
+    },
+    {
+      "name": "AyaA1",
+      "character": "Aya",
+      "mode": "A",
+      "variant": 1,
+      "volley_count": 4,
+      "bullet_types": [
+        35
+      ],
+      "angles_deg": [
+        90.0,
+        270.0
+      ],
+      "speed": 10.0,
+      "muzzle": "(±10, ±20)",
+      "resolved": true,
+      "raw": {
+        "tex_type": "35",
+        "angle": "90/270",
+        "speed": "10",
+        "volley": "4"
+      }
+    },
+    {
+      "name": "AyaA2",
+      "character": "Aya",
+      "mode": "A",
+      "variant": 2,
+      "volley_count": 6,
+      "bullet_types": [
+        36
+      ],
+      "angles_deg": [],
+      "speed": 6.0,
+      "muzzle": "(±5, ±20)",
+      "resolved": false,
+      "raw": {
+        "tex_type": "36",
+        "angle": "?",
+        "speed": "6",
+        "volley": "6"
+      }
+    },
+    {
+      "name": "AyaB1",
+      "character": "Aya",
+      "mode": "B",
+      "variant": 1,
+      "volley_count": 2,
+      "bullet_types": [
+        37
+      ],
+      "angles_deg": [
+        90.0
+      ],
+      "speed": 10.0,
+      "muzzle": "(∓10, +20)",
+      "resolved": true,
+      "raw": {
+        "tex_type": "37",
+        "angle": "90",
+        "speed": "10",
+        "volley": "2"
+      }
+    },
+    {
+      "name": "AyaB2",
+      "character": "Aya",
+      "mode": "B",
+      "variant": 2,
+      "volley_count": 1,
+      "bullet_types": [
+        38
+      ],
+      "angles_deg": [
+        90.0
+      ],
+      "speed": 1.0,
+      "muzzle": "循环计算",
+      "resolved": false,
+      "raw": {
+        "tex_type": "38",
+        "angle": "90",
+        "speed": "1",
+        "volley": "1"
+      }
+    },
+    {
+      "name": "SanaeA1",
+      "character": "Sanae",
+      "mode": "A",
+      "variant": 1,
+      "volley_count": 12,
+      "bullet_types": [
+        10,
+        14,
+        12,
+        13,
+        11,
+        15,
+        2
+      ],
+      "angles_deg": [
+        90.0
+      ],
+      "speed": 10.0,
+      "muzzle": "循环计算",
+      "resolved": false,
+      "raw": {
+        "tex_type": "10/14/12/13/11/15 ×2",
+        "angle": "90",
+        "speed": "10",
+        "volley": "12"
+      }
+    },
+    {
+      "name": "SanaeA2",
+      "character": "Sanae",
+      "mode": "A",
+      "variant": 2,
+      "volley_count": 8,
+      "bullet_types": [
+        16
+      ],
+      "angles_deg": [
+        90.0
+      ],
+      "speed": 8.0,
+      "muzzle": "x∈{-38..+38}, y∈{+5,-25}",
+      "resolved": true,
+      "raw": {
+        "tex_type": "16",
+        "angle": "90",
+        "speed": "8",
+        "volley": "8"
+      }
+    },
+    {
+      "name": "SanaeB1",
+      "character": "Sanae",
+      "mode": "B",
+      "variant": 1,
+      "volley_count": 12,
+      "bullet_types": [],
+      "angles_deg": [
+        90.0
+      ],
+      "speed": 10.0,
+      "muzzle": "循环计算",
+      "resolved": false,
+      "raw": {
+        "tex_type": "同上",
+        "angle": "90",
+        "speed": "10",
+        "volley": "12"
+      }
+    },
+    {
+      "name": "SanaeB2",
+      "character": "Sanae",
+      "mode": "B",
+      "variant": 2,
+      "volley_count": 8,
+      "bullet_types": [
+        17
+      ],
+      "angles_deg": [
+        111.0,
+        100.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        80.0,
+        69.0
+      ],
+      "speed": 4.5,
+      "muzzle": "x∈{-32..+32}",
+      "resolved": true,
+      "raw": {
+        "tex_type": "17",
+        "angle": "111/100/90/90/90/90/80/69",
+        "speed": "4.5",
+        "volley": "8"
+      }
+    },
+    {
+      "name": "CirnoA1",
+      "character": "Cirno",
+      "mode": "A",
+      "variant": 1,
+      "volley_count": 4,
+      "bullet_types": [
+        41
+      ],
+      "angles_deg": [
+        94.0,
+        91.0,
+        89.0,
+        86.0
+      ],
+      "speed": 10.0,
+      "muzzle": "(-10,-5,5,10, -10)",
+      "resolved": true,
+      "raw": {
+        "tex_type": "41",
+        "angle": "94/91/89/86",
+        "speed": "10",
+        "volley": "4"
+      }
+    },
+    {
+      "name": "CirnoA2",
+      "character": "Cirno",
+      "mode": "A",
+      "variant": 2,
+      "volley_count": 4,
+      "bullet_types": [
+        41
+      ],
+      "angles_deg": [
+        97.0,
+        104.0,
+        83.0,
+        76.0
+      ],
+      "speed": 10.0,
+      "muzzle": "循环计算",
+      "resolved": false,
+      "raw": {
+        "tex_type": "41",
+        "angle": "97/104/83/76",
+        "speed": "10",
+        "volley": "4"
+      }
+    },
+    {
+      "name": "CirnoB1",
+      "character": "Cirno",
+      "mode": "B",
+      "variant": 1,
+      "volley_count": 2,
+      "bullet_types": [
+        42
+      ],
+      "angles_deg": [
+        90.0
+      ],
+      "speed": 11.0,
+      "muzzle": "(±10, 0)",
+      "resolved": true,
+      "raw": {
+        "tex_type": "42",
+        "angle": "90",
+        "speed": "11",
+        "volley": "2"
+      }
+    },
+    {
+      "name": "CirnoB2",
+      "character": "Cirno",
+      "mode": "B",
+      "variant": 2,
+      "volley_count": 8,
+      "bullet_types": [
+        43
+      ],
+      "angles_deg": [
+        124.0,
+        56.0
+      ],
+      "speed": 8.0,
+      "muzzle": "x∈{-15..+15}, y-15",
+      "resolved": true,
+      "raw": {
+        "tex_type": "43",
+        "angle": "124..56",
+        "speed": "8",
+        "volley": "8"
+      }
+    },
+    {
+      "name": "AliceA1",
+      "character": "Alice",
+      "mode": "A",
+      "variant": 1,
+      "volley_count": 4,
+      "bullet_types": [
+        48,
+        50,
+        51,
+        49
+      ],
+      "angles_deg": [
+        90.0
+      ],
+      "speed": 8.0,
+      "muzzle": "循环计算",
+      "resolved": false,
+      "raw": {
+        "tex_type": "48/50/51/49",
+        "angle": "90",
+        "speed": "8",
+        "volley": "4"
+      }
+    },
+    {
+      "name": "AliceA2",
+      "character": "Alice",
+      "mode": "A",
+      "variant": 2,
+      "volley_count": 0,
+      "bullet_types": [],
+      "angles_deg": [],
+      "speed": null,
+      "muzzle": "—",
+      "resolved": true,
+      "raw": {
+        "tex_type": "—",
+        "angle": "—",
+        "speed": "—",
+        "volley": "0"
+      }
+    },
+    {
+      "name": "AliceB1",
+      "character": "Alice",
+      "mode": "B",
+      "variant": 1,
+      "volley_count": 2,
+      "bullet_types": [
+        3
+      ],
+      "angles_deg": [
+        90.0
+      ],
+      "speed": 10.0,
+      "muzzle": "(∓10, +5)",
+      "resolved": true,
+      "raw": {
+        "tex_type": "**3**",
+        "angle": "90",
+        "speed": "10",
+        "volley": "2"
+      }
+    },
+    {
+      "name": "AliceB2",
+      "character": "Alice",
+      "mode": "B",
+      "variant": 2,
+      "volley_count": 8,
+      "bullet_types": [
+        53
+      ],
+      "angles_deg": [
+        90.0,
+        112.0,
+        68.0,
+        100.0,
+        80.0,
+        94.0,
+        86.0
+      ],
+      "speed": 6.0,
+      "muzzle": "循环计算",
+      "resolved": false,
+      "raw": {
+        "tex_type": "53",
+        "angle": "90/112/68/100/80/94/86",
+        "speed": "6",
+        "volley": "8"
+      }
+    },
+    {
+      "name": "ReisenA1",
+      "character": "Reisen",
+      "mode": "A",
+      "variant": 1,
+      "volley_count": 2,
+      "bullet_types": [
+        21
+      ],
+      "angles_deg": [
+        90.0
+      ],
+      "speed": 10.0,
+      "muzzle": "(∓10, +5)",
+      "resolved": true,
+      "raw": {
+        "tex_type": "21",
+        "angle": "90",
+        "speed": "10",
+        "volley": "2"
+      }
+    },
+    {
+      "name": "ReisenA2",
+      "character": "Reisen",
+      "mode": "A",
+      "variant": 2,
+      "volley_count": 4,
+      "bullet_types": [
+        22
+      ],
+      "angles_deg": [],
+      "speed": 11.0,
+      "muzzle": "(±40,0)/(0,±40)",
+      "resolved": false,
+      "raw": {
+        "tex_type": "22",
+        "angle": "?",
+        "speed": "11",
+        "volley": "4"
+      }
+    },
+    {
+      "name": "ReisenB1",
+      "character": "Reisen",
+      "mode": "B",
+      "variant": 1,
+      "volley_count": 2,
+      "bullet_types": [
+        21
+      ],
+      "angles_deg": [
+        90.0
+      ],
+      "speed": 10.0,
+      "muzzle": "(∓10, +5)",
+      "resolved": true,
+      "raw": {
+        "tex_type": "21",
+        "angle": "90",
+        "speed": "10",
+        "volley": "2"
+      }
+    },
+    {
+      "name": "ReisenB2",
+      "character": "Reisen",
+      "mode": "B",
+      "variant": 2,
+      "volley_count": 4,
+      "bullet_types": [
+        23
+      ],
+      "angles_deg": [
+        90.0
+      ],
+      "speed": 8.0,
+      "muzzle": "x∈{-30,-14,14,30}",
+      "resolved": true,
+      "raw": {
+        "tex_type": "23",
+        "angle": "90",
+        "speed": "8",
+        "volley": "4"
+      }
+    },
+    {
+      "name": "RemilliaA1",
+      "character": "Remillia",
+      "mode": "A",
+      "variant": 1,
+      "volley_count": 2,
+      "bullet_types": [
+        54
+      ],
+      "angles_deg": [
+        90.0
+      ],
+      "speed": 6.0,
+      "muzzle": "(∓10, +5)",
+      "resolved": true,
+      "raw": {
+        "tex_type": "54",
+        "angle": "90",
+        "speed": "6",
+        "volley": "2"
+      }
+    },
+    {
+      "name": "RemilliaA2",
+      "character": "Remillia",
+      "mode": "A",
+      "variant": 2,
+      "volley_count": 4,
+      "bullet_types": [
+        55
+      ],
+      "angles_deg": [
+        90.0
+      ],
+      "speed": 10.0,
+      "muzzle": "循环计算",
+      "resolved": false,
+      "raw": {
+        "tex_type": "55",
+        "angle": "90",
+        "speed": "10",
+        "volley": "4"
+      }
+    },
+    {
+      "name": "RemilliaB1",
+      "character": "Remillia",
+      "mode": "B",
+      "variant": 1,
+      "volley_count": 2,
+      "bullet_types": [
+        56
+      ],
+      "angles_deg": [
+        90.0
+      ],
+      "speed": 6.0,
+      "muzzle": "(∓10, +5)",
+      "resolved": true,
+      "raw": {
+        "tex_type": "56",
+        "angle": "90",
+        "speed": "6",
+        "volley": "2"
+      }
+    },
+    {
+      "name": "RemilliaB2",
+      "character": "Remillia",
+      "mode": "B",
+      "variant": 2,
+      "volley_count": 4,
+      "bullet_types": [
+        57
+      ],
+      "angles_deg": [
+        92.0,
+        88.0,
+        84.0,
+        96.0
+      ],
+      "speed": 5.0,
+      "muzzle": "循环计算",
+      "resolved": false,
+      "raw": {
+        "tex_type": "57",
+        "angle": "92/88/84/96",
+        "speed": "5",
+        "volley": "4"
+      }
+    },
+    {
+      "name": "SeijaA1",
+      "character": "Seija",
+      "mode": "A",
+      "variant": 1,
+      "volley_count": 4,
+      "bullet_types": [
+        39
+      ],
+      "angles_deg": [
+        93.0,
+        90.0,
+        90.0,
+        87.0
+      ],
+      "speed": 10.0,
+      "muzzle": "(-10,-6,6,10, +15)",
+      "resolved": true,
+      "raw": {
+        "tex_type": "39",
+        "angle": "93/90/90/87",
+        "speed": "10",
+        "volley": "4"
+      }
+    },
+    {
+      "name": "SeijaA2",
+      "character": "Seija",
+      "mode": "A",
+      "variant": 2,
+      "volley_count": 4,
+      "bullet_types": [
+        39
+      ],
+      "angles_deg": [
+        102.0,
+        100.0,
+        80.0,
+        78.0
+      ],
+      "speed": 10.0,
+      "muzzle": "(-15,-12,12,15, +15)",
+      "resolved": true,
+      "raw": {
+        "tex_type": "39",
+        "angle": "102/100/80/78",
+        "speed": "10",
+        "volley": "4"
+      }
+    },
+    {
+      "name": "SeijaB1",
+      "character": "Seija",
+      "mode": "B",
+      "variant": 1,
+      "volley_count": 4,
+      "bullet_types": [
+        40
+      ],
+      "angles_deg": [
+        93.0,
+        90.0,
+        90.0,
+        87.0
+      ],
+      "speed": 10.0,
+      "muzzle": "同上",
+      "resolved": true,
+      "raw": {
+        "tex_type": "40",
+        "angle": "93/90/90/87",
+        "speed": "10",
+        "volley": "4"
+      }
+    },
+    {
+      "name": "SeijaB2",
+      "character": "Seija",
+      "mode": "B",
+      "variant": 2,
+      "volley_count": 4,
+      "bullet_types": [
+        40
+      ],
+      "angles_deg": [
+        102.0,
+        100.0,
+        80.0,
+        78.0
+      ],
+      "speed": 10.0,
+      "muzzle": "同上",
+      "resolved": true,
+      "raw": {
+        "tex_type": "40",
+        "angle": "102/100/80/78",
+        "speed": "10",
+        "volley": "4"
+      }
+    }
+  ],
+  "bombs": [
+    {
+      "name": "createBombReimu",
+      "character": "Reimu",
+      "total_frames": 320,
+      "invuln_frames": 440,
+      "bullet_count": 2,
+      "bullet_types": [
+        62,
+        62
+      ],
+      "sprites": [
+        "mybomb_reimu_01"
+      ],
+      "notes": "w1..w5 参数语义未确定（见 player_shots_disasm.md §5）"
+    },
+    {
+      "name": "createBombMarisa",
+      "character": "Marisa",
+      "total_frames": 200,
+      "invuln_frames": 320,
+      "bullet_count": 9,
+      "bullet_types": [
+        64,
+        64,
+        64,
+        64,
+        64,
+        64,
+        63,
+        63,
+        64
+      ],
+      "sprites": [
+        "mybomb_marisa_02",
+        "mybomb_marisa_01"
+      ],
+      "notes": "w1..w5 参数语义未确定（见 player_shots_disasm.md §5）"
+    },
+    {
+      "name": "createBombSanae",
+      "character": "Sanae",
+      "total_frames": 250,
+      "invuln_frames": 370,
+      "bullet_count": 3,
+      "bullet_types": [
+        65,
+        65,
+        65
+      ],
+      "sprites": [
+        "mybomb_sanae_01"
+      ],
+      "notes": "w1..w5 参数语义未确定（见 player_shots_disasm.md §5）"
+    },
+    {
+      "name": "createBombSakuya",
+      "character": "Sakuya",
+      "total_frames": 200,
+      "invuln_frames": 320,
+      "bullet_count": 4,
+      "bullet_types": [
+        66,
+        67,
+        66,
+        66
+      ],
+      "sprites": [
+        "mybomb_sakuya_01",
+        "mybomb_sakuya_02"
+      ],
+      "notes": "w1..w5 参数语义未确定（见 player_shots_disasm.md §5）"
+    },
+    {
+      "name": "createBombReisen",
+      "character": "Reisen",
+      "total_frames": 400,
+      "invuln_frames": 520,
+      "bullet_count": 3,
+      "bullet_types": [
+        68,
+        69,
+        70
+      ],
+      "sprites": [
+        "mybomb_reisen_01",
+        "mybomb_reisen_02",
+        "mybomb_reisen_03"
+      ],
+      "notes": "w1..w5 参数语义未确定（见 player_shots_disasm.md §5）"
+    },
+    {
+      "name": "createBombYoumu",
+      "character": "Youmu",
+      "total_frames": 260,
+      "invuln_frames": 380,
+      "bullet_count": 1,
+      "bullet_types": [
+        71
+      ],
+      "sprites": [
+        "mybomb_youmu_01"
+      ],
+      "notes": "w1..w5 参数语义未确定（见 player_shots_disasm.md §5）"
+    },
+    {
+      "name": "createBombAya",
+      "character": "Aya",
+      "total_frames": 400,
+      "invuln_frames": 520,
+      "bullet_count": 1,
+      "bullet_types": [
+        72
+      ],
+      "sprites": [
+        "mybomb_aya_01"
+      ],
+      "notes": "w1..w5 参数语义未确定（见 player_shots_disasm.md §5）"
+    },
+    {
+      "name": "createBombSeija",
+      "character": "Seija",
+      "total_frames": 200,
+      "invuln_frames": 320,
+      "bullet_count": 1,
+      "bullet_types": [
+        73
+      ],
+      "sprites": [
+        "mybomb_seija_01"
+      ],
+      "notes": "w1..w5 参数语义未确定（见 player_shots_disasm.md §5）"
+    },
+    {
+      "name": "createBombCirno",
+      "character": "Cirno",
+      "total_frames": 300,
+      "invuln_frames": 420,
+      "bullet_count": 2,
+      "bullet_types": [
+        74,
+        75
+      ],
+      "sprites": [
+        "mybomb_cirno_01",
+        "mybomb_cirno_02"
+      ],
+      "notes": "w1..w5 参数语义未确定（见 player_shots_disasm.md §5）"
+    },
+    {
+      "name": "createBombYukari",
+      "character": "Yukari",
+      "total_frames": 200,
+      "invuln_frames": 440,
+      "bullet_count": 5,
+      "bullet_types": [
+        76,
+        77,
+        76,
+        76,
+        76
+      ],
+      "sprites": [
+        "mybomb_yukari_01",
+        "mybomb_yukari_02"
+      ],
+      "notes": "w1..w5 参数语义未确定（见 player_shots_disasm.md §5）"
+    },
+    {
+      "name": "createBombAlice",
+      "character": "Alice",
+      "total_frames": 200,
+      "invuln_frames": 320,
+      "bullet_count": 2,
+      "bullet_types": [
+        78,
+        79
+      ],
+      "sprites": [
+        "mybomb_alice_01"
+      ],
+      "notes": "w1..w5 参数语义未确定（见 player_shots_disasm.md §5）"
+    },
+    {
+      "name": "createBombRemillia",
+      "character": "Remillia",
+      "total_frames": 200,
+      "invuln_frames": 320,
+      "bullet_count": 3,
+      "bullet_types": [
+        80,
+        80,
+        80
+      ],
+      "sprites": [
+        "mybomb_remillia_01"
+      ],
+      "notes": "w1..w5 参数语义未确定（见 player_shots_disasm.md §5）"
+    },
+    {
+      "name": "createBombYuyuko",
+      "character": "Yuyuko",
+      "total_frames": 300,
+      "invuln_frames": 420,
+      "bullet_count": 3,
+      "bullet_types": [
+        81,
+        82,
+        81
+      ],
+      "sprites": [
+        "mybomb_yuyuko_01",
+        "mybomb_yuyuko_02"
+      ],
+      "notes": "w1..w5 参数语义未确定（见 player_shots_disasm.md §5）"
+    }
+  ]
+}

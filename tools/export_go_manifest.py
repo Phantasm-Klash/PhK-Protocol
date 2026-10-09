@@ -144,7 +144,7 @@ def render(descriptor: dict[str, object]) -> str:
 def main() -> None:
     descriptor = build_descriptor()
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    OUT_PATH.write_text(render(descriptor), encoding="utf-8")
+    OUT_PATH.write_text(render(descriptor), encoding="utf-8", newline="\n")
     print(f"exported {OUT_PATH.relative_to(ROOT)}")
 
 

@@ -9,7 +9,7 @@ const (
 	BattleAPIVersion = "0.1.0-draft"
 	RulesetVersion = "ruleset-local-s0"
 	RulesetHash = "sha256:0000000000000000000000000000000000000000000000000000000000000000"
-	SourceDigestSHA256 = "1d7bc3d325358efdecfe5a6f4a8d411c747c3a9ca5ebf718f25ad0bf7e6e4d5d"
+	SourceDigestSHA256 = "eeb511b9cc031e8f9a69a1c491e7825d686486d0b164a15344ad984bade65612"
 	BattleModeActionMatchID = "match-001"
 	BattleModeActionPlayerID = "p1"
 	BattleModeActionActionID = "match-001_a000001"
@@ -79,11 +79,18 @@ var MessageFields = map[string][]string{
 	"BattleServerHeartbeat": {"version", "battle_server_id", "endpoint", "active_matches", "max_matches", "observed_at_ms", "labels"},
 	"BattleSnapshot": {"version", "match_id", "snapshot_tick", "snapshot_kind", "state_hash", "players", "bullets_delta", "mode_state", "event_cursor"},
 	"BattleTicket": {"version", "ticket_id", "match_id", "user_id", "player_id", "mode_id", "battle_server_id", "endpoint", "deck_snapshot_hash", "ruleset_version", "ticket_nonce", "issued_at_ms", "expires_at_ms", "business_session_id"},
+	"BossPhasePattern": {"pattern_id", "boss_index", "phase_field_offset", "source_addr", "entries", "notes"},
 	"BossRaceModeState": {"version", "match_id", "mode_id", "tick", "players", "winner_player_id", "match_over", "ruleset_version"},
 	"BossRacePlayerState": {"player_id", "boss_current_hp", "boss_max_hp", "damage_dealt", "defeated", "defeat_tick", "points_awarded"},
+	"BulletSpawnCommand": {"bullet_type", "frame_index", "spawn_x", "spawn_y", "flag16", "base_angle_deg", "f24", "f28", "f32", "f36", "f40", "count", "spread_or_speed", "s52", "s54", "s56", "f60", "f64", "f68", "f72", "f76", "f80", "s84", "s86", "s88", "s90", "s92", "s94"},
 	"BusinessAck": {"version", "session_id", "ack_seq", "error"},
 	"BusinessEnvelopePlaintext": {"idempotency_key", "user_id", "body"},
 	"BusinessSecureEnvelope": {"version", "session_id", "seq", "timestamp_ms", "nonce", "op_code", "key_id", "aead_alg", "body_ciphertext", "auth_tag", "session_mac", "request_signature"},
+	"DanmakuBulletState": {"bullet_id", "bullet_kind", "motion", "x_milli", "y_milli", "vx_milli", "vy_milli", "life_ticks", "radius_milli", "age_ticks", "func_state", "angle_deg", "owner_enemy_id"},
+	"DanmakuFieldSpec": {"width", "height", "half_width", "half_height", "tick_rate_hz"},
+	"DanmakuLoadout": {"shots", "bombs"},
+	"DanmakuSpawnBatch": {"tick", "pattern_index", "spawn_index", "owner_enemy_id", "commands"},
+	"DanmakuTimelineEntry": {"phase", "sub_phase", "sub_phase_2", "period_ticks", "phase_offset", "node_size_bytes", "bullet_count", "pattern_node_id", "base_angle_deg", "spread_deg", "bullet_kind", "motion", "sound_effect_id", "angle_expr", "offset_expr"},
 	"DeckSnapshotRef": {"deck_id", "deck_snapshot_hash", "ruleset_version", "card_ids"},
 	"ErrorStatus": {"code", "message", "retryable"},
 	"LoadoutRef": {"user_id", "player_id", "character_id", "stage_id", "rating_code", "deck"},
@@ -96,6 +103,8 @@ var MessageFields = map[string][]string{
 	"MatchAllocationRequest": {"version", "mode_id", "room_code", "loadout", "mode_params"},
 	"MatchResultMessage": {"version", "match_id", "winner_player_id", "points", "replay_id", "server_authoritative", "mode_id", "settled_at_ms"},
 	"MatchStartMessage": {"version", "match_id", "server_seed", "battle_server_id", "endpoint", "signed_battle_ticket", "ruleset_version", "mode_id", "player_ids", "started_at_ms"},
+	"PlayerBombSpec": {"name", "character", "total_frames", "invuln_frames", "bullet_count", "bullet_types", "sprites", "notes"},
+	"PlayerShotSpec": {"name", "character", "mode", "variant", "volley_count", "bullet_types", "angles_deg", "speed", "muzzle_expr", "resolved", "raw_angle", "raw_speed", "raw_tex_type", "raw_volley"},
 	"ReplayInputStreamSummary": {"version", "replay_id", "match_id", "owner_user_id", "input_count", "event_count", "input_stream_hash", "event_stream_hash", "final_state_hash", "final_tick"},
 	"ReplayRecord": {"version", "replay_id", "match_id", "owner_user_id", "mode_id", "stage_id", "loadout", "stream", "settlement", "server_authoritative", "created_at_ms"},
 	"RoomCreateRequest": {"version", "room_code", "mode_id", "host_user_id", "loadout", "mode_params"},

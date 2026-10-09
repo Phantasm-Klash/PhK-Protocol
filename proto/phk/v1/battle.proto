@@ -5,6 +5,7 @@ package phk.v1;
 option go_package = "github.com/phantasm-klash/phk-protocol/gen/go/phk/v1;phkv1";
 
 import "phk/v1/common.proto";
+import "phk/v1/danmaku.proto";
 import "phk/v1/matchmaking.proto";
 
 enum BattlePayloadType {
@@ -19,6 +20,7 @@ enum BattlePayloadType {
   BATTLE_PAYLOAD_TYPE_RESULT = 8;
   BATTLE_PAYLOAD_TYPE_MODE_ACTION = 9;
   BATTLE_PAYLOAD_TYPE_BOSS_RACE_STATE = 10;
+  BATTLE_PAYLOAD_TYPE_DANMAKU_SPAWN = 11;
 }
 
 message BattlePacketHeader {
