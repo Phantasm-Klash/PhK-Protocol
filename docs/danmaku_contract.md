@@ -127,3 +127,40 @@ pattern_node_id, base_angle_deg, spread_deg, ... }`。
 3. `boss_pattern_tables.md` 的节点 `id → bulletFunc` 映射表基址未定位。
 4. 部分 `PlayerShotSpec`（`resolved=false`）的逐发炮口偏移/角度未静态还原。
 5. `PlayerBombSpec` 的 `w1..w5` 语义未确定。
+
+### 4.6 战斗快照 wire（大厅中继 JSON）
+
+客户端实际消费的**不是** `DanmakuBulletState`，而是 C++ 对局服经大厅 WS 中继下发的
+**手写 JSON**（`PhK-BattleServer/src/match_lifecycle.cpp` 的
+`EncodeBossRaceSnapshotPayload`，载荷首字节 = `BATTLE_PAYLOAD_TYPE_SNAPSHOT`）。
+其 `bullets[]` 逐发字段为：
+
+| 字段 | 类型 | 说明 |
+|---|---|---|
+| `bullet_id` | string | 全局递增，`b<n>` |
+| `owner_player_id` | string | 开火的那份 Boss 属于哪个玩家 |
+| `x_milli` / `y_milli` | int32 | 相对屏幕中心 (320,480) 的 milli 偏移 |
+| `vx_milli` / `vy_milli` | int32 | 每 tick 位移（像素空间积分后取整） |
+| `radius_milli` | uint32 | 判定半径 |
+| `bullet_kind` | int32 | ★ `kEnemyBullet` 值（9..224）。**渲染必需** —— 缺它客户端只能画通用弹幕 |
+| `motion_func` | int32 | ★ `bulletFunc` 编号（0..85；1..85 中有 6 个空洞：9/10、49、56、59、68/69） |
+| `pattern_id` | string | 调度用的模式名（如 `kome_ring`） |
+
+**命名对应**：本 wire 的 `motion_func` == `DanmakuBulletState.func_state` ==
+原版 `EnemyBullet+0x5B4` 状态号；`bullet_kind` == `DanmakuBulletState.bullet_kind`
+== 原版 `EnemyBullet+0x538`。
+
+★ `bullet_kind` / `motion_func` 是 2026-10-11 补上的：`BossRaceBullet` 结构体与
+`BossRaceSimulation::Snapshot()` 一直就有这两个字段，只是序列化时漏发，导致客户端
+`describeBulletKind()` 取不到值、弹幕静默退回通用图形（表现为「弹幕没用逆向出的样式」）。
+
+**注意**：`proto/phk/v1/battle.proto` 的 `BattleBulletDelta` 是**另一条**序列化
+（`simulation.cpp` 的规范状态转储 / Nakama 路径，带 `op`/`color`），**不含**这两个字段，
+客户端也不消费它。改动本 wire 时不要顺手改 `BattleBulletDelta`。
+
+**另外**：对局服与客户端必须跑**同一个 ruleset**。大厅 spawn 时下发的 ruleset 取自
+`BattleServerAllocation.Version.RulesetVersion`（= 房间广播给客户端的那个），
+**不是**部署级的 `-battle-ruleset` / `GENSOULKYO_BATTLE_RULESET` 默认值 ——
+后者只是兜底。2026-10-11 曾因 spawn 用了全局默认值 `mvp-boss-race-s0`，
+导致对局服跑合成弹幕、客户端跑真实弹幕：`bullet_kind` 恒 0，且
+`CanonicalStateHash` 永远不相等（实测 19/463）。
