@@ -102,6 +102,9 @@ REQUIRED_FIELD_NAMES = {
         "ruleset_version",
         "ticket_nonce",
         "expires_at_ms",
+        "hand_card_ids",
+        "initial_energy",
+        "server_seed",
     ],
     "BattlePacketHeader": [
         "version",

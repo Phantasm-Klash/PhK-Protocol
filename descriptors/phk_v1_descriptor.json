@@ -4691,6 +4691,27 @@
               "number": 14,
               "repeated": false,
               "type": "string"
+            },
+            {
+              "map": false,
+              "name": "hand_card_ids",
+              "number": 15,
+              "repeated": true,
+              "type": "string"
+            },
+            {
+              "map": false,
+              "name": "initial_energy",
+              "number": 16,
+              "repeated": false,
+              "type": "double"
+            },
+            {
+              "map": false,
+              "name": "server_seed",
+              "number": 17,
+              "repeated": false,
+              "type": "string"
             }
           ],
           "name": "BattleTicket"
@@ -4799,7 +4820,7 @@
       ],
       "package": "phk.v1",
       "path": "proto/phk/v1/matchmaking.proto",
-      "sha256": "eef9d8678cf2cabbfc332b54bf3152f0a73eaa6267c293c25b157839c1b5a90d"
+      "sha256": "6da09361ca105258a886d7c79842975186f221f5e39f99395b855708aa67d65c"
     },
     {
       "enums": [],
@@ -4985,5 +5006,5 @@
     "bullet_patterns"
   ],
   "ruleset_version": "ruleset-local-s0",
-  "source_digest_sha256": "eeb511b9cc031e8f9a69a1c491e7825d686486d0b164a15344ad984bade65612"
+  "source_digest_sha256": "e37db6360a6f3e45c4969ccf02850f1e01379b8844a3a939013c478cc3fe7294"
 }

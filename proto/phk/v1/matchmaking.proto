@@ -29,6 +29,12 @@ message BattleTicket {
   int64 issued_at_ms = 12;
   int64 expires_at_ms = 13;
   string business_session_id = 14;
+  // W-1: opening hand / energy / authoritative lobby seed. hand_card_ids must
+  // carry 0..4 catalog card ids; server_seed is a DECIMAL STRING (never a JSON
+  // number: seeds > 2^53 must survive the JS client pass-through).
+  repeated string hand_card_ids = 15;
+  double initial_energy = 16;
+  string server_seed = 17;
 }
 
 message SignedBattleTicket {

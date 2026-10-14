@@ -21,6 +21,9 @@
     "battle_server_id": "battle-local-1",
     "endpoint": "127.0.0.1:7901",
     "deck_snapshot_hash": "sha256:deck",
+    "hand_card_ids": ["focus_lens", "purge_bell", "aegis_ward", "finale_arc"],
+    "initial_energy": 2.0,
+    "server_seed": "8035909259742954606",
     "expires_at_ms": 1782489660000
   },
   "battle_input": {
