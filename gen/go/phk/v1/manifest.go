@@ -9,7 +9,7 @@ const (
 	BattleAPIVersion = "0.1.0-draft"
 	RulesetVersion = "ruleset-local-s0"
 	RulesetHash = "sha256:0000000000000000000000000000000000000000000000000000000000000000"
-	SourceDigestSHA256 = "e37db6360a6f3e45c4969ccf02850f1e01379b8844a3a939013c478cc3fe7294"
+	SourceDigestSHA256 = "e361eec02efc6d4bda3b8076df7655be305f4fb3f7ecd1f847b412c2a93c96a5"
 	BattleModeActionMatchID = "match-001"
 	BattleModeActionPlayerID = "p1"
 	BattleModeActionActionID = "match-001_a000001"
@@ -78,7 +78,7 @@ var MessageFields = map[string][]string{
 	"BattleServerAllocation": {"version", "match_id", "mode_id", "battle_server_id", "endpoint", "players", "server_seed", "mode_config_hash", "allocated_at_ms"},
 	"BattleServerHeartbeat": {"version", "battle_server_id", "endpoint", "active_matches", "max_matches", "observed_at_ms", "labels"},
 	"BattleSnapshot": {"version", "match_id", "snapshot_tick", "snapshot_kind", "state_hash", "players", "bullets_delta", "mode_state", "event_cursor"},
-	"BattleTicket": {"version", "ticket_id", "match_id", "user_id", "player_id", "mode_id", "battle_server_id", "endpoint", "deck_snapshot_hash", "ruleset_version", "ticket_nonce", "issued_at_ms", "expires_at_ms", "business_session_id", "hand_card_ids", "initial_energy", "server_seed"},
+	"BattleTicket": {"version", "ticket_id", "match_id", "user_id", "player_id", "mode_id", "battle_server_id", "endpoint", "deck_snapshot_hash", "ruleset_version", "ticket_nonce", "issued_at_ms", "expires_at_ms", "business_session_id", "hand_card_ids", "initial_energy", "server_seed", "deck_card_ids"},
 	"BossPhasePattern": {"pattern_id", "boss_index", "phase_field_offset", "source_addr", "entries", "notes"},
 	"BossRaceModeState": {"version", "match_id", "mode_id", "tick", "players", "winner_player_id", "match_over", "ruleset_version"},
 	"BossRacePlayerState": {"player_id", "boss_current_hp", "boss_max_hp", "damage_dealt", "defeated", "defeat_tick", "points_awarded"},

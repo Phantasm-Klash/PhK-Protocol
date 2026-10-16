@@ -35,6 +35,13 @@ message BattleTicket {
   repeated string hand_card_ids = 15;
   double initial_energy = 16;
   string server_seed = 17;
+  // W-1 phase 2: the lobby's authoritative ordered deck. The opening hand in
+  // hand_card_ids must be exactly this deck's first len(hand_card_ids) entries
+  // (hand-is-prefix invariant). Entries must be catalog card ids only and there
+  // must be at most 20 of them (the Go deck limit, deckSize = 20,
+  // Gensoulkyo/runtime/core/service.go:56). On the battle server this seeds
+  // HandState.deck so a cast can redraw from where the lobby left off.
+  repeated string deck_card_ids = 18;
 }
 
 message SignedBattleTicket {

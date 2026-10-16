@@ -4712,6 +4712,13 @@
               "number": 17,
               "repeated": false,
               "type": "string"
+            },
+            {
+              "map": false,
+              "name": "deck_card_ids",
+              "number": 18,
+              "repeated": true,
+              "type": "string"
             }
           ],
           "name": "BattleTicket"
@@ -4820,7 +4827,7 @@
       ],
       "package": "phk.v1",
       "path": "proto/phk/v1/matchmaking.proto",
-      "sha256": "6da09361ca105258a886d7c79842975186f221f5e39f99395b855708aa67d65c"
+      "sha256": "9cde731deee98602a158b1a601038ceb66b4a6f8e445b06c1c8b80fa245cb6ed"
     },
     {
       "enums": [],
@@ -5006,5 +5013,5 @@
     "bullet_patterns"
   ],
   "ruleset_version": "ruleset-local-s0",
-  "source_digest_sha256": "e37db6360a6f3e45c4969ccf02850f1e01379b8844a3a939013c478cc3fe7294"
+  "source_digest_sha256": "e361eec02efc6d4bda3b8076df7655be305f4fb3f7ecd1f847b412c2a93c96a5"
 }

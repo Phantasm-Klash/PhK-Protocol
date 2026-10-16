@@ -105,6 +105,7 @@ REQUIRED_FIELD_NAMES = {
         "hand_card_ids",
         "initial_energy",
         "server_seed",
+        "deck_card_ids",
     ],
     "BattlePacketHeader": [
         "version",
