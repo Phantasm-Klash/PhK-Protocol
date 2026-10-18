@@ -7,7 +7,8 @@ This repository is the planned source of truth for:
 - protobuf messages used by SpellKard, Gensoulkyo, and the C++ Battle Server;
 - business secure-envelope field names and versioning;
 - battle ticket, KCP payload, snapshot, event, result, and replay contracts;
-- ruleset JSON schema and golden fixtures for cross-language compatibility.
+- ruleset JSON schema and golden fixtures for cross-language compatibility;
+- the frozen match-flow policy for behaviours the original spec left open (hand overflow, draft timeout, mixed-pool duplicates, simultaneous disconnect, reconnect window, energy while dropped), recorded in `schemas/ruleset.schema.json#/$defs/match_flow_policy`.
 
 The first draft intentionally mirrors the current Gensoulkyo HTTP MVP and the planned Nakama + C++ battle split. It is not generated into the other repositories yet.
 

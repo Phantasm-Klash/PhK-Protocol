@@ -27,7 +27,8 @@
       "type": "array",
       "items": { "$ref": "#/$defs/bullet_pattern" }
     },
-    "mvp_boss_race": { "$ref": "#/$defs/boss_race" }
+    "mvp_boss_race": { "$ref": "#/$defs/boss_race" },
+    "match_flow_policy": { "$ref": "#/$defs/match_flow_policy" }
   },
   "$defs": {
     "mode": {
@@ -118,6 +119,45 @@
         "math_basis": { "type": "string" },
         "family": { "type": "string" },
         "params": { "type": "object" }
+      }
+    },
+    "match_flow_policy": {
+      "type": "object",
+      "description": "Frozen product decisions (2026-10-18) for behaviours the original spec left open. Each value is the behaviour already shipped by Gensoulkyo (lobby) and PhK-BattleServer; the client mirrors it. Changing a const here is a ruleset-version change.",
+      "additionalProperties": false,
+      "required": [
+        "hand_full_grant",
+        "draft_timeout_pick",
+        "mixed_pool_duplicates",
+        "simultaneous_disconnect",
+        "reconnect_window",
+        "energy_while_dropped"
+      ],
+      "properties": {
+        "hand_full_grant": {
+          "const": "defer_to_pending_grants",
+          "description": "A granted card that would exceed cardHandLimit (4) is appended to PendingGrants (FIFO). Playing a card frees a slot, promotes the oldest pending grant, and only then draws the replacement card, so no draft reward is lost and the hand never exceeds 4. Implementation: Gensoulkyo runtime/core/battle_draft.go:460 (grantCardToPlayer), :474 (promotePendingGrants), runtime/core/service.go:3796 (promote before drawServerCard); service.go:53 (cardHandLimit)."
+        },
+        "draft_timeout_pick": {
+          "const": "deterministic_auto_pick_at_deadline",
+          "description": "A round opened at tick T has ChoiceDeadlineTick = T + 30 s (battle_draft.go:212). If a designated picker (including a late joiner who never reports) has not picked by then, the lobby auto-picks for that seat: among candidates not yet taken, choose the lowest deterministicUnit(server_seed, ChoiceDeadlineTick, \"draft_auto\", index), ties broken by card_id ascending (battle_draft.go:394 resolveDraftTimeoutLocked, :421 autoDraftPick). Both picks are then granted in one critical section. No seat can stall the draft. Implementation: Gensoulkyo battle_draft.go:394-446, driver runtime/core/simulation.go:53."
+        },
+        "mixed_pool_duplicates": {
+          "const": "dedupe_by_card_id",
+          "description": "The mixed draft pool is the union of both decks de-duplicated by card id and sorted ascending: a card present in both decks is offered once (battle_draft.go:65 buildMixedPool). Rationale: a duplicate would let one player's card appear twice in the three-candidate draw and make the pool hash ambiguous. Implementation: Gensoulkyo runtime/core/battle_draft.go:65-88."
+        },
+        "simultaneous_disconnect": {
+          "const": "passive_both_dropped_is_mutual_flee_active_first_abandon_wins",
+          "description": "Passive path (both players silent past input_timeout_ticks = tick_rate*3): the battle server emits exactly one match-level all_players_disconnected row when the last connected player is dropped (PhK-BattleServer src/simulation.cpp:2328), and the lobby settles both as result=flee with empty rewards/task progress and zero rating change (Gensoulkyo battle_events.go:152-157 -> service.go:1982 settleFleeLocked(..., true)). Active path (two abandon intents racing): first arrival wins the lock, AbandonMatch settles immediately (leaver=flee, opponent=win, zero score), and the second call is rejected with match_already_ended (service.go:2022-2053). NOTE: this active-path behaviour differs from the older TODO default 'both flee'; the shipped implementation is recorded here as the decision."
+        },
+        "reconnect_window": {
+          "const": "hard_30s_eligibility_never_ends_match",
+          "description": "ReconnectWindowSeconds = 30 measured from DisconnectedAt (types.go:20). It is only an eligibility window: within it ReconnectMatch restores the seat (snapshot + current tick + ticket, service.go:2108-2155); after it the call fails with reconnect_expired (service.go:2124-2131). Expiry never ends the match; the match still ends only by play or by the all_players_disconnected signal, i.e. the window's meaning under this policy is 'how long the dropped player may still come back while the opponent keeps playing'. Implementation: Gensoulkyo service.go:2069-2155, types.go:20."
+        },
+        "energy_while_dropped": {
+          "const": "no_passive_accrual_gap_backfills_on_first_input",
+          "description": "There is no wall-clock energy loop: energy accrues only from a player's own accepted input as (packet.tick - player.lastTick) * cardEnergyPerTick, capped at cardMaxEnergy (service.go:3569, :4798-4803). A dropped player sends no input, so nothing accrues while dropped. Because lastTick is not reset on reconnect, the first accepted input after reconnecting backfills the whole gap in one delta (bounded by the 5 s tick-jump guard, service.go:5316-5322). NOTE: this is 'frozen while silent, then backfilled', not a strict 'no catch-up' freeze; the shipped behaviour is recorded as the decision."
+        }
       }
     }
   }
