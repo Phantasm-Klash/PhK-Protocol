@@ -21,6 +21,8 @@ enum BattlePayloadType {
   BATTLE_PAYLOAD_TYPE_MODE_ACTION = 9;
   BATTLE_PAYLOAD_TYPE_BOSS_RACE_STATE = 10;
   BATTLE_PAYLOAD_TYPE_DANMAKU_SPAWN = 11;
+  // 合作模式（coop_boss）快照：JSON 体，字段见 COOP_MODE_CONTRACT.md §2.4。
+  BATTLE_PAYLOAD_TYPE_COOP_SNAPSHOT = 12;
 }
 
 message BattlePacketHeader {

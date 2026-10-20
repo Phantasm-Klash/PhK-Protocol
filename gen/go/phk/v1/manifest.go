@@ -9,7 +9,7 @@ const (
 	BattleAPIVersion = "0.1.0-draft"
 	RulesetVersion = "ruleset-local-s0"
 	RulesetHash = "sha256:0000000000000000000000000000000000000000000000000000000000000000"
-	SourceDigestSHA256 = "e361eec02efc6d4bda3b8076df7655be305f4fb3f7ecd1f847b412c2a93c96a5"
+	SourceDigestSHA256 = "0f42ec1b3e68ac22edc1644f526e877eada56818f3c7970f7e623281dfdec8b2"
 	BattleModeActionMatchID = "match-001"
 	BattleModeActionPlayerID = "p1"
 	BattleModeActionActionID = "match-001_a000001"

@@ -201,6 +201,10 @@
             {
               "name": "BATTLE_PAYLOAD_TYPE_DANMAKU_SPAWN",
               "number": 11
+            },
+            {
+              "name": "BATTLE_PAYLOAD_TYPE_COOP_SNAPSHOT",
+              "number": 12
             }
           ]
         }
@@ -1027,7 +1031,7 @@
       ],
       "package": "phk.v1",
       "path": "proto/phk/v1/battle.proto",
-      "sha256": "7b1edeba75f720410658c6eab9cfa860fb5d1584d9d1325f172107f0499f5068"
+      "sha256": "8d447a9d2780dabc5e60560acba0378485bf2c8530b997ed497859222528400d"
     },
     {
       "enums": [
@@ -5013,5 +5017,5 @@
     "bullet_patterns"
   ],
   "ruleset_version": "ruleset-local-s0",
-  "source_digest_sha256": "e361eec02efc6d4bda3b8076df7655be305f4fb3f7ecd1f847b412c2a93c96a5"
+  "source_digest_sha256": "0f42ec1b3e68ac22edc1644f526e877eada56818f3c7970f7e623281dfdec8b2"
 }
