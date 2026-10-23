@@ -1,0 +1,65 @@
+name: Release
+
+# Regenerates and verifies the protocol manifests on a `v*` tag and publishes
+# the generated descriptors/manifests (plus proto/schema/data sources) as a
+# workflow artifact + GitHub Release asset. Same regeneration + checker steps
+# as the Protocol Schema Audit workflow. Tags containing -rc*/-beta*/-alpha*
+# are published as prereleases.
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-release:
+    name: regenerate + verify + publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PhK-Protocol
+        uses: actions/checkout@v4
+      - name: Regenerate descriptor and manifests
+        run: |
+          python3 tools/export_descriptor.py
+          python3 tools/export_go_manifest.py
+          python3 tools/export_cpp_manifest.py
+      - name: Run protocol checker
+        run: python3 tools/check_protocol.py
+      - name: Package artifacts
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          tar -czf dist/phk-protocol-${GITHUB_REF_NAME}.tar.gz \
+            gen descriptors schemas data fixtures proto
+          ( cd dist && sha256sum ./* > SHA256SUMS.txt )
+          ls -l dist
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: phk-protocol-${{ github.ref_name }}
+          path: dist/*
+          if-no-files-found: error
+      - name: Publish GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          # Tags like v0.1.0-rc1 are prereleases, not full releases.
+          case "${GITHUB_REF_NAME}" in
+            *-rc*|*-beta*|*-alpha*)
+              gh release create "${GITHUB_REF_NAME}" dist/* \
+                --repo "${GITHUB_REPOSITORY}" \
+                --title "${GITHUB_REF_NAME}" \
+                --prerelease \
+                --generate-notes ;;
+            *)
+              gh release create "${GITHUB_REF_NAME}" dist/* \
+                --repo "${GITHUB_REPOSITORY}" \
+                --title "${GITHUB_REF_NAME}" \
+                --generate-notes ;;
+          esac
