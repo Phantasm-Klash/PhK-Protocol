@@ -9,7 +9,7 @@ const (
 	BattleAPIVersion = "0.1.0-draft"
 	RulesetVersion = "ruleset-local-s0"
 	RulesetHash = "sha256:0000000000000000000000000000000000000000000000000000000000000000"
-	SourceDigestSHA256 = "0f42ec1b3e68ac22edc1644f526e877eada56818f3c7970f7e623281dfdec8b2"
+	SourceDigestSHA256 = "89abdcd6c268a05f519f4c3f212d7dcf1b2b795917a4fad7e7f550a307ae41c9"
 	BattleModeActionMatchID = "match-001"
 	BattleModeActionPlayerID = "p1"
 	BattleModeActionActionID = "match-001_a000001"
@@ -81,7 +81,7 @@ var MessageFields = map[string][]string{
 	"BattleTicket": {"version", "ticket_id", "match_id", "user_id", "player_id", "mode_id", "battle_server_id", "endpoint", "deck_snapshot_hash", "ruleset_version", "ticket_nonce", "issued_at_ms", "expires_at_ms", "business_session_id", "hand_card_ids", "initial_energy", "server_seed", "deck_card_ids"},
 	"BossPhasePattern": {"pattern_id", "boss_index", "phase_field_offset", "source_addr", "entries", "notes"},
 	"BossRaceModeState": {"version", "match_id", "mode_id", "tick", "players", "winner_player_id", "match_over", "ruleset_version"},
-	"BossRacePlayerState": {"player_id", "boss_current_hp", "boss_max_hp", "damage_dealt", "defeated", "defeat_tick", "points_awarded"},
+	"BossRacePlayerState": {"player_id", "boss_current_hp", "boss_max_hp", "damage_dealt", "defeated", "defeat_tick", "points_awarded", "score", "hit_count", "spell_get", "spell_total"},
 	"BulletSpawnCommand": {"bullet_type", "frame_index", "spawn_x", "spawn_y", "flag16", "base_angle_deg", "f24", "f28", "f32", "f36", "f40", "count", "spread_or_speed", "s52", "s54", "s56", "f60", "f64", "f68", "f72", "f76", "f80", "s84", "s86", "s88", "s90", "s92", "s94"},
 	"BusinessAck": {"version", "session_id", "ack_seq", "error"},
 	"BusinessEnvelopePlaintext": {"idempotency_key", "user_id", "body"},

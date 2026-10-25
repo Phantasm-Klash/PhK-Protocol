@@ -963,6 +963,34 @@
               "number": 7,
               "repeated": false,
               "type": "int32"
+            },
+            {
+              "map": false,
+              "name": "score",
+              "number": 8,
+              "repeated": false,
+              "type": "uint64"
+            },
+            {
+              "map": false,
+              "name": "hit_count",
+              "number": 9,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "spell_get",
+              "number": 10,
+              "repeated": false,
+              "type": "uint32"
+            },
+            {
+              "map": false,
+              "name": "spell_total",
+              "number": 11,
+              "repeated": false,
+              "type": "uint32"
             }
           ],
           "name": "BossRacePlayerState"
@@ -1031,7 +1059,7 @@
       ],
       "package": "phk.v1",
       "path": "proto/phk/v1/battle.proto",
-      "sha256": "8d447a9d2780dabc5e60560acba0378485bf2c8530b997ed497859222528400d"
+      "sha256": "f3d943077b6a18d996dd8a0802c54437c7d6053c1a709a075426fcf3e83e4029"
     },
     {
       "enums": [
@@ -5017,5 +5045,5 @@
     "bullet_patterns"
   ],
   "ruleset_version": "ruleset-local-s0",
-  "source_digest_sha256": "0f42ec1b3e68ac22edc1644f526e877eada56818f3c7970f7e623281dfdec8b2"
+  "source_digest_sha256": "89abdcd6c268a05f519f4c3f212d7dcf1b2b795917a4fad7e7f550a307ae41c9"
 }
